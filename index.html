@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PyLearn — Aprende Python sin límites</title>
+<title>Póngale — Aprende Python sin límites</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -132,7 +132,7 @@ body{font-family:var(--body);background:#030308;color:var(--text);min-height:100
 .code-body .kw{color:#c792ea} .code-body .fn{color:#82aaff} .code-body .str{color:#c3e88d}
 .code-body .num{color:#f78c6c} .code-body .cmt{color:#546e7a;font-style:italic}
 .code-body .op{color:#89ddff} .code-body .plain{color:#e0e0e0}
-.code-body .out{color:#546e7a;display:block;border-top:1px solid rgba(255,255,255,.04);margin-top:6px;padding-top:8px}
+.code-body .out{color:#7ee8a2;display:block;background:rgba(0,214,143,.06);border-left:3px solid var(--g);margin-top:10px;padding:7px 10px;border-radius:0 6px 6px 0;font-style:normal;letter-spacing:.2px}
 
 /* RUN */
 .run-wrap{background:#060611;border:1px solid rgba(0,214,143,.2);border-radius:var(--rad-sm);margin-bottom:14px;overflow:hidden}
@@ -219,7 +219,7 @@ body{font-family:var(--body);background:#030308;color:var(--text);min-height:100
 
 <!-- ═══ WELCOME ═══ -->
 <div class="screen active" id="welcome">
-  <div class="brand"><div class="brand-icon">🐍</div><div class="brand-text">Py<span>Learn</span></div></div>
+  <div class="brand"><div class="brand-icon">🐍</div><div class="brand-text">Pón<span>gale</span></div></div>
   <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--p2);margin-bottom:12px">Aprende Python</div>
   <h1 class="welcome-h1">Programar de verdad.<br><em>Sin límites. Gratis.</em></h1>
   <p class="welcome-p">Lecciones cortas con código real y tutor de IA. Exactamente como debería ser aprender programación.</p>
@@ -240,7 +240,7 @@ body{font-family:var(--body);background:#030308;color:var(--text);min-height:100
 <!-- ═══ MAP ═══ -->
 <div class="screen" id="map">
   <div class="app-bar">
-    <span class="bar-title">🐍 PyLearn</span>
+    <span class="bar-title">🐍 Póngale</span>
     <div class="bar-right">
       <span class="streak-pill" id="map-streak">🔥 0</span>
       <span class="xp-pill" id="map-xp">0 XP</span>
@@ -304,85 +304,96 @@ var MODULES = [
     {
       type:'quiz', eyebrow:'Módulo 1 · Lección 1', title:'¿Qué es una variable?',
       explain:'Una <strong>variable</strong> es como una caja con etiqueta donde guardas información. El nombre es la etiqueta y lo que guardas es el valor. En Python asignas con el signo <code>=</code>.',
-      analogy:{icon:'📦',text:'Imagina cajas en tu cuarto. <strong>"nombre"</strong> es la etiqueta de la caja. Dentro guardas <strong>"Miguel"</strong>. Cuando necesitas el valor, abres la caja por su nombre.'},
+      analogy:{icon:'📦',text:'Imagina cajas marcadas en tu cuarto. <strong>"nombre"</strong> es la etiqueta de la caja. Dentro guardas <strong>"Diego"</strong>. Cuando necesitas el valor, abres la caja por su nombre.'},
       code:[
-        {cmt:'# Creamos variables'},
-        {parts:['plain:nombre ','op:=','str: "Miguel"']},
-        {parts:['plain:edad ','op:=','num: 13']},
+        {cmt:'# Guardamos datos en variables'},
+        {parts:['plain:nombre ','op:=','str: "Diego"']},
+        {parts:['plain:edad ','op:=','num: 14']},
         {parts:['fn:print','plain:(nombre, edad)']},
-        {out:'# Miguel 13'}
+        {out:'Diego 14'}
       ],
       question:'¿Qué símbolo falta para que este código funcione?',
-      qcode:'nombre ___ "Miguel"\nedad ___ 13\nprint(nombre, edad)',
+      qcode:'nombre ___ "Diego"\nedad ___ 14\nprint(nombre, edad)',
       opts:['==','=>','=','::'], correct:2,
-      hint:'El <strong>doble igual</strong> <code>==</code> se usa para <em>comparar</em>. Para <em>guardar</em> un valor, Python usa un solo símbolo.',
-      ok:'¡Exacto! <code>=</code> asigna (guarda). <code>==</code> compara. Esta diferencia es fundamental.',
+      hint:'El <strong>doble igual</strong> <code>==</code> se usa para <em>comparar</em>. Para <em>guardar</em> un valor en una variable, Python usa un solo símbolo.',
+      ok:'¡Exacto! <code>=</code> asigna (guarda). <code>==</code> compara. Esta diferencia es fundamental en Python.',
       fail:'El <code>==</code> sirve para <em>comparar</em> dos cosas. Para <em>guardar</em> en una variable usa solo <code>=</code>.', xp:20
     },
     {
       type:'quiz', eyebrow:'Módulo 1 · Lección 2', title:'Números: int y float',
-      explain:'El tipo <strong>int</strong> guarda números enteros (sin decimales). El tipo <strong>float</strong> guarda números con decimales. Python los distingue automáticamente.',
-      analogy:{icon:'🧮',text:'<strong>int</strong> son como los goles de un partido: 0, 1, 2, 3... no hay "medio gol". <strong>float</strong> son como la temperatura: 36.6°, 100.5°, etc.'},
+      explain:'El tipo <strong>int</strong> guarda números enteros (sin decimales). El tipo <strong>float</strong> guarda números con decimales. Python los detecta automáticamente: si tiene punto es float, si no es int.',
+      analogy:{icon:'🧮',text:'<strong>int</strong> son como los goles de un partido del LDA: 0, 1, 2, 3... no hay "medio gol". <strong>float</strong> son como el precio en colones: 1750.50, 3200.75, etc.'},
       code:[
-        {parts:['plain:goles ','op:=','num: 3']},{parts:['plain:altura ','op:=','num: 1.75']},
-        {parts:['fn:print','plain:(','fn:type','plain:(goles))']},{out:"# <class 'int'>"},
-        {parts:['fn:print','plain:(','fn:type','plain:(altura))']},{out:"# <class 'float'>"}
+        {cmt:'# Entero vs decimal'},
+        {parts:['plain:goles ','op:=','num: 3']},
+        {parts:['plain:precio ','op:=','num: 1750.50']},
+        {parts:['fn:print','plain:(','fn:type','plain:(goles))']},
+        {out:"<class 'int'>"},
+        {parts:['fn:print','plain:(','fn:type','plain:(precio))']},
+        {out:"<class 'float'>"}
       ],
-      question:'¿Qué imprime type(precio)?',
-      qcode:'precio = 9.99\nprint(type(precio))',
-      opts:["<class 'int'>","<class 'float'>","<class 'str'>","<class 'bool'>"], correct:1,
-      hint:'Si el número tiene <strong>punto decimal</strong>, es <code>float</code>. Si es un número entero como 3 o 100, es <code>int</code>.',
-      ok:'¡Correcto! <code>9.99</code> tiene punto decimal → es <code>float</code>. Sin punto sería <code>int</code>.',
-      fail:'El punto decimal es la clave. <code>9.99</code> tiene decimales → <code>float</code>. Sin punto decimal sería <code>int</code>.', xp:20
+      question:'¿Qué imprime type(entrada)?',
+      qcode:'entrada = 2500\nprint(type(entrada))',
+      opts:["int  (número entero)","float  (número decimal)","str  (texto)","bool  (verdadero/falso)"], correct:0,
+      hint:'<code>2500</code> no tiene punto decimal → es número entero → tipo <code>int</code>. Si fuera <code>2500.0</code> sería <code>float</code>.',
+      ok:'¡Correcto! <code>2500</code> sin punto decimal es <code>int</code>. Con punto como <code>2500.0</code> sería <code>float</code>.',
+      fail:'El punto decimal es la clave. <code>2500</code> no tiene punto → <code>int</code>. Con punto como <code>2500.5</code> sería <code>float</code>.', xp:20
     },
     {
       type:'quiz', eyebrow:'Módulo 1 · Lección 3', title:'Texto: el tipo str',
-      explain:'El tipo <strong>str</strong> (string) guarda texto. Siempre va entre comillas simples <code>\'hola\'</code> o dobles <code>"hola"</code>. Puedes unir strings con el operador <code>+</code>.',
-      analogy:{icon:'💬',text:'Un <strong>str</strong> es como un mensaje de texto: puede tener letras, números y emojis — siempre entre comillas. <strong>"123"</strong> es texto, no número. No puedes sumar "5" + 5.'},
+      explain:'El tipo <strong>str</strong> (string) guarda texto. Siempre va entre comillas simples <code>\'hola\'</code> o dobles <code>"hola"</code>. Puedes unir dos strings con el operador <code>+</code>.',
+      analogy:{icon:'💬',text:'Un <strong>str</strong> es como un mensaje de WhatsApp: puede tener letras, números y emojis — siempre entre comillas. <strong>"506"</strong> es texto, no número. No puedes sumar "500" + 6.'},
       code:[
-        {parts:['plain:ciudad ','op:=','str: "Bogotá"']},
-        {parts:['plain:pais ','op:=','str: "Colombia"']},
+        {cmt:'# Texto siempre entre comillas'},
+        {parts:['plain:ciudad ','op:=','str: "San Jose"']},
+        {parts:['plain:pais ','op:=','str: "Costa Rica"']},
         {parts:['plain:lugar ','op:=','plain: ciudad ','op:+','str: " - "','op: +','plain: pais']},
-        {parts:['fn:print','plain:(lugar)']},{out:'# Bogotá - Colombia'},
-        {parts:['fn:print','plain:(','fn:len','plain:(ciudad))']},{out:'# 6'}
+        {parts:['fn:print','plain:(lugar)']},
+        {out:'San Jose - Costa Rica'},
+        {parts:['fn:print','plain:(','fn:len','plain:(ciudad))']},
+        {out:'8'}
       ],
-      question:'¿Qué imprime type(ciudad)?',
-      qcode:'ciudad = "Bogotá"\nprint(type(ciudad))',
-      opts:["<class 'str'>","<class 'int'>","<class 'float'>","<class 'bool'>"], correct:0,
-      hint:'<code>"Bogotá"</code> está entre comillas → es texto → tipo <code>str</code>. Si fuera un número sin comillas sería <code>int</code> o <code>float</code>.',
-      ok:'¡Perfecto! Todo valor entre comillas es <code>str</code>. Aunque sea un número como <code>"42"</code>, si tiene comillas es texto.',
-      fail:'Las comillas son la clave: <code>"Bogotá"</code> está entre comillas → <code>str</code>. Sin comillas sería otro tipo.', xp:20
+      question:'¿Qué tipo de dato es "Guanacaste"?',
+      qcode:'provincia = "Guanacaste"\nprint(type(provincia))',
+      opts:['str  (texto)','int  (número entero)','float  (número decimal)','bool  (verdadero/falso)'], correct:0,
+      hint:'"Guanacaste" está entre comillas → es texto → tipo <code>str</code>. Sin importar lo que haya adentro, las comillas lo convierten en texto.',
+      ok:'¡Perfecto! Todo valor entre comillas es <code>str</code>. Aunque sean números como <code>"506"</code>, con comillas son texto.',
+      fail:'Las comillas son la clave: <code>"Guanacaste"</code> está entre comillas → es <code>str</code>. Sin comillas sería otro tipo.', xp:20
     },
     {
       type:'quiz', eyebrow:'Módulo 1 · Lección 4', title:'True y False: tipo bool',
-      explain:'El tipo <strong>bool</strong> solo tiene dos valores: <code>True</code> o <code>False</code>. Son perfectos para condiciones: ¿está encendido? ¿pasó el examen? ¡Van con mayúscula inicial!',
-      analogy:{icon:'💡',text:'Un <strong>bool</strong> es como un interruptor de luz: solo puede estar <strong>encendido (True)</strong> o <strong>apagado (False)</strong>. No hay términos medios.'},
+      explain:'El tipo <strong>bool</strong> solo tiene dos valores posibles: <code>True</code> o <code>False</code>. Son perfectos para condiciones: ¿ganó el partido? ¿está lloviendo? La primera letra va en mayúscula obligatoriamente.',
+      analogy:{icon:'💡',text:'Un <strong>bool</strong> es como un interruptor de luz: solo puede estar <strong>encendido (True)</strong> o <strong>apagado (False)</strong>. No existe término medio.'},
       code:[
-        {parts:['plain:paso_examen ','op:=','num: True']},{parts:['plain:tiene_deuda ','op:=','num: False']},
-        {parts:['fn:print','plain:(paso_examen)']},{out:'# True'},
-        {parts:['fn:print','plain:(','fn:type','plain:(paso_examen))']},{out:"# <class 'bool'>"}
+        {cmt:'# Solo dos valores posibles: True o False'},
+        {parts:['plain:gano_lda ','op:=','kw: True']},
+        {parts:['plain:esta_lloviendo ','op:=','kw: False']},
+        {parts:['fn:print','plain:(gano_lda)']},
+        {out:'True'},
+        {parts:['fn:print','plain:(','fn:type','plain:(gano_lda))']},
+        {out:"<class 'bool'>"}
       ],
       question:'¿Cuál asigna correctamente el booleano True?',
-      qcode:'a = true    # intento 1\nb = TRUE    # intento 2\nc = True    # intento 3\nd = "True"  # intento 4 (esto es texto, no bool)',
+      qcode:'a = true    # intento 1\nb = TRUE    # intento 2\nc = True    # intento 3\nd = "True"  # intento 4',
       opts:['a = true','b = TRUE','c = True','d = "True"'], correct:2,
       hint:'Python distingue mayúsculas. <code>true</code> y <code>TRUE</code> dan NameError. <code>"True"</code> entre comillas es texto (str), no un booleano.',
-      ok:'¡Exacto! Solo <code>True</code> con T mayúscula es el booleano. <code>d = "True"</code> no da error pero crea un str, no un bool.',
-      fail:'Solo <code>c = True</code> (T mayúscula) asigna el booleano real. <code>true</code>/<code>TRUE</code> dan NameError. <code>"True"</code> es texto.', xp:20
+      ok:'¡Exacto! Solo <code>True</code> con T mayúscula es el bool real. <code>true</code>/<code>TRUE</code> dan NameError. <code>"True"</code> con comillas es texto, no bool.',
+      fail:'Solo <code>c = True</code> (T mayúscula, sin comillas) asigna el bool real. <code>true</code>/<code>TRUE</code> dan NameError. <code>"True"</code> es texto.', xp:20
     },
     {
-      type:'run', eyebrow:'Módulo 1 · Lección 5', title:'¡Escribe tu presentación!',
+      type:'run', eyebrow:'Módulo 1 · Lección 5', title:'Tu presentación en código',
       explain:'La función <code>print()</code> muestra información en pantalla. Puedes separar varios valores con comas y Python los une con espacios automáticamente.',
-      analogy:{icon:'⌨️',text:'Este es el momento. <strong>Escribe el código, ejecútalo y ve el resultado</strong>. Así trabajan los programadores cada día.'},
+      analogy:{icon:'⌨️',text:'Este es el momento. <strong>Escribe el código, ejecútalo y observa el resultado</strong>. Así trabajan los programadores todos los días.'},
       code:[
-        {cmt:'# Ejemplo: presenta una persona'},
-        {parts:['plain:nombre ','op:=','str: "Ana"']},
-        {parts:['plain:edad ','op:=','num: 16']},
-        {parts:['plain:ciudad ','op:=','str: "Medellín"']},
-        {parts:['fn:print','plain:("Hola! Soy", nombre, "tengo", edad, "años y soy de", ciudad)']},
-        {out:'# Hola! Soy Ana tengo 16 años y soy de Medellín'}
+        {cmt:'# Presentación con variables'},
+        {parts:['plain:nombre ','op:=','str: "Valeria"']},
+        {parts:['plain:edad ','op:=','num: 15']},
+        {parts:['plain:provincia ','op:=','str: "Cartago"']},
+        {parts:['fn:print','plain:("Hola, soy", nombre, "tengo", edad, "de edad y soy de", provincia)']},
+        {out:'Hola, soy Valeria tengo 15 de edad y soy de Cartago'}
       ],
-      runCode:'nombre = "Tu nombre"\nedad = 13\nciudad = "Tu ciudad"\nprint("Hola! Soy", nombre, "tengo", edad, "años y soy de", ciudad)',
-      instruction:'Cambia los valores de <code>nombre</code>, <code>edad</code> y <code>ciudad</code> por los tuyos y presiona ▶ Ejecutar', xp:30
+      runCode:'nombre = "Tu nombre"\nedad = 14\nprovincia = "Heredia"\nprint("Hola, soy", nombre, "tengo", edad, "de edad y soy de", provincia)',
+      instruction:'Cambia <code>nombre</code>, <code>edad</code> y <code>provincia</code> por los tuyos y presiona ▶ Ejecutar', xp:30
     }
   ]
 },
@@ -394,101 +405,103 @@ var MODULES = [
   lessons:[
     {
       type:'quiz', eyebrow:'Módulo 2 · Lección 1', title:'¿Qué hace el if?',
-      explain:'El <code>if</code> ejecuta un bloque de código <strong>solo si una condición es verdadera</strong>. Si la condición es falsa, ese bloque se salta. En Python, el bloque indentado (con espacios) es el que se ejecuta.',
-      analogy:{icon:'🚦',text:'El <code>if</code> es como un semáforo: <strong>si está verde</strong>, cruzas. <strong>Si está rojo</strong>, no cruzas. El código dentro del if solo corre cuando la condición es True.'},
+      explain:'El <code>if</code> ejecuta un bloque de código <strong>solo si una condición es verdadera</strong>. Si la condición es falsa, ese bloque se salta completamente. El bloque se marca con 4 espacios de indentación.',
+      analogy:{icon:'🚦',text:'El <code>if</code> es como la entrada a un parque de diversiones: <strong>si tienes entrada</strong>, pasas. <strong>Si no tienes</strong>, te quedas afuera. El código dentro del if solo corre cuando la condición es True.'},
       code:[
         {parts:['plain:edad ','op:=','num: 15']},
         {parts:['kw:if ','plain:edad ','op:>=','num: 18','plain: :']},
         {parts:['plain:    ','fn:print','plain:("Puedes votar")']},
-        {parts:['fn:print','plain:("Fin del programa)']},
-        {out:'# Fin del programa'}
+        {parts:['fn:print','plain:("Proceso terminado")']},
+        {out:'Proceso terminado'}
       ],
       question:'¿Qué imprime este código si edad = 20?',
-      qcode:'edad = 20\nif edad >= 18:\n    print("Mayor")\nprint("Listo")',
-      opts:['Solo "Listo"','Solo "Mayor"','"Mayor" y "Listo"','Nada'], correct:2,
-      hint:'Si <code>edad = 20</code>, la condición <code>20 >= 18</code> es <strong>True</strong>. El <code>print("Mayor")</code> SÍ se ejecuta. El <code>print("Listo")</code> siempre se ejecuta porque no está indentado.',
-      ok:'¡Correcto! <code>print("Mayor")</code> está dentro del if (indentado) y corre porque la condición es True. <code>print("Listo")</code> siempre corre.',
-      fail:'Recuerda: <code>print("Listo")</code> NO tiene indentación → siempre corre. Y como 20 >= 18 es True, también corre el <code>print("Mayor")</code>.', xp:25
+      qcode:'edad = 20\nif edad >= 18:\n    print("Mayor de edad")\nprint("Listo")',
+      opts:['Solo "Listo"','Solo "Mayor de edad"','Imprime "Mayor de edad" y luego "Listo"','No imprime nada'], correct:2,
+      hint:'Con <code>edad = 20</code>, la condición <code>20 >= 18</code> es <strong>True</strong>. El print indentado corre. <code>print("Listo")</code> siempre corre porque NO está indentado (está fuera del if).',
+      ok:'¡Correcto! <code>print("Mayor de edad")</code> corre porque 20 >= 18 es True. <code>print("Listo")</code> siempre corre porque está fuera del if.',
+      fail:'<code>print("Listo")</code> no tiene indentación → siempre corre. Y como 20 >= 18 es True, el print del if también corre. Se imprimen los dos.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 2 · Lección 2', title:'if + else: el plan B',
-      explain:'El <code>else</code> es el "si no". Se ejecuta cuando la condición del <code>if</code> es <strong>falsa</strong>. Siempre va acompañado de un <code>if</code> y termina con dos puntos.',
-      analogy:{icon:'🎯',text:'Si ganas la competencia, celebras. <strong>Si no</strong> (else), entrenas más. El else es el <strong>plan B</strong>: el código que corre cuando la condición no se cumple.'},
+      explain:'El <code>else</code> es el "si no". Se ejecuta cuando la condición del <code>if</code> es <strong>falsa</strong>. Siempre acompaña a un <code>if</code> y termina con dos puntos <code>:</code>.',
+      analogy:{icon:'⚽',text:'Si el LDA anota un gol, celebras. <strong>Si no</strong> (else), suspiráis. El else es el <strong>plan B</strong>: el código que corre cuando la condición no se cumple.'},
       code:[
-        {parts:['plain:nota ','op:=','num: 55']},
-        {parts:['kw:if ','plain:nota ','op:>=','num: 60','plain: :']},
-        {parts:['plain:    ','fn:print','str:("¡Aprobado!")']},
+        {parts:['plain:nota ','op:=','num: 62']},
+        {parts:['kw:if ','plain:nota ','op:>=','num: 70','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Aprobado")']},
         {parts:['kw:else','plain: :']},
-        {parts:['plain:    ','fn:print','str:("Reprobado, a estudiar")']},
-        {out:'# Reprobado, a estudiar'}
+        {parts:['plain:    ','fn:print','plain:("Reprobado, a repasar")']},
+        {out:'Reprobado, a repasar'}
       ],
-      question:'¿Qué imprime este código si nota = 75?',
-      qcode:'nota = 75\nif nota >= 60:\n    print("Aprobado")\nelse:\n    print("Reprobado, a estudiar")',
-      opts:['"Reprobado, a estudiar"','"Aprobado"','Error de sintaxis','Nada'], correct:1,
-      hint:'<code>75 >= 60</code> es <strong>True</strong>. Cuando la condición del if es verdadera, el bloque del <code>else</code> se ignora.',
-      ok:'¡Perfecto! <code>75 >= 60</code> es True → se ejecuta el <code>if</code> y se ignora el <code>else</code>.',
-      fail:'<code>75 >= 60</code> es True, así que el <code>if</code> se ejecuta y el <code>else</code> se salta. El else solo corre cuando la condición es False.', xp:25
+      question:'¿Qué imprime este código si nota = 85?',
+      qcode:'nota = 85\nif nota >= 70:\n    print("Aprobado")\nelse:\n    print("Reprobado, a repasar")',
+      opts:['"Reprobado, a repasar"','"Aprobado"','Imprime los dos','No imprime nada'], correct:1,
+      hint:'<code>85 >= 70</code> es <strong>True</strong>. Cuando la condición del if es verdadera, el bloque del <code>else</code> se ignora por completo.',
+      ok:'¡Perfecto! <code>85 >= 70</code> es True → corre el bloque del <code>if</code> y el <code>else</code> se salta.',
+      fail:'<code>85 >= 70</code> es True → corre el <code>if</code>. El <code>else</code> se salta. El else solo corre cuando la condición es False.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 2 · Lección 3', title:'Operadores de comparación',
-      explain:'Para hacer condiciones necesitas <strong>operadores de comparación</strong>. Devuelven True o False. Los más usados: <code>==</code> igual, <code>!=</code> diferente, <code>></code> mayor, <code><</code> menor, <code>>=</code> mayor o igual, <code><=</code> menor o igual.',
-      analogy:{icon:'⚖️',text:'Los operadores de comparación son como una balanza: comparan dos valores y te dicen si la comparación es <strong>verdadera o falsa</strong>. Nunca modifican las variables.'},
+      explain:'Para hacer condiciones necesitas <strong>operadores de comparación</strong>. Siempre devuelven <code>True</code> o <code>False</code>. Los más usados: <code>==</code> igual, <code>!=</code> diferente, <code>&gt;</code> mayor, <code>&lt;</code> menor, <code>&gt;=</code> mayor o igual.',
+      analogy:{icon:'⚖️',text:'Los operadores de comparación son como un árbitro: comparan dos valores y dicen si la comparación es <strong>verdadera o falsa</strong>. Nunca modifican las variables.'},
       code:[
-        {parts:['plain:x ','op:=','num: 10']},
-        {parts:['fn:print','plain:(x ','op:==','num: 10','plain:)']},{out:'# True'},
-        {parts:['fn:print','plain:(x ','op:>','num: 5','plain:)']},{out:'# True'},
-        {parts:['fn:print','plain:(x ','op:!=','num: 10','plain:)']},{out:'# False'},
-        {parts:['fn:print','plain:(x ','op:'+'>=','num: 15','plain:)']},{out:'# False'}
+        {parts:['plain:puntos ','op:=','num: 10']},
+        {parts:['fn:print','plain:(puntos ','op:==','num: 10','plain:)']},
+        {out:'True'},
+        {parts:['fn:print','plain:(puntos ','op:>','num: 5','plain:)']},
+        {out:'True'},
+        {parts:['fn:print','plain:(puntos ','op:'+'>=','num: 15','plain:)']},
+        {out:'False'}
       ],
       question:'¿Cuál es la diferencia entre = y ==?',
-      qcode:'x = 10          # ¿asigna o compara?\nprint(x == 10)  # imprime: True\nprint(x == 5)   # imprime: False\ny = x           # ¿asigna o compara?',
-      opts:['= asigna valor, == compara valores','== asigna valor, = compara valores','Los dos hacen lo mismo','= no existe, solo =='], correct:0,
-      hint:'Observa la primera línea: <code>x = 10</code> <em>guarda</em> 10 en x. Luego <code>x == 10</code> <em>pregunta</em> si x vale 10 y devuelve True o False.',
-      ok:'¡Correcto! <code>=</code> asigna (guarda un valor). <code>==</code> compara (pregunta si dos valores son iguales). Confundirlos es el error #1 en Python.',
-      fail:'Mira el qcode: <code>x = 10</code> guarda el valor. <code>x == 10</code> compara y devuelve True/False. Un signo asigna, dos signos comparan.', xp:25
+      qcode:'puntaje = 10\nprint(puntaje == 10)\nprint(puntaje == 5)',
+      opts:['= guarda un valor en la variable, == compara dos valores','== guarda un valor en la variable, = compara dos valores','Los dos hacen exactamente lo mismo','= no existe en Python'], correct:0,
+      hint:'La primera línea <code>puntaje = 10</code> <em>guarda</em> 10. Las siguientes líneas <code>puntaje == 10</code> <em>preguntan</em> si puntaje vale 10 y devuelven True o False.',
+      ok:'¡Correcto! <code>=</code> asigna (guarda). <code>==</code> compara (pregunta si son iguales). Confundirlos es el error más común en Python.',
+      fail:'Mira: <code>puntaje = 10</code> guarda el 10. <code>puntaje == 10</code> compara y da True. <code>puntaje == 5</code> compara y da False. Un signo guarda, dos signos comparan.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 2 · Lección 4', title:'elif: múltiples condiciones',
-      explain:'<code>elif</code> significa "else if" — otra condición a verificar si la anterior fue falsa. Puedes tener tantos <code>elif</code> como necesites entre el <code>if</code> y el <code>else</code>.',
-      analogy:{icon:'🎮',text:'Es como un juego con niveles: <strong>si</strong> tienes 100 puntos, eres experto. <strong>Si no, pero tienes</strong> 70+, eres intermedio. <strong>Si no, pero tienes</strong> 40+, eres principiante. <strong>Si no</strong>, sigue practicando.'},
+      explain:'<code>elif</code> significa "else if" — es otra condición a verificar si la anterior fue falsa. Puedes poner tantos <code>elif</code> como necesites entre el <code>if</code> y el <code>else</code>.',
+      analogy:{icon:'🎮',text:'Es como la tabla de posiciones de un torneo: <strong>si</strong> tienes 10 goles, campeón. <strong>Si no, pero tienes</strong> 7+, clasificás. <strong>Si no, pero tienes</strong> 4+, tercero. <strong>Si no</strong>, eliminado.'},
       code:[
-        {parts:['plain:puntos ','op:=','num: 85']},
-        {parts:['kw:if ','plain:puntos ','op:>=','num: 100','plain: :']},
-        {parts:['plain:    ','fn:print','str:("Experto 🏆")']},
-        {parts:['kw:elif ','plain:puntos ','op:>=','num: 70','plain: :']},
-        {parts:['plain:    ','fn:print','str:("Intermedio ⭐")']},
-        {parts:['kw:elif ','plain:puntos ','op:>=','num: 40','plain: :']},
-        {parts:['plain:    ','fn:print','str:("Principiante 🌱")']},
+        {parts:['plain:goles ','op:=','num: 7']},
+        {parts:['kw:if ','plain:goles ','op:>=','num: 10','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Campeon")']},
+        {parts:['kw:elif ','plain:goles ','op:>=','num: 7','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Clasificado")']},
+        {parts:['kw:elif ','plain:goles ','op:>=','num: 4','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Tercero")']},
         {parts:['kw:else','plain: :']},
-        {parts:['plain:    ','fn:print','str:("¡Sigue practicando!")']},
-        {out:'# Intermedio ⭐'}
+        {parts:['plain:    ','fn:print','plain:("Eliminado")']},
+        {out:'Clasificado'}
       ],
-      question:'Con puntos = 35, ¿qué imprime este código?',
-      qcode:'puntos = 35\nif puntos >= 100:\n    print("Experto")\nelif puntos >= 70:\n    print("Intermedio")\nelif puntos >= 40:\n    print("Principiante")\nelse:\n    print("Sigue practicando")',
-      opts:['Experto','Intermedio','Principiante','Sigue practicando'], correct:3,
-      hint:'35 no es >= 100 (salta), no es >= 70 (salta), no es >= 40 (salta), entonces va al <code>else</code>.',
-      ok:'¡Exacto! 35 no cumple ninguna condición (ni >=100, ni >=70, ni >=40), así que cae en el <code>else</code>.',
-      fail:'Revisa cada condición: 35 >= 100? No. 35 >= 70? No. 35 >= 40? No. Si ninguna se cumple, corre el <code>else</code>.', xp:25
+      question:'Con goles = 3, ¿qué imprime este código?',
+      qcode:'goles = 3\nif goles >= 10:\n    print("Campeon")\nelif goles >= 7:\n    print("Clasificado")\nelif goles >= 4:\n    print("Tercero")\nelse:\n    print("Eliminado")',
+      opts:['Campeon','Clasificado','Tercero','Eliminado'], correct:3,
+      hint:'3 no es >= 10 (salta), no es >= 7 (salta), no es >= 4 (salta). Ninguna condición se cumple → corre el <code>else</code>.',
+      ok:'¡Exacto! 3 no cumple ninguna condición (ni >=10, ni >=7, ni >=4), así que cae en el <code>else</code> → "Eliminado".',
+      fail:'Revisa: ¿3 >= 10? No. ¿3 >= 7? No. ¿3 >= 4? No. Si ninguna condición se cumple, corre el <code>else</code>.', xp:25
     },
     {
-      type:'run', eyebrow:'Módulo 2 · Lección 5', title:'Calculadora de notas',
-      explain:'Ahora vas a escribir un programa real con <code>if/elif/else</code>. Dado el valor de una nota, el programa imprime la calificación correspondiente.',
-      analogy:{icon:'📝',text:'Este tipo de código lo usan los sistemas de <strong>calificaciones reales</strong> en colegios y universidades. Con lo que aprendiste, ya puedes construir lógica como la de un sistema escolar.'},
+      type:'run', eyebrow:'Módulo 2 · Lección 5', title:'Clasificador de notas MEP',
+      explain:'En Costa Rica las notas del MEP van de 0 a 100. La nota mínima para aprobar es 65. El programa clasifica la nota automáticamente con <code>if/elif/else</code>.',
+      analogy:{icon:'📝',text:'Los sistemas de calificaciones de colegios usan exactamente este tipo de lógica. Con lo que aprendiste, ya puedes construir uno.'},
       code:[
-        {cmt:'# Sistema de calificaciones'},
-        {parts:['plain:nota ','op:=','num: 85']},
+        {cmt:'# Clasificador de notas MEP Costa Rica'},
+        {parts:['plain:nota ','op:=','num: 82']},
         {parts:['kw:if ','plain:nota ','op:>=','num: 90','plain: :']},
-        {parts:['plain:    ','fn:print','str:("A — Excelente")']},
+        {parts:['plain:    ','fn:print','plain:("Excelente")']},
         {parts:['kw:elif ','plain:nota ','op:>=','num: 80','plain: :']},
-        {parts:['plain:    ','fn:print','str:("B — Muy bien")']},
-        {parts:['kw:elif ','plain:nota ','op:>=','num: 70','plain: :']},
-        {parts:['plain:    ','fn:print','str:("C — Suficiente")']},
+        {parts:['plain:    ','fn:print','plain:("Muy bien")']},
+        {parts:['kw:elif ','plain:nota ','op:>=','num: 65','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Aprobado")']},
         {parts:['kw:else','plain: :']},
-        {parts:['plain:    ','fn:print','str:("F — Debes recuperar")']},
-        {out:'# B — Muy bien'}
+        {parts:['plain:    ','fn:print','plain:("Reprobado")']},
+        {out:'Muy bien'}
       ],
-      runCode:'nota = 85\nif nota >= 90:\n    print("A — Excelente")\nelif nota >= 80:\n    print("B — Muy bien")\nelif nota >= 70:\n    print("C — Suficiente")\nelse:\n    print("F — Debes recuperar")',
-      instruction:'Cambia el valor de <code>nota</code> y ejecuta para ver cómo cambia la calificación. Prueba con 95, 72, 45...', xp:35
+      runCode:'nota = 82\nif nota >= 90:\n    print("Excelente")\nelif nota >= 80:\n    print("Muy bien")\nelif nota >= 65:\n    print("Aprobado")\nelse:\n    print("Reprobado")',
+      instruction:'Ejecuta el código y luego cambia <code>nota</code> a: 95, 72, 60 y 40. Observa cómo cambia el resultado.', xp:35
     }
   ]
 },
@@ -499,92 +512,95 @@ var MODULES = [
   detail:'5 lecciones · Repite acciones', xpReward:140,
   lessons:[
     {
-      type:'quiz', eyebrow:'Módulo 3 · Lección 1', title:'¿Por qué necesitamos bucles?',
-      explain:'Un <strong>bucle</strong> repite un bloque de código múltiples veces. Sin bucles, para imprimir los números del 1 al 100 tendrías que escribir 100 líneas de <code>print()</code>. Con un bucle, solo 2.',
-      analogy:{icon:'🎵',text:'Un bucle es como el botón de <strong>repetir</strong> de una canción. En vez de copiar el código 100 veces, le dices: "repite esto 100 veces". Ahorras tiempo y el código queda limpio.'},
+      type:'quiz', eyebrow:'Módulo 3 · Lección 1', title:'¿Para qué sirven los bucles?',
+      explain:'Un <strong>bucle</strong> repite un bloque de código varias veces. Sin bucles, para imprimir los números del 1 al 100 tendrías que escribir 100 líneas. Con un bucle, solo 2 líneas.',
+      analogy:{icon:'🎵',text:'Un bucle es como el botón de <strong>repetir</strong> de tu música. En vez de copiar el código 100 veces, le dices: "repite esto 100 veces". Ahorras tiempo y el código queda limpio.'},
       code:[
-        {cmt:'# Sin bucle: tedioso'},
-        {parts:['fn:print','str:("1")']},{parts:['fn:print','str:("2")']},{parts:['fn:print','str:("3")']},
-        {cmt:'# Con bucle: elegante'},
+        {cmt:'# Sin bucle: tedioso y largo'},
+        {parts:['fn:print','plain:("Vuelta 1")']},
+        {parts:['fn:print','plain:("Vuelta 2")']},
+        {parts:['fn:print','plain:("Vuelta 3")']},
+        {cmt:'# Con bucle: corto y elegante'},
         {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(4):']},
         {parts:['plain:    ','fn:print','plain:(i)']},
-        {out:'# 0\n# 1\n# 2\n# 3'}
+        {out:'0\n1\n2\n3'}
       ],
-      question:'¿Cuántas líneas imprime este código?',
+      question:'¿Cuántas veces imprime "Hola" este código?',
       qcode:'for i in range(5):\n    print("Hola")',
-      opts:['4 líneas','5 líneas','6 líneas','1 línea'], correct:1,
-      hint:'<code>range(5)</code> genera los números 0, 1, 2, 3, 4 — en total <strong>5 números</strong>. El bucle se repite una vez por cada número.',
-      ok:'¡Exacto! <code>range(5)</code> genera 5 números (del 0 al 4), así que el bucle se repite 5 veces.',
-      fail:'<code>range(n)</code> genera <strong>n</strong> números empezando desde 0. <code>range(5)</code> → 0,1,2,3,4 → 5 repeticiones.', xp:25
+      opts:['4 veces','5 veces','6 veces','1 vez'], correct:1,
+      hint:'<code>range(5)</code> genera los números 0, 1, 2, 3, 4 — en total <strong>5 valores</strong>. El bucle se ejecuta una vez por cada valor.',
+      ok:'¡Exacto! <code>range(5)</code> genera 5 valores (0, 1, 2, 3, 4), así que el bucle corre 5 veces e imprime "Hola" 5 veces.',
+      fail:'<code>range(n)</code> genera <strong>n</strong> valores empezando desde 0. <code>range(5)</code> → 0,1,2,3,4 → 5 repeticiones.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 3 · Lección 2', title:'range(): controla el bucle',
-      explain:'<code>range()</code> puede recibir hasta 3 parámetros: <code>range(inicio, fin, paso)</code>. El <strong>inicio</strong> es el primer número, el <strong>fin</strong> es hasta dónde llega (sin incluirlo), y el <strong>paso</strong> es de cuánto en cuánto.',
-      analogy:{icon:'📏',text:'Piensa en un metro: <code>range(0, 100, 10)</code> es como medir de 10 en 10: 0, 10, 20, 30... 90. El número <strong>fin</strong> no se incluye, como si el metro llegara hasta justo antes de ese número.'},
+      explain:'<code>range()</code> acepta hasta 3 valores: <code>range(inicio, fin, paso)</code>. El <strong>inicio</strong> es el primer número, el <strong>fin</strong> es hasta dónde llega (sin incluirlo), y el <strong>paso</strong> es de cuánto en cuánto avanza.',
+      analogy:{icon:'📏',text:'Como los kilómetros de la Ruta 32 de San José a Limón: <code>range(0, 160, 20)</code> serían las paradas: 0, 20, 40... 140. El número <strong>fin</strong> no se incluye.'},
       code:[
         {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(2, 10, 2):']},
         {parts:['plain:    ','fn:print','plain:(i)']},
-        {out:'# 2\n# 4\n# 6\n# 8'},
-        {cmt:'# Cuenta regresiva'},
+        {out:'2\n4\n6\n8'},
+        {cmt:'# Cuenta regresiva con paso negativo'},
         {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(5, 0, -1):']},
         {parts:['plain:    ','fn:print','plain:(i)']},
-        {out:'# 5\n# 4\n# 3\n# 2\n# 1'}
+        {out:'5\n4\n3\n2\n1'}
       ],
-      question:'¿Qué números imprime este código?',
+      question:'¿Qué números imprime range(1, 6)?',
       qcode:'for i in range(1, 6):\n    print(i)',
-      opts:['0 1 2 3 4 5','1 2 3 4 5 6','1 2 3 4 5','0 1 2 3 4'], correct:2,
-      hint:'<code>range(1, 6)</code>: empieza en 1, termina <strong>antes</strong> de 6. Último número: 5.',
-      ok:'¡Correcto! <code>range(1, 6)</code> genera 1, 2, 3, 4, 5. El 6 no se incluye — siempre termina uno antes del fin.',
-      fail:'<code>range(inicio, fin)</code>: empieza en <code>inicio</code> e incluye hasta <code>fin - 1</code>. <code>range(1, 6)</code> → 1, 2, 3, 4, 5.', xp:25
+      opts:['0  1  2  3  4  5','1  2  3  4  5  6','1  2  3  4  5','0  1  2  3  4'], correct:2,
+      hint:'<code>range(1, 6)</code>: empieza en 1, termina <strong>antes</strong> del 6. El último número incluido es 5.',
+      ok:'¡Correcto! <code>range(1, 6)</code> genera 1, 2, 3, 4, 5. El 6 no se incluye — siempre para uno antes del fin.',
+      fail:'<code>range(inicio, fin)</code>: va desde <code>inicio</code> hasta <code>fin - 1</code>. <code>range(1, 6)</code> → 1, 2, 3, 4, 5.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 3 · Lección 3', title:'for con listas',
-      explain:'Un bucle <code>for</code> puede recorrer cualquier <strong>lista</strong>. En cada iteración, la variable del bucle toma el valor del siguiente elemento de la lista.',
-      analogy:{icon:'🛒',text:'Imagina una lista del mercado: <strong>leche, pan, huevos</strong>. Con un <code>for</code>, vas leyendo cada ítem uno por uno, como si tuvieras la lista en mano y la siguieras de arriba a abajo.'},
+      explain:'Un bucle <code>for</code> puede recorrer cualquier <strong>lista</strong>. En cada vuelta, la variable del bucle toma el valor del siguiente elemento de la lista.',
+      analogy:{icon:'🛒',text:'Imagina el mandado del super: <strong>arroz, frijoles, tortillas</strong>. Con un <code>for</code>, vas leyendo cada artículo uno por uno, de arriba a abajo.'},
       code:[
-        {parts:['plain:amigos ','op:=','str: ["Ana", "Beto", "Cara"]']},
-        {parts:['kw:for ','plain:amigo ','kw: in ','plain: amigos:']},
-        {parts:['plain:    ','fn:print','plain:("Hola,", amigo)']},
-        {out:'# Hola, Ana\n# Hola, Beto\n# Hola, Cara'}
+        {parts:['plain:provincias ','op:=','str: ["Cartago", "Heredia", "Alajuela"]']},
+        {parts:['kw:for ','plain:p ','kw: in ','plain: provincias:']},
+        {parts:['plain:    ','fn:print','plain:("Provincia:", p)']},
+        {out:'Provincia: Cartago\nProvincia: Heredia\nProvincia: Alajuela'}
       ],
       question:'¿Cuántas líneas imprime este código?',
-      qcode:'colores = ["rojo", "azul", "verde", "amarillo"]\nfor c in colores:\n    print(c)',
+      qcode:'equipos = ["LDA", "Herediano", "Cartaginés", "Santos"]\nfor e in equipos:\n    print(e)',
       opts:['1 línea','3 líneas','4 líneas','0 líneas'], correct:2,
-      hint:'El bucle <code>for</code> se ejecuta una vez por cada elemento de la lista. ¿Cuántos colores hay en la lista?',
-      ok:'¡Exacto! 4 colores → 4 iteraciones → 4 líneas impresas: rojo, azul, verde, amarillo.',
-      fail:'Cuenta los elementos: ["rojo","azul","verde","amarillo"] → 4 elementos → el bucle corre 4 veces → 4 líneas.', xp:25
+      hint:'El bucle corre una vez por cada elemento de la lista. Cuenta cuántos equipos hay en la lista.',
+      ok:'¡Exacto! 4 equipos → 4 iteraciones → 4 líneas impresas: LDA, Herediano, Cartaginés, Santos.',
+      fail:'Cuenta los elementos: ["LDA","Herediano","Cartaginés","Santos"] → 4 elementos → 4 vueltas → 4 líneas.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 3 · Lección 4', title:'Acumular con bucles',
-      explain:'Una técnica muy común es usar una variable <strong>acumuladora</strong> que se actualiza en cada iteración del bucle. Así puedes sumar, contar, o construir strings.',
-      analogy:{icon:'💰',text:'Es como una hucha: cada día metes una moneda. Al final de la semana revisas cuánto tienes. La <strong>variable acumuladora</strong> es la hucha — empieza vacía y se va llenando.'},
+      explain:'Una técnica muy común es usar una variable <strong>acumuladora</strong> que se actualiza en cada vuelta. Útil para sumar totales, contar elementos, o construir texto.',
+      analogy:{icon:'💰',text:'Es como una alcancía: cada día metes 500 colones. Al final de la semana revisas cuánto tienes. La <strong>acumuladora</strong> es la alcancía — empieza en 0 y se llena poco a poco.'},
       code:[
         {parts:['plain:total ','op:=','num: 0']},
         {parts:['kw:for ','plain:n ','kw: in ','fn:range','plain:(1, 6):']},
         {parts:['plain:    ','plain:total ','op:=','plain: total ','op:+','plain: n']},
-        {parts:['fn:print','plain:("Suma 1 a 5:", total)']},
-        {out:'# Suma 1 a 5: 15'}
+        {parts:['fn:print','plain:("Suma del 1 al 5:", total)']},
+        {out:'Suma del 1 al 5: 15'}
       ],
-      question:'¿Qué imprime la última línea?',
+      question:'¿Qué imprime print(total) al final?',
       qcode:'total = 0\nfor i in range(4):\n    total = total + 2\nprint(total)',
       opts:['4','6','8','10'], correct:2,
-      hint:'<code>range(4)</code> genera 0,1,2,3 → 4 iteraciones. En cada una sumas 2. ¿Cuánto es 2 sumado 4 veces?',
-      ok:'¡Correcto! El bucle corre 4 veces sumando 2 cada vez: 0+2=2, 2+2=4, 4+2=6, 6+2=8. Resultado: 8.',
-      fail:'<code>range(4)</code> → 4 iteraciones. En cada una: total = total + 2. Esto es: 0, 2, 4, 6, 8. El resultado final es 8.', xp:25
+      hint:'<code>range(4)</code> da los valores 0,1,2,3 → 4 vueltas. En cada vuelta sumas 2 al total. ¿Cuánto es 2 + 2 + 2 + 2?',
+      ok:'¡Correcto! 4 vueltas sumando 2 cada vez: 0 → 2 → 4 → 6 → 8. El total final es 8.',
+      fail:'<code>range(4)</code> → 4 vueltas. En cada vuelta: total = total + 2. La secuencia es 0, 2, 4, 6, 8. Resultado final: 8.', xp:25
     },
     {
-      type:'run', eyebrow:'Módulo 3 · Lección 5', title:'Cohete: cuenta regresiva',
-      explain:'Combina bucles y <code>print()</code> para crear una cuenta regresiva. ¡Este es el tipo de código que usan sistemas reales de lanzamiento de cohetes!',
-      analogy:{icon:'🚀',text:'Este ejercicio usa <strong>range con paso negativo</strong> para contar hacia atrás. Si puedes hacer una cuenta regresiva, ya entiendes cómo funciona el control de iteraciones en Python.'},
+      type:'run', eyebrow:'Módulo 3 · Lección 5', title:'Reporte de goles del LDA',
+      explain:'Usarás un bucle <code>for</code> para generar un reporte de goles. En cada vuelta del bucle se imprime el número de gol.',
+      analogy:{icon:'⚽',text:'Los sistemas de marcadores deportivos usan exactamente estos bucles para generar reportes. Ya puedes construir uno.'},
       code:[
-        {cmt:'# Cuenta regresiva clásica'},
-        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(5, 0, -1):']},
-        {parts:['plain:    ','fn:print','plain:(i, "...")']},
-        {parts:['fn:print','str:("🚀 ¡Despegue!")']},
-        {out:'# 5 ...\n# 4 ...\n# 3 ...\n# 2 ...\n# 1 ...\n# 🚀 ¡Despegue!'}
+        {cmt:'# Reporte de goles con bucle'},
+        {parts:['plain:goles ','op:=','num: 4']},
+        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(1, goles+1):']},
+        {parts:['plain:    ','fn:print','plain:("Gol numero", i, "- LDA!")']},
+        {parts:['fn:print','plain:("Total:", goles, "goles")']},
+        {out:'Gol numero 1 - LDA!\nGol numero 2 - LDA!\nGol numero 3 - LDA!\nGol numero 4 - LDA!\nTotal: 4 goles'}
       ],
-      runCode:'for i in range(5, 0, -1):\n    print(i, "...")\nprint("Despegue!")',
-      instruction:'Ejecuta el código tal como está. Luego modifica el <code>5</code> por <code>10</code> para hacer una cuenta desde 10.', xp:35
+      runCode:'goles = 4\nfor i in range(1, goles + 1):\n    print("Gol numero", i, "- LDA!")\nprint("Total:", goles, "goles")',
+      instruction:'Ejecuta el código. Luego cambia <code>goles = 4</code> por otro número y vuelve a ejecutar para ver el reporte.', xp:35
     }
   ]
 },
@@ -780,7 +796,7 @@ function buildQuestionCode(qcode){
 function buildCodeBlock(code){
   var h = '<div class="code-wrap"><div class="code-topbar"><div class="code-dot cd1"></div><div class="code-dot cd2"></div><div class="code-dot cd3"></div><span class="code-lang">python</span></div><div class="code-body">';
   code.forEach(function(row){
-    if(row.out){ h += '<span class="out">'+row.out+'</span>'; return; }
+    if(row.out){ var safeOut=row.out.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); h += '<span class="out">'+safeOut+'</span>'; return; }
     if(row.cmt){ h += '<div><span class="cmt">'+row.cmt+'</span></div>'; return; }
     var line = '<div>';
     (row.parts||[]).forEach(function(p){
@@ -814,8 +830,8 @@ function renderLesson(){
     h += '<textarea class="run-editor" id="run-editor" rows="5">'+l.runCode+'</textarea>';
     h += '<div class="run-output" id="run-output"></div></div>';
     document.getElementById('lesson-content').innerHTML = h;
-    btn.textContent = 'Continuar →'; btn.className = 'check-btn next';
-    btn.onclick = function(){ advanceLesson(); };
+    btn.textContent = '▶ Ejecuta primero'; btn.className = 'check-btn idle';
+    btn.onclick = null;
     return;
   }
 
@@ -841,7 +857,8 @@ function renderLesson(){
     if(l.qcode) h += buildQuestionCode(l.qcode);
     h += '<div class="opts" id="opts">';
     l.opts.forEach(function(o,i){
-      h += '<button class="opt" id="opt-'+i+'" onclick="selectOpt('+i+')">'+o+'</button>';
+      var safeO=o.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      h += '<button class="opt" id="opt-'+i+'" onclick="selectOpt('+i+')">'+safeO+'</button>';
     });
     h += '</div>';
     h += '<button class="hint-toggle" onclick="toggleHint()">💡 Ver pista del tutor IA</button>';
@@ -938,6 +955,8 @@ function runCode(){
     out.className = 'run-output show err';
     out.textContent = '✗ Error: '+e.message;
   }
+  var btn = document.getElementById('check-btn');
+  if(btn){ btn.textContent = 'Continuar →'; btn.className = 'check-btn next'; btn.onclick = function(){ advanceLesson(); }; }
 }
 
 function escHtml(s){
