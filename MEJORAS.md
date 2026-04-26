@@ -55,7 +55,7 @@ El camino de Python completo debería cubrir:
 | 4 | Funciones | def, parámetros, return | ✅ Completo |
 | 5 | Proyecto: número secreto | Integración de módulos 1-4 | ✅ Completo |
 | 6 | Listas | append(), índices, len(), recorrer, modificar | ⬜ Pendiente |
-| 7 | Strings | len(), upper/lower, slicing, in, format/f-strings | ⬜ Pendiente |
+| 7 | Strings | len(), upper/lower, slicing, in, format/f-strings | ✅ Completo |
 | 8 | Diccionarios | keys, values, acceso, recorrer con for | ⬜ Pendiente |
 | 9 | Bucles while | while, break, continue, bucles infinitos con condición | ⬜ Pendiente |
 | 10 | Proyecto 2 | App de lista de tareas o calculadora interactiva | ⬜ Pendiente |
@@ -121,6 +121,26 @@ El camino de Python completo debería cubrir:
 ### Conclusión para Póngale
 
 Póngale ya tiene la ventaja más importante: **sin límite de lecciones**. La brecha más grande con Brilliant es el **spaced repetition** y las **notificaciones de racha**. La brecha con Duolingo es el **engagement diario** (notificaciones, shield, desafíos semanales).
+
+---
+
+## Migración a móvil nativo (tentativo / futuro)
+
+| Opción | Descripción | Costo | Complejidad |
+|---|---|---|---|
+| **PWA (inmediato)** | manifest.json + service worker → instalar desde Chrome sin Play Store | Gratis | Baja — 3 archivos |
+| **Capacitor** | Envuelve el HTML existente como APK nativo para Play Store | $25 una sola vez (cuenta Google) | Media — no reescribir código |
+| **Flutter + Firebase** | Reescritura completa en Flutter, Firebase para auth y progreso cross-device | Gratis (Firebase free tier) | Muy alta — proyecto nuevo |
+
+**Recomendación de ruta:**
+1. PWA ya (hecho en esta sesión) — instalar en celular sin tienda
+2. Capacitor cuando quiera estar en Play Store — empaqueta el HTML sin reescribir
+3. Flutter solo si en el futuro se necesita app nativa real con auth y multidispositivo
+
+**Notas PWA:**
+- Requiere íconos PNG: `icon-192.png` y `icon-512.png` para que Chrome muestre el botón "Instalar"
+- El service worker activa modo offline (la app funciona sin internet)
+- GitHub Pages ya sirve HTTPS, requisito para PWA
 
 ---
 

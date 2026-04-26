@@ -945,6 +945,114 @@ var MODULES = [
       instruction:'Ejecutá el código. Cambiá los items del inventario, agregá más con <code>append()</code> y observá cómo cambian el recorrido y el total.', xp:30
     }
   ]
+},
+
+/* ─── 6: STRINGS ─── */
+{
+  id:6, icon:'🔤', title:'7. Strings',
+  detail:'5 lecciones · Texto y manipulación', xpReward:150,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 7 · Lección 1', title:'Strings y len()',
+      explain:'Un <strong>string</strong> es texto encerrado en comillas simples <code>\'\'</code> o dobles <code>""</code>. <code>len(s)</code> cuenta cuántos caracteres tiene — incluyendo espacios.',
+      analogy:{icon:'📏',text:'Un string es como una cinta de letras. <code>"Python"</code> tiene 6 marcas. Un espacio cuenta como 1 marca igual que cualquier letra.'},
+      code:[
+        {parts:['plain:nombre ','op:=','plain: ','str:\"Python\"']},
+        {parts:['fn:print','plain:(','fn:len','plain:(nombre))']},
+        {out:'6'},
+        {parts:['fn:print','plain:(','fn:len','plain:(','str:\"Costa Rica\"','plain:))']},
+        {out:'10'},
+        {cmt:'# El espacio entre Costa y Rica también cuenta'}
+      ],
+      question:'¿Qué devuelve len("hola mundo")?',
+      qcode:'print(len("hola mundo"))',
+      opts:['9','10','11','Error'],
+      correct:1,
+      hint:'Contá carácter por carácter: h-o-l-a (4) + espacio (1) + m-u-n-d-o (5) = 10. El espacio también es un carácter.',
+      ok:'¡Exacto! <code>len("hola mundo")</code> es 10. Cada carácter — incluyendo el espacio — cuenta como 1.',
+      fail:'No olvides el espacio: h-o-l-a (4) + espacio (1) + m-u-n-d-o (5) = 10. <code>len()</code> cuenta todos los caracteres.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 7 · Lección 2', title:'upper() y lower()',
+      explain:'<code>.upper()</code> devuelve el string en <strong>MAYÚSCULAS</strong>. <code>.lower()</code> lo devuelve en <strong>minúsculas</strong>. No modifican el original — devuelven un string nuevo.',
+      analogy:{icon:'📢',text:'<code>.upper()</code> es como gritar: <code>"hola".upper()</code> → <code>"HOLA"</code>. <code>.lower()</code> es susurrar: <code>"PYTHON".lower()</code> → <code>"python"</code>. El string original queda intacto.'},
+      code:[
+        {parts:['fn:print','plain:(','str:\"python\"','plain:.','fn:upper','plain:())']},
+        {out:'PYTHON'},
+        {parts:['fn:print','plain:(','str:\"HOLA MUNDO\"','plain:.','fn:lower','plain:())']},
+        {out:'hola mundo'},
+        {parts:['plain:saludo ','op:=','plain: ','str:\"Costa Rica\"']},
+        {parts:['fn:print','plain:(saludo.','fn:upper','plain:())']},
+        {out:'COSTA RICA'}
+      ],
+      question:'¿Qué imprime print("San Jose".upper())?',
+      qcode:'print("San Jose".upper())',
+      opts:['"San Jose"','"san jose"','"SAN JOSE"','Error'],
+      correct:2,
+      hint:'<code>.upper()</code> convierte TODAS las letras a mayúsculas. "San Jose" → "SAN JOSE". Los espacios quedan igual.',
+      ok:'¡Correcto! <code>.upper()</code> convierte cada letra a mayúscula: "San Jose" → "SAN JOSE".',
+      fail:'<code>.upper()</code> convierte TODAS las letras a mayúsculas — "San Jose" se vuelve "SAN JOSE".', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 7 · Lección 3', title:'Índices y slicing',
+      explain:'<code>s[0]</code> es el primer carácter. <code>s[-1]</code> es el último. <code>s[inicio:fin]</code> recorta el texto desde <code>inicio</code> hasta <code>fin-1</code> — el índice final no se incluye.',
+      analogy:{icon:'✂️',text:'Slicing es como recortar una cinta. <code>"Python"[0:3]</code> te da las primeras 3 letras: <code>"Pyt"</code>. El índice de inicio se incluye, el de fin no.'},
+      code:[
+        {parts:['plain:s ','op:=','plain: ','str:\"Python\"']},
+        {parts:['fn:print','plain:(s[','num:0','plain:])']},
+        {out:'P'},
+        {parts:['fn:print','plain:(s[','num:-1','plain:])']},
+        {out:'n'},
+        {parts:['fn:print','plain:(s[','num:0','plain::','num:3','plain:])']},
+        {out:'Pyt'}
+      ],
+      question:'Si pais = "Panama", ¿qué devuelve pais[0:3]?',
+      qcode:'pais = "Panama"\nprint(pais[0:3])',
+      opts:['"Pan"','"ana"','"Pana"','"ama"'],
+      correct:0,
+      hint:'<code>pais[0:3]</code> toma los índices 0, 1 y 2 (el 3 no se incluye): P(0) - a(1) - n(2) = "Pan".',
+      ok:'¡Perfecto! <code>[0:3]</code> incluye los índices 0, 1, 2 → P-a-n → "Pan".',
+      fail:'<code>[0:3]</code> toma desde el índice 0 hasta el 2 (el fin no se incluye): P(0)-a(1)-n(2) = "Pan".', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 7 · Lección 4', title:'El operador in',
+      explain:'<code>"texto" in s</code> devuelve <code>True</code> si la secuencia de caracteres aparece en algún lugar del string. Es perfecta para buscar letras, sílabas o palabras.',
+      analogy:{icon:'🔍',text:'<code>in</code> es como el Ctrl+F del texto. <code>"pan" in "pantalon"</code> → <code>True</code>. <code>"xyz" in "hola"</code> → <code>False</code>. Busca la secuencia exacta.'},
+      code:[
+        {parts:['plain:ciudad ','op:=','plain: ','str:\"San Jose\"']},
+        {parts:['kw:if ','str:\"Jose\"','plain: ','kw:in','plain: ciudad:']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"Encontrado\"','plain:)']},
+        {out:'Encontrado'},
+        {parts:['kw:if ','str:\"xyz\"','plain: ','kw:in','plain: ciudad:']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"Esto no se imprime\"','plain:)']}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'equipo = "Saprissa"\nif "issa" in equipo:\n    print("Tiene issa")\nelse:\n    print("No tiene issa")',
+      opts:['"Tiene issa"','"No tiene issa"','True','Error'],
+      correct:0,
+      hint:'"Saprissa" contiene la secuencia "issa" (S-a-p-r-<strong>issa</strong>). La condición es True → se ejecuta el bloque <code>if</code>.',
+      ok:'¡Correcto! "issa" aparece dentro de "Saprissa", la condición es True y se imprime "Tiene issa".',
+      fail:'"issa" está dentro de "Saprissa" (S-a-p-r-issa). <code>in</code> devuelve True si encuentra la secuencia en cualquier parte.', xp:20
+    },
+    {
+      type:'run', eyebrow:'Módulo 7 · Lección 5', title:'Analiza tu nombre',
+      explain:'Los strings tienen superpoderes: podés medir su largo, transformarlos a mayúsculas, recortar letras y buscar dentro de ellos.',
+      analogy:{icon:'🧪',text:'Cada string es como una muestra de laboratorio. <code>upper()</code>, <code>len()</code> y <code>[:]</code> son tus herramientas. <strong>Cambiá el nombre y ejecutá para ver cómo cambian los resultados.</strong>'},
+      code:[
+        {parts:['plain:nombre ','op:=','plain: ','str:\"Python\"']},
+        {parts:['plain:grito ','op:=','plain: nombre.','fn:upper','plain:()']},
+        {parts:['plain:inicial ','op:=','plain: nombre[','num:0','plain:]']},
+        {parts:['plain:largo ','op:=','plain: ','fn:len','plain:(nombre)']},
+        {parts:['fn:print','plain:(','str:f\"Nombre: {nombre}\"','plain:)']},
+        {parts:['fn:print','plain:(','str:f\"Mayúsculas: {grito}\"','plain:)']},
+        {parts:['fn:print','plain:(','str:f\"Inicial: {inicial}\"','plain:)']},
+        {parts:['fn:print','plain:(','str:f\"Largo: {largo}\"','plain:)']},
+        {out:'Nombre: Python\nMayúsculas: PYTHON\nInicial: P\nLargo: 6'}
+      ],
+      runCode:'nombre = "Python"\ngrito = nombre.upper()\ninicial = nombre[0]\nlargo = len(nombre)\nprint(f"Nombre: {nombre}")\nprint(f"Mayúsculas: {grito}")\nprint(f"Inicial: {inicial}")\nprint(f"Largo: {largo}")',
+      instruction:'Ejecutá el código. Luego cambiá <code>"Python"</code> por tu nombre o el de tu equipo favorito y volvé a ejecutar.', xp:30
+    }
+  ]
 }
 ];
 
@@ -1312,7 +1420,8 @@ function pySimulate(code){
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
     if(callM && callM[1] in funcs) return callFunc(callM[1], splitArgs(callM[2]||''));
     if(/^\w+$/.test(expr) && expr in env) return env[expr];
-    var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env&&Array.isArray(env[idxM[1]])){var idx=parseInt(evalVal(idxM[2]));var arr=env[idxM[1]];if(idx<0)idx=arr.length+idx;return arr[idx];}
+    var methM=expr.match(/^(\w+)\.(upper|lower)\(\)$/);if(methM&&methM[1] in env&&typeof env[methM[1]]==='string'){return methM[2]==='upper'?env[methM[1]].toUpperCase():env[methM[1]].toLowerCase();}
+    var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=parseInt(evalVal(idxStr));if(Array.isArray(container)){if(idx<0)idx=container.length+idx;return container[idx];}if(typeof container==='string'){if(idx<0)idx=container.length+idx;return container[idx];}}
     var arith = expr.match(/^(.+?)\s*([+\-\*\/]{1,2})\s*(.+)$/);
     if(arith){
       var a = evalVal(arith[1]), b = evalVal(arith[3]), op = arith[2];
@@ -1329,6 +1438,8 @@ function pySimulate(code){
 
   function evalCond(cond){
     cond=cond.trim();
+    var notInM=cond.match(/^(.+?)\s+not\s+in\s+(.+)$/);if(notInM){var ndl=evalVal(notInM[1].trim()),hy=evalVal(notInM[2].trim());return typeof hy==='string'?hy.indexOf(String(ndl))===-1:(Array.isArray(hy)?hy.indexOf(ndl)===-1:true);}
+    var inM=cond.match(/^(.+?)\s+in\s+(.+)$/);if(inM){var ndl=evalVal(inM[1].trim()),hy=evalVal(inM[2].trim());return typeof hy==='string'?hy.indexOf(String(ndl))!==-1:(Array.isArray(hy)?hy.indexOf(ndl)!==-1:false);}
     var m=cond.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);
     if(m){
       var a=evalVal(m[1].trim()),b=evalVal(m[3].trim()),op=m[2];
