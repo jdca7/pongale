@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#6c63ff">
+<link rel="manifest" href="manifest.json">
 <title>Póngale — Aprende Python sin límites</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -835,6 +837,114 @@ var MODULES = [
       instruction:'Ejecutá el código. Cambiá <code>secreto</code> y la lista de números para simular diferentes partidas. ¿Podés adivinar en 3 intentos o menos?', xp:150
     }
   ]
+},
+
+/* ─── 5: LISTAS ─── */
+{
+  id:5, icon:'📋', title:'6. Listas',
+  detail:'5 lecciones · Colecciones de datos', xpReward:150,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 6 · Lección 1', title:'¿Qué es una lista?',
+      explain:'Una <strong>lista</strong> guarda varios valores en orden dentro de corchetes <code>[]</code> separados por comas. Puede tener números, texto, o mezclar tipos en la misma lista.',
+      analogy:{icon:'🛒',text:'Una lista es como el carrito del supermercado: podés meter varias cosas en orden. El primer artículo está en la posición <strong>0</strong>, el segundo en la <strong>1</strong>, y así.'},
+      code:[
+        {cmt:'# Una lista guarda varios valores en orden'},
+        {parts:['plain:frutas ','op:=','plain: [','str:"mango"','plain:, ','str:"pera"','plain:, ','str:"papaya"','plain:]']},
+        {parts:['fn:print','plain:(frutas)']},
+        {out:"['mango', 'pera', 'papaya']"},
+        {parts:['plain:numeros ','op:=','plain: [','num:10','plain:, ','num:20','plain:, ','num:30','plain:]']},
+        {parts:['fn:print','plain:(numeros)']},
+        {out:'[10, 20, 30]'}
+      ],
+      question:'¿Cuál crea correctamente una lista de frutas?',
+      qcode:'a = ("mango", "pera")   # opción A\nb = ["mango", "pera"]   # opción B\nc = {mango, pera}       # opción C\nd = "mango, pera"       # opción D',
+      opts:['a = ("mango", "pera")','b = ["mango", "pera"]','c = {mango, pera}','d = "mango, pera"'],
+      correct:1,
+      hint:'Las listas usan <strong>corchetes</strong> <code>[]</code>. Los paréntesis <code>()</code> hacen una tupla. Las llaves <code>{}</code> hacen un set. Y las comillas convierten todo en un string.',
+      ok:'¡Correcto! Las listas siempre van entre <code>[]</code> con los elementos separados por comas. Es la estructura más usada en Python.',
+      fail:'Las listas usan <strong>corchetes</strong> <code>[]</code>. Los paréntesis hacen una tupla, las llaves un set, y las comillas hacen un string con comas adentro.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 6 · Lección 2', title:'Índices: cada elemento tiene su lugar',
+      explain:'Cada elemento tiene un <strong>índice</strong> (posición) que empieza en <code>0</code>. El primer elemento es <code>[0]</code>, el segundo <code>[1]</code>. El índice <code>-1</code> accede al <em>último</em> elemento.',
+      analogy:{icon:'🚌',text:'Los asientos de un bus tienen número: asiento <strong>0</strong> es el primero, asiento <strong>1</strong> el segundo. El asiento <strong>-1</strong> es el último contando desde atrás. Python también empieza desde cero.'},
+      code:[
+        {parts:['plain:paises ','op:=','plain: [','str:"Costa Rica"','plain:, ','str:"Panama"','plain:, ','str:"Colombia"','plain:]']},
+        {parts:['fn:print','plain:(paises[','num:0','plain:])']},
+        {out:'Costa Rica'},
+        {parts:['fn:print','plain:(paises[','num:2','plain:])']},
+        {out:'Colombia'},
+        {parts:['fn:print','plain:(paises[','num:-1','plain:])']},
+        {out:'Colombia'}
+      ],
+      question:'Si colores = ["rojo", "verde", "azul"], ¿qué imprime colores[1]?',
+      qcode:'colores = ["rojo", "verde", "azul"]\nprint(colores[1])',
+      opts:['"rojo"  (índice 0)','"verde"  (índice 1)','"azul"  (índice 2)','Error: índice fuera de rango'],
+      correct:1,
+      hint:'Los índices empiezan en <strong>0</strong>: <code>colores[0]</code> es "rojo", <code>colores[1]</code> es "verde", <code>colores[2]</code> es "azul".',
+      ok:'¡Exacto! El índice <code>1</code> es el segundo elemento: "verde". Recordá — los índices empiezan en 0, no en 1.',
+      fail:'El índice <code>1</code> apunta al <em>segundo</em> elemento. Índice 0 → "rojo", índice 1 → "verde", índice 2 → "azul".', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 6 · Lección 3', title:'len() y recorrer con for',
+      explain:'<code>len(lista)</code> devuelve la cantidad de elementos. <code>for item in lista:</code> recorre cada elemento uno por uno — automático, sin necesitar índices.',
+      analogy:{icon:'📦',text:'<code>len()</code> es como contar cuántas cajas hay en el almacén. El <code>for</code> es como ir abriendo cada caja en orden: primero la primera, luego la segunda, hasta terminar.'},
+      code:[
+        {parts:['plain:equipos ','op:=','plain: [','str:"Saprissa"','plain:, ','str:"LDA"','plain:, ','str:"Cartaginés"','plain:]']},
+        {parts:['fn:print','plain:(','fn:len','plain:(equipos))']},
+        {out:'3'},
+        {parts:['kw:for ','plain:e ','kw:in ','plain:equipos:']},
+        {parts:['plain:    ','fn:print','plain:(e)']},
+        {out:'Saprissa\nLDA\nCartaginés'}
+      ],
+      question:'Si frutas = ["mango", "papaya", "pera", "guayaba"], ¿qué devuelve len(frutas)?',
+      qcode:'frutas = ["mango", "papaya", "pera", "guayaba"]\nprint(len(frutas))',
+      opts:['3','4','5','Error'],
+      correct:1,
+      hint:'Contá los elementos: "mango" (1), "papaya" (2), "pera" (3), "guayaba" (4). Son 4 → <code>len()</code> devuelve 4.',
+      ok:'¡Perfecto! Hay 4 frutas → <code>len()</code> devuelve 4. Los índices van de 0 a 3, pero la cantidad total es 4.',
+      fail:'Contá los elementos: "mango", "papaya", "pera", "guayaba" — son 4. <code>len()</code> devuelve el total de elementos, no el último índice.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 6 · Lección 4', title:'append() — la lista crece',
+      explain:'<code>lista.append(valor)</code> agrega un elemento al <strong>final</strong> de la lista. La lista crece dinámicamente: no necesitás definir de antemano cuántos elementos va a tener.',
+      analogy:{icon:'➕',text:'<code>append()</code> es como agregarle un ítem al carrito del supermercado. Empezás con pocos artículos y vas agregando más — la lista se adapta sola.'},
+      code:[
+        {parts:['plain:colores ','op:=','plain: [','str:"rojo"','plain:, ','str:"verde"','plain:]']},
+        {parts:['fn:print','plain:(','fn:len','plain:(colores))']},
+        {out:'2'},
+        {parts:['plain:colores.','fn:append','plain:(','str:"azul"','plain:)']},
+        {parts:['fn:print','plain:(','fn:len','plain:(colores))']},
+        {out:'3'},
+        {parts:['fn:print','plain:(colores)']},
+        {out:"['rojo', 'verde', 'azul']"}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'notas = [90, 85]\nnotas.append(100)\nprint(len(notas))',
+      opts:['2','3','100','Error'],
+      correct:1,
+      hint:'La lista empieza con 2 elementos (90, 85). <code>append(100)</code> agrega 100 al final → ahora tiene 3 elementos → <code>len()</code> devuelve 3.',
+      ok:'¡Correcto! <code>append()</code> agrega al final — la lista pasa de 2 a 3 elementos → <code>len()</code> devuelve 3.',
+      fail:'La lista empieza con 2 elementos. Después del <code>append(100)</code> tiene 3. <code>len()</code> devuelve la cantidad: 3.', xp:20
+    },
+    {
+      type:'run', eyebrow:'Módulo 6 · Lección 5', title:'Tu inventario de héroe',
+      explain:'Las listas son perfectas para colecciones. Podés crearla con elementos, agregar más con <code>append()</code>, recorrer con <code>for</code> y saber el tamaño con <code>len()</code>.',
+      analogy:{icon:'⚔️',text:'Todo RPG tiene un inventario. El tuyo es una lista Python. <strong>Modificá los items, ejecutá el código y verás tu inventario completo.</strong>'},
+      code:[
+        {parts:['plain:inventario ','op:=','plain: [','str:"espada"','plain:, ','str:"escudo"','plain:]']},
+        {parts:['plain:inventario.','fn:append','plain:(','str:"pocion"','plain:)']},
+        {parts:['fn:print','plain:(','str:"Mi inventario:"','plain:)']},
+        {parts:['kw:for ','plain:item ','kw:in ','plain:inventario:']},
+        {parts:['plain:    ','fn:print','plain:(','str:"-"','plain:, item)']},
+        {parts:['fn:print','plain:(','str:"Total:"','plain:, ','fn:len','plain:(inventario))']},
+        {out:'Mi inventario:\n- espada\n- escudo\n- pocion\nTotal: 3'}
+      ],
+      runCode:'inventario = ["espada", "escudo"]\ninventario.append("pocion")\nprint("Mi inventario:")\nfor item in inventario:\n    print("-", item)\nprint("Total:", len(inventario))',
+      instruction:'Ejecutá el código. Cambiá los items del inventario, agregá más con <code>append()</code> y observá cómo cambian el recorrido y el total.', xp:30
+    }
+  ]
 }
 ];
 
@@ -1197,9 +1307,12 @@ function pySimulate(code){
     if(expr==='False') return false;
     if(expr==='None') return null;
     if(!isNaN(expr)) return parseFloat(expr);
+    if(expr.startsWith('[')&&expr.endsWith(']')){var li=expr.slice(1,-1);if(!li.trim())return[];return splitArgs(li).map(function(x){return evalVal(x.trim());});}
+    var lenM=expr.match(/^len\((.+)\)$/);if(lenM){var lv=evalVal(lenM[1].trim());return Array.isArray(lv)?lv.length:(typeof lv==='string'?lv.length:0);}
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
     if(callM && callM[1] in funcs) return callFunc(callM[1], splitArgs(callM[2]||''));
     if(/^\w+$/.test(expr) && expr in env) return env[expr];
+    var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env&&Array.isArray(env[idxM[1]])){var idx=parseInt(evalVal(idxM[2]));var arr=env[idxM[1]];if(idx<0)idx=arr.length+idx;return arr[idx];}
     var arith = expr.match(/^(.+?)\s*([+\-\*\/]{1,2})\s*(.+)$/);
     if(arith){
       var a = evalVal(arith[1]), b = evalVal(arith[3]), op = arith[2];
@@ -1229,6 +1342,8 @@ function pySimulate(code){
     return !!evalVal(cond);
   }
 
+  function pyStr(v){if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
+
   function evalPrint(stmt){
     var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
     if(inner.match(/^[fF]["']/)){
@@ -1236,7 +1351,7 @@ function pySimulate(code){
       return fstr.replace(/\{(\w+)\}/g,function(_,v){ return v in env?env[v]:v; });
     }
     var pts=splitArgs(inner);
-    return pts.map(function(p){ return String(evalVal(p.trim())); }).join(' ');
+    return pts.map(function(p){ return pyStr(evalVal(p.trim())); }).join(' ');
   }
 
   function splitArgs(s){
@@ -1258,6 +1373,7 @@ function pySimulate(code){
     var t=line.trim();
     if(!t||t.startsWith('#')) return;
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
+    var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
     var cm=t.match(/^(\w+)\s*\((.*?)?\)\s*$/);
     if(cm && cm[1] in funcs){ callFunc(cm[1],splitArgs(cm[2]||'')); return; }
     var am=t.match(/^(\w+)\s*([+\-\*\/]?=)\s*(.+)$/);
@@ -1411,5 +1527,6 @@ function showComplete(){
   // else: show welcome screen (default active)
 })();
 </script>
+<script>if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');</script>
 </body>
 </html>
