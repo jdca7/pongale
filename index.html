@@ -616,17 +616,225 @@ var MODULES = [
   ]
 },
 
-/* ─── 3: FUNCIONES (BLOQUEADO) ─── */
+/* ─── 3: FUNCIONES ─── */
 {
   id:3, icon:'⚙️', title:'4. Funciones',
   detail:'5 lecciones · Organiza tu código', xpReward:160,
-  lessons:[]
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 4 · Lección 1', title:'¿Qué es una función?',
+      explain:'Una <strong>función</strong> es un bloque de código con nombre que podés ejecutar cuando querás. Se define con <code>def</code>, seguido del nombre y paréntesis. Para usarla, escribís su nombre con paréntesis — eso se llama <strong>llamar</strong> la función.',
+      analogy:{icon:'📋',text:'Una función es como una <strong>receta de gallo pinto</strong>: la escribís una vez y la podés seguir cada vez que querás cocinar. <code>def</code> es escribir la receta. Llamar la función es seguirla.'},
+      code:[
+        {cmt:'# Definir la función (se escribe una sola vez)'},
+        {parts:['kw:def ','fn:saludar','plain:():']},
+        {parts:['plain:    ','fn:print','plain:("Hola, bienvenido a Python!")']},
+        {cmt:'# Llamar la función dos veces'},
+        {parts:['fn:saludar','plain:()']},
+        {out:'Hola, bienvenido a Python!'},
+        {parts:['fn:saludar','plain:()']},
+        {out:'Hola, bienvenido a Python!'}
+      ],
+      question:'¿Cuántas veces se imprime "Hola" con este código?',
+      qcode:'def saludar():\n    print("Hola")\n\nsaludar()\nsaludar()\nsaludar()',
+      opts:['0 veces — nunca corre','1 vez','2 veces','3 veces'], correct:3,
+      hint:'El <code>def</code> solo <em>guarda</em> la función, no la ejecuta. Contá cuántas veces aparece <code>saludar()</code> después de la definición.',
+      ok:'¡Correcto! La función se llama 3 veces → imprime "Hola" 3 veces. El <code>def</code> define; las llamadas ejecutan.',
+      fail:'Contá las llamadas: <code>saludar()</code> aparece 3 veces debajo del <code>def</code>. El <code>def</code> solo guarda la función, no la ejecuta.', xp:30
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 4 · Lección 2', title:'Parámetros: datos de entrada',
+      explain:'Los <strong>parámetros</strong> son variables que la función recibe cuando la llamás. Siempre van dentro de los paréntesis del <code>def</code>. Cuando llamás la función, pasás los <strong>argumentos</strong> — los valores reales para esos parámetros.',
+      analogy:{icon:'🍕',text:'Una pizzería tiene la función <code>hacer_pizza(tamaño)</code>. El parámetro es <code>tamaño</code>. Cada cliente llama la función con su argumento: <code>hacer_pizza("grande")</code> o <code>hacer_pizza("personal")</code>.'},
+      code:[
+        {cmt:'# El parámetro "nombre" recibe el argumento'},
+        {parts:['kw:def ','fn:saludar','plain:(nombre):']},
+        {parts:['plain:    ','fn:print','plain:("Hola,", nombre)']},
+        {cmt:'# Cada llamada pasa un argumento distinto'},
+        {parts:['fn:saludar','plain:("Diego")']},
+        {out:'Hola, Diego'},
+        {parts:['fn:saludar','plain:("Valeria")']},
+        {out:'Hola, Valeria'}
+      ],
+      question:'¿Qué imprime esta llamada?',
+      qcode:'def bienvenida(ciudad):\n    print("Bienvenido a", ciudad)\n\nbienvenida("Cartago")',
+      opts:['"Bienvenido a ciudad"','"Bienvenido a Cartago"','"bienvenida Cartago"','Error — falta argumento'], correct:1,
+      hint:'Al llamar <code>bienvenida("Cartago")</code>, el parámetro <code>ciudad</code> recibe el valor <code>"Cartago"</code>. Dentro de la función se imprime ese valor.',
+      ok:'¡Exacto! <code>"Cartago"</code> se pasa como argumento → <code>ciudad = "Cartago"</code> dentro de la función → imprime "Bienvenido a Cartago".',
+      fail:'El parámetro <code>ciudad</code> recibe el argumento <code>"Cartago"</code>. La función imprime "Bienvenido a " seguido del valor de <code>ciudad</code> → "Bienvenido a Cartago".', xp:30
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 4 · Lección 3', title:'return: devolver un resultado',
+      explain:'<code>return</code> hace que la función <strong>devuelva un valor</strong> al código que la llamó. Sin <code>return</code>, la función puede imprimir pero no devuelve nada útil. Con <code>return</code>, podés usar el resultado en cálculos o guardarlo en variables.',
+      analogy:{icon:'🧮',text:'Una calculadora recibe números, hace la operación, y te <strong>devuelve el resultado</strong>. <code>return</code> es esa devolución: la función calcula y te entrega el valor para usarlo donde necesitás.'},
+      code:[
+        {parts:['kw:def ','fn:calcular_precio','plain:(precio, descuento):']},
+        {parts:['plain:    ','plain:final ','op:=','plain: precio ','op:-','plain: descuento']},
+        {parts:['plain:    ','kw:return','plain: final']},
+        {cmt:'# El resultado se guarda en una variable'},
+        {parts:['plain:total ','op:=','fn:calcular_precio','plain:(5000, 500)']},
+        {parts:['fn:print','plain:("Precio final:", total)']},
+        {out:'Precio final: 4500'}
+      ],
+      question:'¿Qué valor tiene resultado al final?',
+      qcode:'def duplicar(n):\n    return n * 2\n\nresultado = duplicar(6)\nprint(resultado)',
+      opts:['6','12','2','Error — return no existe en Python'], correct:1,
+      hint:'<code>duplicar(6)</code> ejecuta <code>return 6 * 2</code> → devuelve <code>12</code>. Ese 12 se guarda en <code>resultado</code>.',
+      ok:'¡Correcto! <code>duplicar(6)</code> calcula <code>6 * 2 = 12</code> y lo devuelve. <code>resultado</code> queda con valor 12.',
+      fail:'Seguí el flujo: <code>duplicar(6)</code> → <code>n = 6</code> → <code>return 6 * 2 = 12</code> → <code>resultado = 12</code>.', xp:30
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 4 · Lección 4', title:'Funciones con if y return',
+      explain:'Las funciones pueden contener <code>if/elif/else</code>. Usar <code>return</code> dentro de un <code>if</code> es muy común: la función evalúa una condición y devuelve el resultado adecuado según cada caso.',
+      analogy:{icon:'🏟️',text:'Clasificar partidos del LDA: recibís los goles de los dos equipos, evaluás y devolvés "Victoria", "Empate" o "Derrota". La función encapsula toda la lógica en un solo bloque reutilizable.'},
+      code:[
+        {parts:['kw:def ','fn:resultado_partido','plain:(lda, rival):']},
+        {parts:['plain:    ','kw:if ','plain:lda ','op:>','plain: rival','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Victoria"']},
+        {parts:['plain:    ','kw:elif ','plain:lda ','op:==','plain: rival','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Empate"']},
+        {parts:['plain:    ','kw:else','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Derrota"']},
+        {parts:['plain:r ','op:=','fn:resultado_partido','plain:(3, 1)']},
+        {parts:['fn:print','plain:(r)']},
+        {out:'Victoria'}
+      ],
+      question:'¿Qué devuelve resultado_partido(2, 2)?',
+      qcode:'def resultado_partido(lda, rival):\n    if lda > rival:\n        return "Victoria"\n    elif lda == rival:\n        return "Empate"\n    else:\n        return "Derrota"\n\nprint(resultado_partido(2, 2))',
+      opts:['"Victoria"','"Empate"','"Derrota"','Error — no se puede usar return dentro de if'], correct:1,
+      hint:'<code>lda = 2</code>, <code>rival = 2</code>. ¿2 > 2? No. ¿2 == 2? Sí → devuelve "Empate".',
+      ok:'¡Exacto! 2 == 2 es True → devuelve "Empate". Las funciones pueden combinar toda la lógica que aprendiste.',
+      fail:'Con lda=2, rival=2: ¿2 > 2? False. ¿2 == 2? True → return "Empate". Las condiciones se evalúan en orden hasta encontrar una verdadera.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 4 · Lección 5', title:'Tu calculadora de áreas',
+      explain:'Las funciones te permiten <strong>reutilizar lógica</strong>. Escribís el cálculo una vez y lo llamás con diferentes valores cuantas veces querás. Este es el principio más importante de la programación: no repetir código.',
+      analogy:{icon:'⚙️',text:'Los programadores usan funciones todo el tiempo. Cada botón de una app, cada cálculo de precios, cada validación — todo está dentro de funciones organizadas y reutilizables.'},
+      code:[
+        {cmt:'# Función que calcula el área de un rectángulo'},
+        {parts:['kw:def ','fn:area','plain:(largo, ancho):']},
+        {parts:['plain:    ','kw:return','plain: largo ','op:*','plain: ancho']},
+        {cmt:'# Reutilizamos la función con diferentes valores'},
+        {parts:['plain:a1 ','op:=','fn:area','plain:(10, 5)']},
+        {parts:['plain:a2 ','op:=','fn:area','plain:(7, 3)']},
+        {parts:['fn:print','plain:("Salon 1:", a1, "m2")']},
+        {out:'Salon 1: 50 m2'},
+        {parts:['fn:print','plain:("Salon 2:", a2, "m2")']},
+        {out:'Salon 2: 21 m2'}
+      ],
+      runCode:'def area(largo, ancho):\n    return largo * ancho\n\na1 = area(10, 5)\na2 = area(7, 3)\nprint("Salon 1:", a1, "m2")\nprint("Salon 2:", a2, "m2")',
+      instruction:'Ejecutá el código. Luego cambiá los valores de <code>largo</code> y <code>ancho</code> para calcular otras áreas.', xp:40
+    }
+  ]
 },
-/* ─── 4: PROYECTO (BLOQUEADO) ─── */
+/* ─── 4: PROYECTO ─── */
 {
   id:4, icon:'🎮', title:'5. Proyecto: número secreto',
-  detail:'Reto final · Completa módulos 1-3 · +500 XP', xpReward:500,
-  lessons:[]
+  detail:'5 retos · Combina todo lo aprendido · +500 XP', xpReward:500,
+  lessons:[
+    {
+      type:'run', eyebrow:'Módulo 5 · Reto 1', title:'El primer intento',
+      explain:'El juego del número secreto: el programa escoge un número y el jugador intenta adivinarlo. En cada intento, el programa dice si el número fue <strong>muy alto</strong>, <strong>muy bajo</strong> o <strong>correcto</strong>.',
+      analogy:{icon:'🎯',text:'Este es tu primer proyecto completo. Vas a construirlo paso a paso combinando variables, <code>if/elif/else</code>, bucles y funciones — todo lo que aprendiste.'},
+      code:[
+        {parts:['plain:secreto ','op:=','num: 7']},
+        {parts:['plain:intento ','op:=','num: 4']},
+        {parts:['kw:if ','plain:intento ','op:==','plain: secreto','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Ganaste! El numero era", secreto)']},
+        {parts:['kw:elif ','plain:intento ','op:&lt;','plain: secreto','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Muy bajo, intenta mas alto")']},
+        {parts:['kw:else','plain: :']},
+        {parts:['plain:    ','fn:print','plain:("Muy alto, intenta mas bajo")']},
+        {out:'Muy bajo, intenta mas alto'}
+      ],
+      runCode:'secreto = 7\nintento = 4\n\nif intento == secreto:\n    print("Ganaste! El numero era", secreto)\nelif intento < secreto:\n    print("Muy bajo, intenta mas alto")\nelse:\n    print("Muy alto, intenta mas bajo")',
+      instruction:'Ejecutá el código. Luego cambiá <code>intento</code> a diferentes números (1-10) y observá las pistas.', xp:50
+    },
+    {
+      type:'run', eyebrow:'Módulo 5 · Reto 2', title:'Múltiples intentos',
+      explain:'Con un bucle <code>for</code> podemos probar varios intentos seguidos. La lista de intentos representa las jugadas del jugador. En cada vuelta, el programa evalúa si el intento es correcto, muy bajo, o muy alto.',
+      analogy:{icon:'🔄',text:'El bucle repite la verificación para cada intento de la lista — es como un jugador haciendo varios turnos seguidos, recibiendo una pista en cada uno.'},
+      code:[
+        {parts:['plain:secreto ','op:=','num: 7']},
+        {parts:['kw:for ','plain:intento ','kw: in ','plain:[3, 10, 7]:']},
+        {parts:['plain:    ','kw:if ','plain:intento ','op:==','plain: secreto','plain: :']},
+        {parts:['plain:        ','fn:print','plain:(intento, "- Correcto, ganaste!")']},
+        {parts:['plain:    ','kw:elif ','plain:intento ','op:&lt;','plain: secreto','plain: :']},
+        {parts:['plain:        ','fn:print','plain:(intento, "- Muy bajo")']},
+        {parts:['plain:    ','kw:else','plain: :']},
+        {parts:['plain:        ','fn:print','plain:(intento, "- Muy alto")']},
+        {out:'3 - Muy bajo\n10 - Muy alto\n7 - Correcto, ganaste!'}
+      ],
+      runCode:'secreto = 7\nfor intento in [3, 10, 7]:\n    if intento == secreto:\n        print(intento, "- Correcto, ganaste!")\n    elif intento < secreto:\n        print(intento, "- Muy bajo")\n    else:\n        print(intento, "- Muy alto")',
+      instruction:'Ejecutá el código. Cambiá la lista de intentos y el número secreto para probar distintas combinaciones.', xp:50
+    },
+    {
+      type:'run', eyebrow:'Módulo 5 · Reto 3', title:'Contar los intentos',
+      explain:'Un juego real lleva la cuenta de cuántos intentos usó el jugador. Usamos una <strong>variable acumuladora</strong> que empieza en 0 y suma 1 en cada vuelta del bucle — exactamente lo que aprendiste con los bucles.',
+      analogy:{icon:'💰',text:'La acumuladora es como contar los turnos de una partida. Empieza en 0 y aumenta uno por uno. Al final tenés el total de intentos usados.'},
+      code:[
+        {parts:['plain:secreto ','op:=','num: 7']},
+        {parts:['plain:contador ','op:=','num: 0']},
+        {parts:['kw:for ','plain:intento ','kw: in ','plain:[3, 10, 7]:']},
+        {parts:['plain:    contador ','op:=','plain: contador ','op:+','num: 1']},
+        {parts:['plain:    ','kw:if ','plain:intento ','op:==','plain: secreto','plain: :']},
+        {parts:['plain:        ','fn:print','plain:("Intento", contador, ":", intento, "- Ganaste!")']},
+        {parts:['plain:    ','kw:elif ','plain:intento ','op:&lt;','plain: secreto','plain: :']},
+        {parts:['plain:        ','fn:print','plain:("Intento", contador, ":", intento, "- Muy bajo")']},
+        {parts:['plain:    ','kw:else','plain: :']},
+        {parts:['plain:        ','fn:print','plain:("Intento", contador, ":", intento, "- Muy alto")']},
+        {parts:['fn:print','plain:("Total intentos:", contador)']},
+        {out:'Intento 1 : 3 - Muy bajo\nIntento 2 : 10 - Muy alto\nIntento 3 : 7 - Ganaste!\nTotal intentos: 3'}
+      ],
+      runCode:'secreto = 7\ncontador = 0\nfor intento in [3, 10, 7]:\n    contador = contador + 1\n    if intento == secreto:\n        print("Intento", contador, ":", intento, "- Ganaste!")\n    elif intento < secreto:\n        print("Intento", contador, ":", intento, "- Muy bajo")\n    else:\n        print("Intento", contador, ":", intento, "- Muy alto")\nprint("Total intentos:", contador)',
+      instruction:'Ejecutá el código. Agregá más números a la lista y cambiá el secreto. Observá cómo el contador sube en cada intento.', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 5 · Reto 4', title:'Función de verificación',
+      explain:'Ahora extraemos la lógica de verificación a una <strong>función</strong>. Esto hace el código más organizado y fácil de leer. La función recibe el intento y el número meta, y devuelve la pista con <code>return</code>.',
+      analogy:{icon:'⚙️',text:'Separar la lógica en funciones es como tener cada pieza de un rompecabezas en su lugar. El bucle se encarga del conteo; la función se encarga de evaluar cada intento.'},
+      code:[
+        {parts:['kw:def ','fn:verificar','plain:(numero, meta):']},
+        {parts:['plain:    ','kw:if ','plain:numero ','op:==','plain: meta','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Correcto!"']},
+        {parts:['plain:    ','kw:elif ','plain:numero ','op:&lt;','plain: meta','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Muy bajo"']},
+        {parts:['plain:    ','kw:else','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Muy alto"']},
+        {parts:['plain:secreto ','op:=','num: 7']},
+        {parts:['kw:for ','plain:intento ','kw: in ','plain:[3, 10, 7]:']},
+        {parts:['plain:    resultado ','op:=','fn:verificar','plain:(intento, secreto)']},
+        {parts:['plain:    ','fn:print','plain:(intento, "-", resultado)']},
+        {out:'3 - Muy bajo\n10 - Muy alto\n7 - Correcto!'}
+      ],
+      runCode:'def verificar(numero, meta):\n    if numero == meta:\n        return "Correcto!"\n    elif numero < meta:\n        return "Muy bajo"\n    else:\n        return "Muy alto"\n\nsecreto = 7\nfor intento in [3, 10, 7]:\n    resultado = verificar(intento, secreto)\n    print(intento, "-", resultado)',
+      instruction:'Ejecutá el código. Luego cambiá la lista de intentos y el número secreto para ver diferentes resultados.', xp:150
+    },
+    {
+      type:'run', eyebrow:'Módulo 5 · Reto 5', title:'¡El juego completo!',
+      explain:'Ahora combinás todo: la función <code>verificar</code>, el bucle que cuenta intentos, y una lista de jugadas. El jugador "adivina" cambiando los números de la lista. Así funciona la lógica de un videojuego real.',
+      analogy:{icon:'🎮',text:'¡Felicidades! Construiste tu primer juego con Python. Variables, condiciones, bucles y funciones — todo junto. Los videojuegos profesionales usan exactamente estos mismos principios.'},
+      code:[
+        {parts:['kw:def ','fn:verificar','plain:(numero, meta):']},
+        {parts:['plain:    ','kw:if ','plain:numero ','op:==','plain: meta','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Correcto, ganaste!"']},
+        {parts:['plain:    ','kw:elif ','plain:numero ','op:&lt;','plain: meta','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Muy bajo, intenta mas alto"']},
+        {parts:['plain:    ','kw:else','plain: :']},
+        {parts:['plain:        ','kw:return','str: "Muy alto, intenta mas bajo"']},
+        {parts:['plain:secreto ','op:=','num: 42']},
+        {parts:['plain:intentos ','op:=','num: 0']},
+        {parts:['kw:for ','plain:numero ','kw: in ','plain:[10, 60, 42]:']},
+        {parts:['plain:    intentos ','op:=','plain: intentos ','op:+','num: 1']},
+        {parts:['plain:    pista ','op:=','fn:verificar','plain:(numero, secreto)']},
+        {parts:['plain:    ','fn:print','plain:("Intento", intentos, ":", numero, "->", pista)']},
+        {parts:['fn:print','plain:("Fin del juego. Intentos:", intentos)']},
+        {out:'Intento 1 : 10 -> Muy bajo, intenta mas alto\nIntento 2 : 60 -> Muy alto, intenta mas bajo\nIntento 3 : 42 -> Correcto, ganaste!\nFin del juego. Intentos: 3'}
+      ],
+      runCode:'def verificar(numero, meta):\n    if numero == meta:\n        return "Correcto, ganaste!"\n    elif numero < meta:\n        return "Muy bajo, intenta mas alto"\n    else:\n        return "Muy alto, intenta mas bajo"\n\nsecreto = 42\nintentos = 0\nfor numero in [10, 60, 42]:\n    intentos = intentos + 1\n    pista = verificar(numero, secreto)\n    print("Intento", intentos, ":", numero, "->", pista)\nprint("Fin del juego. Intentos:", intentos)',
+      instruction:'Ejecutá el código. Cambiá <code>secreto</code> y la lista de números para simular diferentes partidas. ¿Podés adivinar en 3 intentos o menos?', xp:150
+    }
+  ]
 }
 ];
 
@@ -977,24 +1185,22 @@ function escHtml(s){
 function pySimulate(code){
   var lines = code.split('\n');
   var env = {};
+  var funcs = {};
   var output = [];
-  var i = 0;
 
   function evalVal(expr){
     expr = expr.trim();
-    // String literal
     if((expr.startsWith('"')&&expr.endsWith('"'))||(expr.startsWith("'")&&expr.endsWith("'"))){
       return expr.slice(1,-1);
     }
-    // Bool
     if(expr==='True') return true;
     if(expr==='False') return false;
-    // Number
+    if(expr==='None') return null;
     if(!isNaN(expr)) return parseFloat(expr);
-    // Variable
+    var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
+    if(callM && callM[1] in funcs) return callFunc(callM[1], splitArgs(callM[2]||''));
     if(/^\w+$/.test(expr) && expr in env) return env[expr];
-    // Simple arithmetic: x + 2, x - 1, etc.
-    var arith = expr.match(/^(.+?)\s*([+\-\*\/\/]{1,2})\s*(.+)$/);
+    var arith = expr.match(/^(.+?)\s*([+\-\*\/]{1,2})\s*(.+)$/);
     if(arith){
       var a = evalVal(arith[1]), b = evalVal(arith[3]), op = arith[2];
       if(typeof a==='string'||typeof b==='string'){
@@ -1009,13 +1215,12 @@ function pySimulate(code){
   }
 
   function evalCond(cond){
-    cond = cond.trim();
-    var m;
-    m = cond.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);
+    cond=cond.trim();
+    var m=cond.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);
     if(m){
-      var a = evalVal(m[1].trim()), b = evalVal(m[3].trim()), op = m[2];
-      var na = parseFloat(a), nb = parseFloat(b);
-      var useNum = !isNaN(na)&&!isNaN(nb);
+      var a=evalVal(m[1].trim()),b=evalVal(m[3].trim()),op=m[2];
+      var na=parseFloat(a),nb=parseFloat(b);
+      var useNum=!isNaN(na)&&!isNaN(nb);
       if(op==='==') return useNum?(na===nb):(a===b);
       if(op==='!=') return useNum?(na!==nb):(a!==b);
       if(op==='>') return na>nb; if(op==='<') return na<nb;
@@ -1025,19 +1230,17 @@ function pySimulate(code){
   }
 
   function evalPrint(stmt){
-    var inner = stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
-    // f-string
+    var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
     if(inner.match(/^[fF]["']/)){
-      var fstr = inner.slice(2,-1);
-      return fstr.replace(/\{(\w+)\}/g, function(_, v){ return v in env ? env[v] : v; });
+      var fstr=inner.slice(2,-1);
+      return fstr.replace(/\{(\w+)\}/g,function(_,v){ return v in env?env[v]:v; });
     }
-    // comma-separated args
-    var parts = splitArgs(inner);
-    return parts.map(function(p){ return String(evalVal(p.trim())); }).join(' ');
+    var pts=splitArgs(inner);
+    return pts.map(function(p){ return String(evalVal(p.trim())); }).join(' ');
   }
 
   function splitArgs(s){
-    var args=[]; var depth=0; var cur='';
+    var args=[],depth=0,cur='';
     for(var k=0;k<s.length;k++){
       var c=s[k];
       if(c==='('||c==='['||c==='{') depth++;
@@ -1051,105 +1254,119 @@ function pySimulate(code){
 
   function getIndent(line){ var m=line.match(/^(\s+)/); return m?m[1].length:0; }
 
-  function getBlock(startIdx, minIndent){
-    var block=[]; var j=startIdx;
-    while(j<lines.length){
-      var l=lines[j];
-      if(!l.trim()){ j++; continue; }
-      if(getIndent(l)>minIndent){ block.push({line:l,idx:j}); j++; }
-      else break;
-    }
-    return {block:block,next:j};
-  }
-
   function execLine(line){
     var t=line.trim();
     if(!t||t.startsWith('#')) return;
-    if(t.startsWith('print(')){
-      output.push(evalPrint(t));
-    } else {
-      var am=t.match(/^(\w+)\s*([+\-\*\/]?=)\s*(.+)$/);
-      if(am&&am[2]==='='){
-        env[am[1]]=evalVal(am[3]);
-      } else if(am&&am[2]!=='='){
-        var op=am[2][0];
-        env[am[1]]=evalVal(env[am[1]]+op+am[3]);
-      }
+    if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
+    var cm=t.match(/^(\w+)\s*\((.*?)?\)\s*$/);
+    if(cm && cm[1] in funcs){ callFunc(cm[1],splitArgs(cm[2]||'')); return; }
+    var am=t.match(/^(\w+)\s*([+\-\*\/]?=)\s*(.+)$/);
+    if(am&&am[2]==='='){
+      env[am[1]]=evalVal(am[3]);
+    } else if(am&&am[2]!=='='){
+      var xop=am[2][0];
+      env[am[1]]=evalVal(String(env[am[1]])+xop+am[3]);
     }
   }
 
-  while(i<lines.length){
-    var raw=lines[i]; var t=raw.trim();
-    if(!t||t.startsWith('#')){ i++; continue; }
-
-    // for loop
-    var forM=t.match(/^for\s+(\w+)\s+in\s+(.+):$/);
-    if(forM){
-      var iterVar=forM[1], iterExpr=forM[2].trim();
-      var iterVals=[];
-      var rangeM=iterExpr.match(/^range\((.+)\)$/);
-      if(rangeM){
-        var rArgs=rangeM[1].split(',').map(function(x){ return parseInt(evalVal(x.trim())); });
-        var rStart=rArgs.length>=2?rArgs[0]:0;
-        var rEnd=rArgs.length>=2?rArgs[1]:rArgs[0];
-        var rStep=rArgs.length>=3?rArgs[2]:1;
-        if(rStep>0){ for(var ri=rStart;ri<rEnd;ri+=rStep) iterVals.push(ri); }
-        else { for(var ri=rStart;ri>rEnd;ri+=rStep) iterVals.push(ri); }
-      } else if((iterExpr.startsWith('[')||iterExpr.startsWith('"')||iterExpr.startsWith("'"))){
-        var listInner=iterExpr.replace(/^\[/,'').replace(/\]$/,'');
-        iterVals=splitArgs(listInner).map(function(x){ return evalVal(x.trim()); });
-      } else if(iterExpr in env && Array.isArray(env[iterExpr])){
-        iterVals=env[iterExpr];
-      }
-      var fb=getBlock(i+1, getIndent(raw));
-      iterVals.forEach(function(val){
-        env[iterVar]=val;
-        fb.block.forEach(function(b){ execLine(b.line); });
-      });
-      i=fb.next; continue;
-    }
-
-    // if/elif/else chain
-    var ifM=t.match(/^if\s+(.+):$/);
-    if(ifM){
-      var baseIndent=getIndent(raw);
-      var branches=[{cond:ifM[1],block:[]}];
-      var fb2=getBlock(i+1,baseIndent);
-      branches[0].block=fb2.block;
-      var j2=fb2.next;
-      while(j2<lines.length){
-        var lt=lines[j2].trim();
-        if(getIndent(lines[j2])===baseIndent){
-          var elifM=lt.match(/^elif\s+(.+):$/);
-          if(elifM){
-            var efb=getBlock(j2+1,baseIndent);
-            branches.push({cond:elifM[1],block:efb.block});
-            j2=efb.next; continue;
-          }
-          if(lt==='else:'){
-            var elseFb=getBlock(j2+1,baseIndent);
-            branches.push({cond:null,block:elseFb.block});
-            j2=elseFb.next;
-          }
-        }
-        break;
-      }
-      var executed=false;
-      for(var bi=0;bi<branches.length;bi++){
-        var br=branches[bi];
-        if(br.cond===null||(!executed&&evalCond(br.cond))){
-          if(br.cond!==null) executed=true; else if(executed) break;
-          br.block.forEach(function(b){ execLine(b.line); });
-          if(br.cond!==null) break;
-        }
-      }
-      i=j2; continue;
-    }
-
-    execLine(raw);
-    i++;
+  function callFunc(fname,rawArgs){
+    var f=funcs[fname]; if(!f) return undefined;
+    var args=rawArgs.map(function(a){ return evalVal(a.trim()); });
+    var saved={}; Object.keys(env).forEach(function(k){ saved[k]=env[k]; });
+    f.params.forEach(function(p,idx){ env[p]=args[idx]; });
+    var retVal=undefined;
+    try{ runBlock(f.body); }
+    catch(e){ if(e&&e.type==='return') retVal=e.val; else throw e; }
+    Object.keys(env).forEach(function(k){ delete env[k]; });
+    Object.keys(saved).forEach(function(k){ env[k]=saved[k]; });
+    return retVal;
   }
 
+  function getIterVals(iterExpr){
+    var iterVals=[];
+    var rangeM=iterExpr.match(/^range\((.+)\)$/);
+    if(rangeM){
+      var rArgs=rangeM[1].split(',').map(function(x){ return parseInt(evalVal(x.trim())); });
+      var rStart=rArgs.length>=2?rArgs[0]:0;
+      var rEnd=rArgs.length>=2?rArgs[1]:rArgs[0];
+      var rStep=rArgs.length>=3?rArgs[2]:1;
+      if(rStep>0){ for(var ri=rStart;ri<rEnd;ri+=rStep) iterVals.push(ri); }
+      else { for(var ri=rStart;ri>rEnd;ri+=rStep) iterVals.push(ri); }
+    } else if(iterExpr.startsWith('[')){
+      var listInner=iterExpr.replace(/^\[/,'').replace(/\]$/,'');
+      iterVals=splitArgs(listInner).map(function(x){ return evalVal(x.trim()); });
+    } else if(iterExpr in env && Array.isArray(env[iterExpr])){
+      iterVals=env[iterExpr];
+    }
+    return iterVals;
+  }
+
+  function runBlock(linesArr){
+    var li=0;
+    while(li<linesArr.length){
+      var raw=linesArr[li]; var t=raw.trim();
+      if(!t||t.startsWith('#')){ li++; continue; }
+
+      if(t.startsWith('return ')||t==='return'){
+        throw {type:'return',val:t==='return'?undefined:evalVal(t.slice(7).trim())};
+      }
+
+      var defM=t.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);
+      if(defM){
+        var fname=defM[1];
+        var fparams=defM[2].split(',').map(function(p){ return p.trim(); }).filter(Boolean);
+        var baseInd=getIndent(raw); var body=[]; li++;
+        while(li<linesArr.length){
+          if(!linesArr[li].trim()){ li++; continue; }
+          if(getIndent(linesArr[li])>baseInd){ body.push(linesArr[li]); li++; }
+          else break;
+        }
+        funcs[fname]={params:fparams,body:body}; continue;
+      }
+
+      var forM=t.match(/^for\s+(\w+)\s+in\s+(.+):$/);
+      if(forM){
+        var iterVar=forM[1],iterExpr=forM[2].trim();
+        var iterVals=getIterVals(iterExpr);
+        var baseInd=getIndent(raw); var body=[]; li++;
+        while(li<linesArr.length){
+          if(!linesArr[li].trim()){ li++; continue; }
+          if(getIndent(linesArr[li])>baseInd){ body.push(linesArr[li]); li++; }
+          else break;
+        }
+        iterVals.forEach(function(val){ env[iterVar]=val; runBlock(body); });
+        continue;
+      }
+
+      var ifM=t.match(/^if\s+(.+):$/);
+      if(ifM){
+        var baseInd=getIndent(raw);
+        var branches=[{cond:ifM[1],body:[]}];
+        li++;
+        while(li<linesArr.length){
+          if(!linesArr[li].trim()){ li++; continue; }
+          var ind=getIndent(linesArr[li]); var lt=linesArr[li].trim();
+          if(ind>baseInd){
+            branches[branches.length-1].body.push(linesArr[li]); li++;
+          } else if(ind===baseInd){
+            var elifM=lt.match(/^elif\s+(.+):$/);
+            if(elifM){ branches.push({cond:elifM[1],body:[]}); li++; }
+            else if(lt==='else:'){ branches.push({cond:null,body:[]}); li++; }
+            else break;
+          } else break;
+        }
+        for(var bi=0;bi<branches.length;bi++){
+          var br=branches[bi];
+          if(br.cond===null||evalCond(br.cond)){ runBlock(br.body); break; }
+        }
+        continue;
+      }
+
+      execLine(raw); li++;
+    }
+  }
+
+  runBlock(lines);
   return output.length>0 ? output : ['(Sin salida — usa print() para mostrar resultados)'];
 }
 
