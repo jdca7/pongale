@@ -1053,6 +1053,110 @@ var MODULES = [
       instruction:'Ejecutá el código. Luego cambiá <code>"Python"</code> por tu nombre o el de tu equipo favorito y volvé a ejecutar.', xp:30
     }
   ]
+},
+{
+  id:7, icon:'📚', title:'8. Diccionarios',
+  detail:'5 lecciones · Guardar pares clave-valor', xpReward:150,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 8 · Lección 1', title:'¿Qué es un diccionario?',
+      explain:'Un <strong>diccionario</strong> guarda pares <strong>clave: valor</strong>. Se escribe con llaves <code>{}</code> y cada par va separado por coma. Para obtener un valor usás su clave entre corchetes.',
+      analogy:{icon:'📱',text:'Un diccionario es como la agenda del celular: buscás por nombre (clave) y obtenés el número (valor). <code>agenda["Jose"]</code> te da el número de Jose. No necesitás saber en qué posición está.'},
+      code:[
+        {parts:['plain:jugador ','op:=','plain: {']},
+        {parts:['plain:    ','str:\"nombre\"','plain:: ','str:\"Keylor Navas\"','plain:,']},
+        {parts:['plain:    ','str:\"numero\"','plain:: ','num:1','plain:,']},
+        {parts:['plain:    ','str:\"pais\"','plain:: ','str:\"Costa Rica\"']},
+        {parts:['plain:}']},
+        {parts:['fn:print','plain:(jugador[','str:\"nombre\"','plain:])']},
+        {out:'Keylor Navas'}
+      ],
+      question:'Si tienes inventario = {"manzana": 5, "pera": 3}, ¿qué imprime print(inventario["pera"])?',
+      qcode:'inventario = {"manzana": 5, "pera": 3}\nprint(inventario["pera"])',
+      opts:['"manzana"','3','5','Error — los dicts no tienen índices'],
+      correct:1,
+      hint:'Los diccionarios se acceden por <strong>clave</strong>. <code>inventario["pera"]</code> busca la clave "pera" y devuelve su valor: 3.',
+      ok:'¡Exacto! <code>inventario["pera"]</code> devuelve el valor de la clave "pera" → 3.',
+      fail:'En un diccionario buscás por clave, no por posición. <code>inventario["pera"]</code> busca la clave "pera" → valor 3.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 8 · Lección 2', title:'Agregar y modificar entradas',
+      explain:'Para <strong>agregar</strong> una clave nueva: <code>d["clave_nueva"] = valor</code>. Para <strong>modificar</strong> una existente: misma sintaxis — el valor anterior se reemplaza.',
+      analogy:{icon:'✏️',text:'Agregar es como guardar un contacto nuevo en la agenda. Modificar es cambiarle el número a uno que ya tenés. La sintaxis es idéntica: <code>d["clave"] = valor</code>. Si la clave no existe, la crea; si ya existe, la actualiza.'},
+      code:[
+        {parts:['plain:notas ','op:=','plain: {','str:\"Mate\"','plain:: ','num:90','plain:, ','str:\"Español\"','plain:: ','num:85','plain:}']},
+        {parts:['plain:notas[','str:\"Ciencias\"','plain:] ','op:=','plain: ','num:95']},
+        {parts:['plain:notas[','str:\"Mate\"','plain:] ','op:=','plain: ','num:100']},
+        {parts:['fn:print','plain:(notas[','str:\"Mate\"','plain:])']},
+        {out:'100'},
+        {parts:['fn:print','plain:(notas[','str:\"Ciencias\"','plain:])']},
+        {out:'95'}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'scores = {"Mario": 10, "Luigi": 8}\nscores["Peach"] = 15\nscores["Mario"] = 20\nprint(scores["Mario"])',
+      opts:['10','8','15','20'],
+      correct:3,
+      hint:'La última línea <code>scores["Mario"] = 20</code> sobrescribe el valor anterior (10). El diccionario ahora tiene Mario→20.',
+      ok:'¡Correcto! La asignación <code>scores["Mario"] = 20</code> reemplaza el 10. Siempre gana el último valor asignado.',
+      fail:'Cuando asignás a una clave que ya existe, el valor se actualiza. <code>scores["Mario"] = 20</code> reemplaza el 10 → queda 20.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 8 · Lección 3', title:'len() e in con diccionarios',
+      explain:'<code>len(d)</code> devuelve cuántos pares tiene el diccionario. El operador <code>in</code> verifica si una <strong>clave</strong> existe — devuelve <code>True</code> o <code>False</code>. Muy útil para no cometer errores al buscar.',
+      analogy:{icon:'🔍',text:'<code>len(agenda)</code> dice cuántos contactos tenés. <code>"Jose" in agenda</code> pregunta: ¿existe el contacto "Jose"? Siempre conviene revisar con <code>in</code> antes de buscar una clave que puede no existir.'},
+      code:[
+        {parts:['plain:frutas ','op:=','plain: {','str:\"pera\"','plain:: ','num:3','plain:, ','str:\"mango\"','plain:: ','num:7','plain:, ','str:\"cas\"','plain:: ','num:2','plain:}']},
+        {parts:['fn:print','plain:(','fn:len','plain:(frutas))']},
+        {out:'3'},
+        {parts:['kw:if ','str:\"mango\"','plain: ','kw:in','plain: frutas:']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"mango sí está\"','plain:)']},
+        {out:'mango sí está'}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'paises = {"CR": "Costa Rica", "MX": "Mexico", "CO": "Colombia"}\nif "PE" in paises:\n    print("Peru esta")\nelse:\n    print(len(paises))',
+      opts:['"Peru esta"','2','3','Error'],
+      correct:2,
+      hint:'"PE" no es ninguna clave del diccionario, así que <code>in</code> devuelve False → se ejecuta el <code>else</code>. <code>len(paises)</code> = 3 pares.',
+      ok:'¡Perfecto! "PE" no está → condición False → <code>else</code>. <code>len(paises)</code> = 3.',
+      fail:'"PE" no existe en el dict, la condición es False. Se ejecuta el <code>else</code>: <code>len(paises)</code> = 3 pares clave-valor.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 8 · Lección 4', title:'Recorrer con for',
+      explain:'<code>for clave in d:</code> itera sobre las <strong>claves</strong> del diccionario. Dentro del bucle, <code>d[clave]</code> da el valor. Con <code>d.values()</code> iterás directamente sobre los valores.',
+      analogy:{icon:'🗂️',text:'Es como hojear la agenda: en cada vuelta <code>clave</code> toma el nombre de un contacto. Con <code>d[clave]</code> obtenés su número. <code>d.values()</code> te da solo los números sin los nombres.'},
+      code:[
+        {parts:['plain:precios ','op:=','plain: {','str:\"arroz\"','plain:: ','num:800','plain:, ','str:\"frijoles\"','plain:: ','num:950','plain:}']},
+        {parts:['kw:for ','plain:prod ','kw:in','plain: precios:']},
+        {parts:['plain:    ','fn:print','plain:(prod, precios[prod])']},
+        {out:'arroz 800\nfrijoles 950'}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'notas = {"Ana": 95, "Luis": 80}\nfor nombre in notas:\n    print(nombre)',
+      opts:['95\n80','Ana\nLuis','Ana 95\nLuis 80','{"Ana": 95, "Luis": 80}'],
+      correct:1,
+      hint:'<code>for nombre in notas:</code> itera sobre las <strong>claves</strong>: "Ana" y "Luis". Para imprimir el valor también necesitarías <code>notas[nombre]</code>.',
+      ok:'¡Correcto! <code>for k in d:</code> da las claves. Las claves son "Ana" y "Luis" — solo se imprime eso.',
+      fail:'<code>for nombre in d:</code> itera sobre las <strong>claves</strong>, no los valores. Para ver el valor usarías <code>notas[nombre]</code>.', xp:20
+    },
+    {
+      type:'run', eyebrow:'Módulo 8 · Lección 5', title:'Ficha de tu jugador favorito',
+      explain:'Un diccionario es perfecto para agrupar datos de una misma entidad — nombre, número, posición — en una sola variable. Podés acceder a cualquier dato por su clave.',
+      analogy:{icon:'⚽',text:'Una ficha de jugador es exactamente un diccionario: varias <strong>claves</strong> (nombre, número, posición) cada una con su <strong>valor</strong>. <strong>Cambiá los datos por tu jugador favorito y ejecutá.</strong>'},
+      code:[
+        {parts:['plain:jugador ','op:=','plain: {']},
+        {parts:['plain:    ','str:\"nombre\"','plain:: ','str:\"Keylor Navas\"','plain:,']},
+        {parts:['plain:    ','str:\"numero\"','plain:: ','num:1','plain:,']},
+        {parts:['plain:    ','str:\"posicion\"','plain:: ','str:\"portero\"']},
+        {parts:['plain:}']},
+        {parts:['fn:print','plain:(','str:\"Nombre:\"','plain:, jugador[','str:\"nombre\"','plain:])']},
+        {parts:['fn:print','plain:(','str:\"Número:\"','plain:, jugador[','str:\"numero\"','plain:])']},
+        {parts:['fn:print','plain:(','str:\"Posición:\"','plain:, jugador[','str:\"posicion\"','plain:])']},
+        {out:'Nombre: Keylor Navas\nNúmero: 1\nPosición: portero'}
+      ],
+      runCode:'jugador = {\n    "nombre": "Keylor Navas",\n    "numero": 1,\n    "posicion": "portero"\n}\nprint("Nombre:", jugador["nombre"])\nprint("Número:", jugador["numero"])\nprint("Posición:", jugador["posicion"])',
+      instruction:'Ejecutá el código. Luego cambiá los valores por los de tu jugador favorito y volvé a ejecutar.', xp:30
+    }
+  ]
 }
 ];
 
@@ -1416,12 +1520,13 @@ function pySimulate(code){
     if(expr==='None') return null;
     if(!isNaN(expr)) return parseFloat(expr);
     if(expr.startsWith('[')&&expr.endsWith(']')){var li=expr.slice(1,-1);if(!li.trim())return[];return splitArgs(li).map(function(x){return evalVal(x.trim());});}
-    var lenM=expr.match(/^len\((.+)\)$/);if(lenM){var lv=evalVal(lenM[1].trim());return Array.isArray(lv)?lv.length:(typeof lv==='string'?lv.length:0);}
+    if(expr.startsWith('{')&&expr.endsWith('}')){var _di=expr.slice(1,-1).trim();if(!_di)return{};var _dobj={};splitArgs(_di).forEach(function(pair){var _dc=pair.indexOf(':');var _dk=evalVal(pair.slice(0,_dc).trim());var _dv=evalVal(pair.slice(_dc+1).trim());_dobj[_dk]=_dv;});return _dobj;}
+    var lenM=expr.match(/^len\((.+)\)$/);if(lenM){var lv=evalVal(lenM[1].trim());return Array.isArray(lv)?lv.length:(typeof lv==='string'?lv.length:(typeof lv==='object'&&lv!==null?Object.keys(lv).length:0));}
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
     if(callM && callM[1] in funcs) return callFunc(callM[1], splitArgs(callM[2]||''));
     if(/^\w+$/.test(expr) && expr in env) return env[expr];
-    var methM=expr.match(/^(\w+)\.(upper|lower)\(\)$/);if(methM&&methM[1] in env&&typeof env[methM[1]]==='string'){return methM[2]==='upper'?env[methM[1]].toUpperCase():env[methM[1]].toLowerCase();}
-    var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=parseInt(evalVal(idxStr));if(Array.isArray(container)){if(idx<0)idx=container.length+idx;return container[idx];}if(typeof container==='string'){if(idx<0)idx=container.length+idx;return container[idx];}}
+    var methM=expr.match(/^(\w+)\.(upper|lower|keys|values)\(\)$/);if(methM&&methM[1] in env){var _mo=env[methM[1]];if(methM[2]==='upper'&&typeof _mo==='string')return _mo.toUpperCase();if(methM[2]==='lower'&&typeof _mo==='string')return _mo.toLowerCase();if(methM[2]==='keys'&&typeof _mo==='object'&&_mo!==null)return Object.keys(_mo);if(methM[2]==='values'&&typeof _mo==='object'&&_mo!==null)return Object.values(_mo);}
+    var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1&&(Array.isArray(container)||typeof container==='string')){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=evalVal(idxStr);if(Array.isArray(container)){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='string'){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='object'&&container!==null)return container[idx];}
     var arith = expr.match(/^(.+?)\s*([+\-\*\/]{1,2})\s*(.+)$/);
     if(arith){
       var a = evalVal(arith[1]), b = evalVal(arith[3]), op = arith[2];
@@ -1438,8 +1543,8 @@ function pySimulate(code){
 
   function evalCond(cond){
     cond=cond.trim();
-    var notInM=cond.match(/^(.+?)\s+not\s+in\s+(.+)$/);if(notInM){var ndl=evalVal(notInM[1].trim()),hy=evalVal(notInM[2].trim());return typeof hy==='string'?hy.indexOf(String(ndl))===-1:(Array.isArray(hy)?hy.indexOf(ndl)===-1:true);}
-    var inM=cond.match(/^(.+?)\s+in\s+(.+)$/);if(inM){var ndl=evalVal(inM[1].trim()),hy=evalVal(inM[2].trim());return typeof hy==='string'?hy.indexOf(String(ndl))!==-1:(Array.isArray(hy)?hy.indexOf(ndl)!==-1:false);}
+    var notInM=cond.match(/^(.+?)\s+not\s+in\s+(.+)$/);if(notInM){var ndl=evalVal(notInM[1].trim()),hy=evalVal(notInM[2].trim());if(typeof hy==='string')return hy.indexOf(String(ndl))===-1;if(Array.isArray(hy))return hy.indexOf(ndl)===-1;if(typeof hy==='object'&&hy!==null)return!(String(ndl) in hy);return true;}
+    var inM=cond.match(/^(.+?)\s+in\s+(.+)$/);if(inM){var ndl=evalVal(inM[1].trim()),hy=evalVal(inM[2].trim());if(typeof hy==='string')return hy.indexOf(String(ndl))!==-1;if(Array.isArray(hy))return hy.indexOf(ndl)!==-1;if(typeof hy==='object'&&hy!==null)return String(ndl) in hy;return false;}
     var m=cond.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);
     if(m){
       var a=evalVal(m[1].trim()),b=evalVal(m[3].trim()),op=m[2];
@@ -1453,7 +1558,7 @@ function pySimulate(code){
     return !!evalVal(cond);
   }
 
-  function pyStr(v){if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
+  function pyStr(v){if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
 
   function evalPrint(stmt){
     var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
@@ -1485,6 +1590,7 @@ function pySimulate(code){
     if(!t||t.startsWith('#')) return;
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
     var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
+    var dictSetM=t.match(/^(\w+)\[(.+)\]\s*=\s*(.+)$/);if(dictSetM&&dictSetM[1] in env){var _dk=evalVal(dictSetM[2].trim());env[dictSetM[1]][_dk]=evalVal(dictSetM[3].trim());return;}
     var cm=t.match(/^(\w+)\s*\((.*?)?\)\s*$/);
     if(cm && cm[1] in funcs){ callFunc(cm[1],splitArgs(cm[2]||'')); return; }
     var am=t.match(/^(\w+)\s*([+\-\*\/]?=)\s*(.+)$/);
@@ -1524,7 +1630,11 @@ function pySimulate(code){
       iterVals=splitArgs(listInner).map(function(x){ return evalVal(x.trim()); });
     } else if(iterExpr in env && Array.isArray(env[iterExpr])){
       iterVals=env[iterExpr];
+    } else if(iterExpr in env && typeof env[iterExpr]==='object' && env[iterExpr]!==null){
+      iterVals=Object.keys(env[iterExpr]);
     }
+    var iterMethM=iterExpr.match(/^(\w+)\.(keys|values)\(\)$/);
+    if(iterMethM&&iterMethM[1] in env&&typeof env[iterMethM[1]]==='object'&&env[iterMethM[1]]!==null){var _im=env[iterMethM[1]];iterVals=iterMethM[2]==='keys'?Object.keys(_im):Object.values(_im);}
     return iterVals;
   }
 
