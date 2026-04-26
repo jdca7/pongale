@@ -19,6 +19,19 @@
 | **Desafío semanal** | Cada lunes aparece un reto especial: "Completa 3 módulos esta semana para ganar +200 XP bonus" | Media | Requiere trackear lecciones por semana |
 | **Compartir logro** | Al completar un módulo, botón "Compartir" que genera una imagen con el nombre, módulo y XP ganado | Baja | Canvas API o CSS-to-image. Sin servidor |
 
+### Multiidioma
+
+| Feature | Descripción | Complejidad | Notas |
+|---|---|---|---|
+| **Selección de idioma** | El usuario elige el idioma de la interfaz al inicio (o en configuración): Español, English, Português | Media | Actualmente todo el texto está hardcodeado en español dentro del JS |
+| **Español** | Idioma actual | — | ✅ Completo |
+| **English** | Traducción completa: UI, explicaciones, analogías, preguntas, feedback, opciones | Alta | Todo el contenido de los 5 módulos debe traducirse |
+| **Português** | Igual que English | Alta | Mercado brasileño es enorme para este tipo de app |
+
+> **Nota de implementación:** El enfoque más limpio sería separar el array `MODULES` en un objeto `CONTENT[lang]` con las lecciones de cada idioma. La UI (botones, mensajes del sistema) se maneja con un objeto `T[lang]` de strings traducidos. El idioma seleccionado se guarda en `localStorage`.
+
+---
+
 ### Baja prioridad
 
 | Feature | Descripción | Complejidad | Notas |
