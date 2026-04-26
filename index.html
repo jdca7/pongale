@@ -442,16 +442,22 @@ var MODULES = [
     },
     {
       type:'quiz', eyebrow:'Módulo 2 · Lección 3', title:'Operadores de comparación',
-      explain:'Para hacer condiciones necesitas <strong>operadores de comparación</strong>. Siempre devuelven <code>True</code> o <code>False</code>. Los más usados: <code>==</code> igual, <code>!=</code> diferente, <code>&gt;</code> mayor, <code>&lt;</code> menor, <code>&gt;=</code> mayor o igual.',
-      analogy:{icon:'⚖️',text:'Los operadores de comparación son como un árbitro: comparan dos valores y dicen si la comparación es <strong>verdadera o falsa</strong>. Nunca modifican las variables.'},
+      explain:'Para hacer condiciones necesitas <strong>operadores de comparación</strong>. Siempre devuelven <code>True</code> o <code>False</code>. Los 6 operadores: <code>==</code> igual, <code>!=</code> diferente, <code>&gt;</code> mayor que, <code>&lt;</code> menor que, <code>&gt;=</code> mayor o igual, <code>&lt;=</code> menor o igual.',
+      analogy:{icon:'⚖️',text:'Los operadores de comparación son como un árbitro: comparan dos valores y dicen si la comparación es <strong>verdadera o falsa</strong>. Nunca modifican las variables, solo las evalúan.'},
       code:[
         {parts:['plain:puntos ','op:=','num: 10']},
         {parts:['fn:print','plain:(puntos ','op:==','num: 10','plain:)']},
         {out:'True'},
+        {parts:['fn:print','plain:(puntos ','op:!=','num: 10','plain:)']},
+        {out:'False'},
         {parts:['fn:print','plain:(puntos ','op:>','num: 5','plain:)']},
         {out:'True'},
-        {parts:['fn:print','plain:(puntos ','op:'+'>=','num: 15','plain:)']},
-        {out:'False'}
+        {parts:['fn:print','plain:(puntos ','op:&lt;','num: 5','plain:)']},
+        {out:'False'},
+        {parts:['fn:print','plain:(puntos ','op:'+'>=','num: 10','plain:)']},
+        {out:'True'},
+        {parts:['fn:print','plain:(puntos ','op:'+'&lt;=','num: 10','plain:)']},
+        {out:'True'}
       ],
       question:'¿Cuál es la diferencia entre = y ==?',
       qcode:'puntaje = 10\nprint(puntaje == 10)\nprint(puntaje == 5)',
@@ -533,24 +539,29 @@ var MODULES = [
       fail:'<code>range(n)</code> genera <strong>n</strong> valores empezando desde 0. <code>range(5)</code> → 0,1,2,3,4 → 5 repeticiones.', xp:25
     },
     {
-      type:'quiz', eyebrow:'Módulo 3 · Lección 2', title:'range(): controla el bucle',
-      explain:'<code>range()</code> acepta hasta 3 valores: <code>range(inicio, fin, paso)</code>. El <strong>inicio</strong> es el primer número, el <strong>fin</strong> es hasta dónde llega (sin incluirlo), y el <strong>paso</strong> es de cuánto en cuánto avanza.',
-      analogy:{icon:'📏',text:'Como los kilómetros de la Ruta 32 de San José a Limón: <code>range(0, 160, 20)</code> serían las paradas: 0, 20, 40... 140. El número <strong>fin</strong> no se incluye.'},
+      type:'quiz', eyebrow:'Módulo 3 · Lección 2', title:'range(): inicio, fin y paso',
+      explain:'<code>range()</code> acepta 1, 2 o 3 valores. Con uno: <code>range(fin)</code> — empieza en 0. Con dos: <code>range(inicio, fin)</code>. Con tres: <code>range(inicio, fin, paso)</code>. <strong>Cuando no escribes el paso, Python usa 1 automáticamente.</strong> El valor <em>fin</em> nunca se incluye — el bucle se detiene justo antes.',
+      analogy:{icon:'📏',text:'Como las paradas de un bus en la Ruta 32: si dices "empieza en la parada 1, termina antes de la 6", el bus para en 1, 2, 3, 4, 5. La parada 6 no se toca. El <strong>paso por defecto es 1</strong> — una parada a la vez.'},
       code:[
-        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(2, 10, 2):']},
+        {cmt:'# Solo fin: inicio=0, paso=1 por defecto'},
+        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(4):']},
         {parts:['plain:    ','fn:print','plain:(i)']},
-        {out:'2\n4\n6\n8'},
-        {cmt:'# Cuenta regresiva con paso negativo'},
-        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(5, 0, -1):']},
+        {out:'0\n1\n2\n3'},
+        {cmt:'# Inicio y fin: paso=1 por defecto'},
+        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(2, 5):']},
         {parts:['plain:    ','fn:print','plain:(i)']},
-        {out:'5\n4\n3\n2\n1'}
+        {out:'2\n3\n4'},
+        {cmt:'# Los 3 valores: paso explícito'},
+        {parts:['kw:for ','plain:i ','kw: in ','fn:range','plain:(0, 10, 3):']},
+        {parts:['plain:    ','fn:print','plain:(i)']},
+        {out:'0\n3\n6\n9'}
       ],
-      question:'¿Qué números imprime range(1, 6)?',
+      question:'¿Qué números imprime range(1, 6)? (sin paso = paso 1 por defecto)',
       qcode:'for i in range(1, 6):\n    print(i)',
       opts:['0  1  2  3  4  5','1  2  3  4  5  6','1  2  3  4  5','0  1  2  3  4'], correct:2,
-      hint:'<code>range(1, 6)</code>: empieza en 1, termina <strong>antes</strong> del 6. El último número incluido es 5.',
-      ok:'¡Correcto! <code>range(1, 6)</code> genera 1, 2, 3, 4, 5. El 6 no se incluye — siempre para uno antes del fin.',
-      fail:'<code>range(inicio, fin)</code>: va desde <code>inicio</code> hasta <code>fin - 1</code>. <code>range(1, 6)</code> → 1, 2, 3, 4, 5.', xp:25
+      hint:'No hay paso → Python usa 1 por defecto. Empieza en 1 y avanza de 1 en 1. El <strong>6 no se incluye</strong> — range siempre se detiene antes del fin. Último valor: 5.',
+      ok:'¡Correcto! Paso por defecto = 1. <code>range(1, 6)</code> genera: 1, 2, 3, 4, 5. El 6 queda fuera. Si quisieras incluirlo, tendrías que escribir <code>range(1, 7)</code>.',
+      fail:'Sin paso escrito, Python avanza de 1 en 1. El fin nunca se incluye: <code>range(1, 6)</code> termina en 5, no en 6. Regla: el último valor siempre es <code>fin − 1</code>.', xp:25
     },
     {
       type:'quiz', eyebrow:'Módulo 3 · Lección 3', title:'for con listas',
