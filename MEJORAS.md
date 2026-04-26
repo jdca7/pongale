@@ -83,6 +83,34 @@ El camino de Python completo debería cubrir:
 
 ---
 
+## Benchmark competencia
+
+### Brilliant — Python
+
+| Aspecto | Detalle |
+|---|---|
+| Curso principal | "Programming with Python" — ~20-30 lecciones en 5-6 capítulos |
+| Continuación | Cursos separados de Computer Science, algoritmos y matemáticas |
+| Modelo de negocio | Freemium: 2 lecciones/día gratis, ilimitado con suscripción (~$15 USD/mes) |
+| Fortaleza | Calidad interactiva muy alta, visualizaciones, problemas bien diseñados |
+| Debilidad clave | El límite diario del plan gratis es el principal killer de retención en adolescentes |
+| Profundidad de Python | Fundamentos sólidos pero no llega a proyectos reales ni a nivel intermedio |
+
+### Duolingo (referencia de retención)
+
+| Aspecto | Detalle |
+|---|---|
+| Mecanismo estrella | Spaced repetition + streaks + notificaciones agresivas |
+| Lección promedio | 3-5 minutos |
+| Retención | Récord en la industria para apps de aprendizaje — el modelo a seguir en engagement |
+| Debilidad | Aprendizaje superficial; funciona para idiomas, no necesariamente para programación |
+
+### Conclusión para Póngale
+
+Póngale ya tiene la ventaja más importante: **sin límite de lecciones**. La brecha más grande con Brilliant es el **spaced repetition** y las **notificaciones de racha**. La brecha con Duolingo es el **engagement diario** (notificaciones, shield, desafíos semanales).
+
+---
+
 ## Contexto del proyecto
 
 - **App:** Póngale — aprendizaje de Python sin límites, gratis
