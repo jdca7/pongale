@@ -1157,6 +1157,109 @@ var MODULES = [
       instruction:'Ejecutá el código. Luego cambiá los valores por los de tu jugador favorito y volvé a ejecutar.', xp:30
     }
   ]
+},
+{
+  id:8, icon:'🔁', title:'9. Bucles while',
+  detail:'5 lecciones · Repetir hasta que algo cambie', xpReward:150,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 9 · Lección 1', title:'¿Qué hace el while?',
+      explain:'<code>while condición:</code> repite el bloque mientras la condición sea <code>True</code>. En cuanto la condición se vuelve <code>False</code>, el bucle para.',
+      analogy:{icon:'⏱️',text:'La lavadora gira <strong>mientras</strong> haya ropa sucia. Cuando termina, para sola. <code>while</code> es exactamente eso: seguir haciendo algo hasta que la condición deje de cumplirse.'},
+      code:[
+        {parts:['plain:x ','op:=','plain: ','num:1']},
+        {parts:['kw:while ','plain:x ','op:<=','plain: ','num:3','plain::']},
+        {parts:['plain:    ','fn:print','plain:(x)']},
+        {parts:['plain:    x ','op:=','plain: x ','op:+','plain: ','num:1']},
+        {out:'1\n2\n3'}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'n = 1\nwhile n <= 4:\n    print(n)\n    n = n + 1',
+      opts:['1 2 3','1 2 3 4','1 2 3 4 5','El bucle no termina'],
+      correct:1,
+      hint:'El bucle empieza con n=1 y corre mientras n<=4. Imprime 1, 2, 3, 4 y cuando n llega a 5 la condición es False → para.',
+      ok:'¡Exacto! El while imprime 1, 2, 3, 4. Cuando n=5, la condición 5<=4 es False y el bucle termina.',
+      fail:'n empieza en 1 y sube 1 por vuelta. Imprime mientras n<=4: 1, 2, 3, 4. Cuando n=5 la condición es False → para.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 9 · Lección 2', title:'La variable de control',
+      explain:'Dentro del <code>while</code> siempre hay que <strong>actualizar</strong> la variable de la condición. Si no la cambiás, la condición nunca se vuelve <code>False</code> y el bucle corre para siempre.',
+      analogy:{icon:'🎮',text:'Es como un videojuego: seguís jugando <strong>mientras</strong> tengas vidas. Si perdés una vida en cada ronda, el juego termina. Si nunca las actualizás, jugás para siempre — o hasta que se cuelgue.'},
+      code:[
+        {parts:['plain:vidas ','op:=','plain: ','num:3']},
+        {parts:['kw:while ','plain:vidas ','op:>','plain: ','num:0','plain::']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"Vida:\"','plain:, vidas)']},
+        {parts:['plain:    vidas ','op:=','plain: vidas ','op:-','plain: ','num:1']},
+        {parts:['fn:print','plain:(','str:\"Game over\"','plain:)']},
+        {out:'Vida: 3\nVida: 2\nVida: 1\nGame over'}
+      ],
+      question:'¿Cuánto vale vidas al imprimir "Game over"?',
+      qcode:'vidas = 3\nwhile vidas > 0:\n    vidas = vidas - 1\nprint(vidas)',
+      opts:['3','1','0','-1'],
+      correct:2,
+      hint:'El bucle resta 1 cada vuelta: 3→2→1→0. Cuando vidas=0, la condición 0>0 es False → para. Luego imprime vidas que vale 0.',
+      ok:'¡Correcto! Cada vuelta resta 1: 3→2→1→0. Con 0>0 False el bucle para y se imprime 0.',
+      fail:'El bucle corre mientras vidas>0. Cuando vidas llega a 0, la condición 0>0 es False → para. Se imprime 0.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 9 · Lección 3', title:'break — salir antes de tiempo',
+      explain:'<code>break</code> termina el bucle inmediatamente, aunque la condición siga siendo <code>True</code>. Es útil cuando ya encontraste lo que buscabas y no tiene sentido seguir.',
+      analogy:{icon:'🚪',text:'<code>break</code> es la salida de emergencia. Si estás buscando algo en una lista y lo encontrás, usás <code>break</code> para salir sin revisar el resto — no tiene sentido seguir buscando.'},
+      code:[
+        {parts:['plain:n ','op:=','plain: ','num:1']},
+        {parts:['kw:while ','plain:n ','op:<=','plain: ','num:10','plain::']},
+        {parts:['plain:    ','kw:if ','plain:n ','op:==','plain: ','num:4','plain::']},
+        {parts:['plain:        ','kw:break']},
+        {parts:['plain:    ','fn:print','plain:(n)']},
+        {parts:['plain:    n ','op:=','plain: n ','op:+','plain: ','num:1']},
+        {out:'1\n2\n3'}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'i = 1\nwhile i <= 10:\n    if i == 5:\n        break\n    print(i)\n    i = i + 1',
+      opts:['1 2 3 4 5','1 2 3 4','5','1 2 3 4 5 6 7 8 9 10'],
+      correct:1,
+      hint:'El break se ejecuta cuando i==5, <strong>antes</strong> del print. Así que se imprimen 1, 2, 3, 4 y cuando i llega a 5 el bucle para sin imprimir el 5.',
+      ok:'¡Perfecto! El break ocurre cuando i=5, antes del print. Se imprimen 1, 2, 3, 4 y el 5 nunca se imprime.',
+      fail:'El if se evalúa <strong>antes</strong> del print. Cuando i=5, el break para el bucle antes de imprimir. Se ven 1, 2, 3, 4.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 9 · Lección 4', title:'while vs for — ¿cuál usar?',
+      explain:'<code>for</code> cuando sabés exactamente cuántas veces repetir o tenés una lista para recorrer. <code>while</code> cuando repetís hasta que algo cambie y no sabés cuántas vueltas llevará.',
+      analogy:{icon:'📋',text:'<code>for</code> es lavarte los dientes exactamente 2 minutos — sabés cuándo termina. <code>while</code> es seguir batiendo hasta que la mezcla espese — no sabés cuántas vueltas necesitará.'},
+      code:[
+        {parts:['plain:frutas ','op:=','plain: [','str:\"pera\"','plain:, ','str:\"mango\"','plain:, ','str:\"cas\"','plain:]']},
+        {cmt:'# for: cantidad fija, recorrer lista'},
+        {parts:['kw:for ','plain:f ','kw:in','plain: frutas:']},
+        {parts:['plain:    ','fn:print','plain:(f)']},
+        {cmt:'# while: repetir hasta condición'},
+        {parts:['plain:intentos ','op:=','plain: ','num:0']},
+        {parts:['kw:while ','plain:intentos ','op:<','plain: ','num:3','plain::']},
+        {parts:['plain:    intentos ','op:+=','plain: ','num:1']}
+      ],
+      question:'¿Cuál es la mejor herramienta para contar desde 100 hasta que el número sea divisible entre 7?',
+      qcode:'# ¿for o while?\n# No sabemos cuántas vueltas necesitamos\n# hasta encontrar el primer múltiplo de 7',
+      opts:['for — porque empieza en 100','while — porque no sabemos cuándo se cumplirá la condición','los dos son igual de adecuados','ninguno — hay que usar if'],
+      correct:1,
+      hint:'No sabés exactamente cuántos pasos tomará llegar al primer múltiplo de 7. Ese es el caso ideal para <code>while</code>: repetir hasta que algo cambie.',
+      ok:'¡Correcto! Cuando no sabés cuántas vueltas necesitás, usás <code>while</code>. El <code>for</code> es para cantidades conocidas.',
+      fail:'La clave es: ¿sabés cuántas vueltas? No lo sabés → usá <code>while</code>. Si supieras exactamente (ej: 10 vueltas), usarías <code>for</code>.', xp:20
+    },
+    {
+      type:'run', eyebrow:'Módulo 9 · Lección 5', title:'Cuenta regresiva',
+      explain:'El <code>while</code> es perfecto para cuentas regresivas, simulaciones y cualquier cosa que se repita hasta que una condición cambie.',
+      analogy:{icon:'🚀',text:'Una cuenta regresiva es un <code>while</code> clásico: seguí contando <strong>mientras</strong> el número sea mayor que 0. Cuando llegue a 0, el cohete despega. <strong>Cambiá el número de inicio y ejecutá.</strong>'},
+      code:[
+        {parts:['plain:cuenta ','op:=','plain: ','num:5']},
+        {parts:['kw:while ','plain:cuenta ','op:>','plain: ','num:0','plain::']},
+        {parts:['plain:    ','fn:print','plain:(cuenta)']},
+        {parts:['plain:    cuenta ','op:=','plain: cuenta ','op:-','plain: ','num:1']},
+        {parts:['fn:print','plain:(','str:\"Despegue!\"','plain:)']},
+        {out:'5\n4\n3\n2\n1\nDespegue!'}
+      ],
+      runCode:'cuenta = 5\nwhile cuenta > 0:\n    print(cuenta)\n    cuenta = cuenta - 1\nprint("Despegue!")',
+      instruction:'Ejecutá el código. Luego cambiá el <code>5</code> por otro número o el mensaje <code>"Despegue!"</code> por lo que quieras.', xp:30
+    }
+  ]
 }
 ];
 
@@ -1300,7 +1403,7 @@ function hlPython(code){
   return code.split('\n').map(function(line){
     var out=''; var i=0;
     function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    var KW=['if','elif','else','for','in','while','def','return','True','False','None','and','or','not'];
+    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not'];
     var FN=['print','type','range','len','int','str','float','bool','input','list','append'];
     while(i<line.length){
       if(line[i]==='#'){ out+='<span class="cmt">'+esc(line.slice(i))+'</span>'; break; }
@@ -1671,9 +1774,29 @@ function pySimulate(code){
           if(getIndent(linesArr[li])>baseInd){ body.push(linesArr[li]); li++; }
           else break;
         }
-        iterVals.forEach(function(val){ env[iterVar]=val; runBlock(body); });
+        var _bf=false;for(var _fi=0;_fi<iterVals.length&&!_bf;_fi++){env[iterVar]=iterVals[_fi];try{runBlock(body);}catch(e){if(e&&e.type==='break')_bf=true;else if(e&&e.type==='continue'){}else throw e;}}
         continue;
       }
+
+      var whileM=t.match(/^while\s+(.+):$/);
+      if(whileM){
+        var _wcond=whileM[1].trim();
+        var baseInd=getIndent(raw);var _wbody=[];li++;
+        while(li<linesArr.length){
+          if(!linesArr[li].trim()){li++;continue;}
+          if(getIndent(linesArr[li])>baseInd){_wbody.push(linesArr[li]);li++;}
+          else break;
+        }
+        var _wmax=500;
+        while(evalCond(_wcond)&&_wmax-->0){
+          try{runBlock(_wbody);}
+          catch(e){if(e&&e.type==='break')break;if(e&&e.type==='continue')continue;throw e;}
+        }
+        continue;
+      }
+
+      if(t==='break') throw {type:'break'};
+      if(t==='continue') throw {type:'continue'};
 
       var ifM=t.match(/^if\s+(.+):$/);
       if(ifM){
