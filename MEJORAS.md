@@ -58,7 +58,7 @@
 | 8 | Diccionarios | keys, values, acceso, recorrer con for | ✅ Completo |
 | 9 | Bucles while | while, break, continue, bucles infinitos con condición | ✅ Completo |
 | 10 | Proyecto 2 | Boletín de notas — integra listas, dicts, def, for, promedio | ✅ Completo (2026-04-26) |
-| 11 | Manejo de errores | try/except, ValueError, TypeError | ⬜ Pendiente |
+| 11 | Manejo de errores | try/except, ValueError, TypeError | ✅ Completo (2026-04-26) |
 | 12 | Proyecto final | Juego de texto aventura o similar | ⬜ Pendiente |
 
 ---
