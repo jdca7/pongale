@@ -1389,6 +1389,107 @@ var MODULES = [
       xp:150
     }
   ]
+},
+
+/* ─── 10: MANEJO DE ERRORES ─── */
+{
+  id:10, icon:'🛡️', title:'11. Manejo de errores',
+  detail:'5 lecciones · try/except · ValueError', xpReward:200,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 11 · Lección 1', title:'¿Qué es una excepción?',
+      explain:'Cuando Python encuentra un error — como convertir texto en número — lanza una <strong>excepción</strong> y detiene el programa. <code>try/except</code> nos permite <em>atrapar</em> ese error y seguir ejecutando.',
+      analogy:{icon:'🚨',text:'Es como atrapar un vaso antes de que caiga al suelo. Sin <code>try/except</code>, el vaso se rompe y el programa para. Con él, lo atrapás y la app sigue funcionando.'},
+      code:[
+        {cmt:'# Sin manejo: el programa para con error'},
+        {parts:['plain:numero ','op:=','plain: ','fn:int','plain:(','str:\"hola\"','plain:)']},
+        {parts:['fn:print','plain:(numero)']},
+        {out:'⚠ ValueError: invalid literal for int()'}
+      ],
+      question:'¿Qué pasa si llamás <code>int("abc")</code> sin <code>try/except</code>?',
+      qcode:'numero = int("abc")\nprint(numero)',
+      opts:['Devuelve 0','El programa continúa igual','El programa se detiene con un error','Devuelve None'],
+      correct:2,
+      hint:'Python no puede inventar un número a partir de "abc". Tampoco continúa silenciosamente — hace algo más definitivo.',
+      ok:'¡Exacto! Sin <code>try/except</code>, la excepción detiene el programa por completo. No hay valor por defecto ni magia.',
+      fail:'Python no puede adivinar qué número significa "abc". Lanza un <code>ValueError</code> y el programa para ahí mismo.', xp:20
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 11 · Lección 2', title:'La estructura try/except',
+      explain:'Dentro de <code>try:</code> va el código que <em>podría</em> fallar. Si falla, Python salta directamente al bloque <code>except:</code> — nunca se detiene. El código después del except continúa normalmente.',
+      analogy:{icon:'🛡️',text:'<code>try</code> es el plan A. <code>except</code> es el plan B. Si el plan A falla, el plan B entra en acción y la vida sigue adelante.'},
+      code:[
+        {parts:['kw:try','plain::']},
+        {parts:['plain:    x ','op:=','plain: ','fn:int','plain:(','str:\"hola\"','plain:)']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"Convertido:\"',', x)']},
+        {parts:['kw:except','plain::']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"¡Ocurrió un error!\"','plain:)']},
+        {parts:['fn:print','plain:(','str:\"Programa terminado\"','plain:)']},
+        {out:'¡Ocurrió un error!\nPrograma terminado'}
+      ],
+      question:'¿Qué imprime este código?',
+      qcode:'try:\n    x = int("hola")\n    print("Convertido:", x)\nexcept:\n    print("¡Ocurrió un error!")\nprint("Programa terminado")',
+      opts:['Convertido: hola\nPrograma terminado','¡Ocurrió un error!\nPrograma terminado','Convertido: hola\n¡Ocurrió un error!\nPrograma terminado','Programa terminado'],
+      correct:1,
+      hint:'<code>int("hola")</code> falla. Python salta al <code>except</code> inmediatamente. ¿Qué pasa con las líneas de después del bloque try/except?',
+      ok:'¡Perfecto! <code>int("hola")</code> falla → Python salta al <code>except</code> (saltándose el print de "Convertido"). Luego el programa continúa con "Programa terminado".',
+      fail:'Cuando falla <code>int("hola")</code>, Python salta al <code>except</code> sin ejecutar el <code>print("Convertido...")</code>. Luego el código después del bloque sigue normalmente.', xp:20
+    },
+    {
+      type:'run', eyebrow:'Módulo 11 · Lección 3', title:'ValueError al convertir',
+      explain:'<code>ValueError</code> ocurre cuando intentás convertir un valor con el formato incorrecto. Usar <code>except ValueError:</code> captura <em>solo</em> ese tipo de error — no esconde otros bugs.',
+      analogy:{icon:'🔢',text:'<code>int("85")</code> funciona. <code>int("ochenta y cinco")</code> no — Python no habla español para los números. El <code>ValueError</code> te avisa exactamente qué pasó.'},
+      code:[
+        {parts:['kw:try','plain::']},
+        {parts:['plain:    nota ','op:=','plain: ','fn:int','plain:(','str:\"abc\"','plain:)']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"Nota:\"',', nota)']},
+        {parts:['kw:except ','plain:ValueError','plain::']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"¡Eso no es un número válido!\"','plain:)']},
+        {out:'¡Eso no es un número válido!'}
+      ],
+      runCode:'try:\n    nota = int("abc")\n    print("Nota:", nota)\nexcept ValueError:\n    print("¡Eso no es un número válido!")',
+      instruction:'Ejecutá el código. Luego cambiá <code>"abc"</code> por <code>"85"</code> y volvé a ejecutar. ¿Qué cambia?', xp:50
+    },
+    {
+      type:'run', eyebrow:'Módulo 11 · Lección 4', title:'Función segura de conversión',
+      explain:'El patrón profesional es envolver el código riesgoso en una <strong>función con try/except</strong>. La función devuelve un valor por defecto si algo falla — el resto del programa no se entera del error.',
+      analogy:{icon:'🔧',text:'Una función con <code>try/except</code> es como un técnico confiable: si puede resolver el problema, lo resuelve; si no, te entrega un reporte claro en vez de explotar.'},
+      code:[
+        {parts:['kw:def ','fn:a_numero','plain:(texto):']},
+        {parts:['plain:    ','kw:try','plain::']},
+        {parts:['plain:        ','kw:return ','fn:int','plain:(texto)']},
+        {parts:['plain:    ','kw:except ','plain:ValueError','plain::']},
+        {parts:['plain:        ','kw:return ','num:0']},
+        {parts:['fn:print','plain:(','fn:a_numero','plain:(','str:\"85\"','plain:))']},
+        {parts:['fn:print','plain:(','fn:a_numero','plain:(','str:\"hola\"','plain:))']},
+        {parts:['fn:print','plain:(','fn:a_numero','plain:(','str:\"100\"','plain:))']},
+        {out:'85\n0\n100'}
+      ],
+      runCode:'def a_numero(texto):\n    try:\n        return int(texto)\n    except ValueError:\n        return 0\n\nprint(a_numero("85"))\nprint(a_numero("hola"))\nprint(a_numero("100"))',
+      instruction:'Ejecutá. Luego cambiá <code>return 0</code> por <code>return -1</code> para que los errores devuelvan -1 en vez de 0.', xp:50
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 11 · Lección 5', title:'except específico vs genérico',
+      explain:'<code>except:</code> sin tipo captura <em>cualquier</em> error — incluso bugs inesperados que no deberías ignorar. Es mejor usar <code>except ValueError:</code> para capturar solo lo que esperás. Así los errores reales no se ocultan.',
+      analogy:{icon:'🎯',text:'<code>except:</code> es una red que captura todo — peces, basura y lo que no querés. <code>except ValueError:</code> es el anzuelo exacto para el pez que estás buscando.'},
+      code:[
+        {parts:['kw:def ','fn:convertir','plain:(texto):']},
+        {parts:['plain:    ','kw:try','plain::']},
+        {parts:['plain:        ','kw:return ','fn:int','plain:(texto)']},
+        {parts:['plain:    ','kw:except ','plain:ValueError','plain::']},
+        {parts:['plain:        ','kw:return ','num:0']},
+        {parts:['fn:print','plain:(','fn:convertir','plain:(','str:\"42\"','plain:))']},
+        {out:'42'}
+      ],
+      question:'¿Cuál <code>except</code> captura SOLO errores de conversión de valor (como <code>int("abc")</code>)?',
+      qcode:'try:\n    x = int("abc")\nexcept ___:\n    print("Error de conversión")',
+      opts:['except:','except Error:','except ValueError:','except Conversion:'],
+      correct:2,
+      hint:'Cada tipo de error en Python tiene un nombre específico. El que lanza <code>int("abc")</code> se llama por el tipo de dato inválido que recibió.',
+      ok:'¡Correcto! <code>except ValueError:</code> captura exactamente los errores de valor inválido — como intentar convertir "abc" a número. Es el nombre oficial en Python.',
+      fail:'<code>except:</code> captura todo (demasiado amplio). <code>except ValueError:</code> es el nombre específico del error que lanza <code>int()</code> cuando recibe texto que no es número.', xp:30
+    }
+  ]
 }
 ];
 
@@ -1554,7 +1655,7 @@ function hlPython(code){
   return code.split('\n').map(function(line){
     var out=''; var i=0;
     function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not'];
+    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise'];
     var FN=['print','type','range','len','int','str','float','bool','input','list','append'];
     while(i<line.length){
       if(line[i]==='#'){ out+='<span class="cmt">'+esc(line.slice(i))+'</span>'; break; }
@@ -1749,7 +1850,8 @@ function runCode(){
     out.innerHTML = '▶ Salida:<br>'+result.map(function(l){ return '<strong>'+escHtml(l)+'</strong>'; }).join('<br>');
   }catch(e){
     out.className = 'run-output show err';
-    out.textContent = '✗ Error: '+e.message;
+    var _em=(e&&e.type==='pyerror')?e.etype+': '+e.msg:(e.message||String(e));
+    out.textContent = '✗ Error: '+_em;
   }
   var btn = document.getElementById('check-btn');
   if(btn){ btn.textContent = 'Continuar →'; btn.className = 'check-btn next'; btn.onclick = function(){ advanceLesson(); }; }
@@ -1799,6 +1901,9 @@ function pySimulate(code){
     if(expr.startsWith('[')&&expr.endsWith(']')){var li=expr.slice(1,-1);if(!li.trim())return[];return splitArgs(li).map(function(x){return evalVal(x.trim());});}
     if(expr.startsWith('{')&&expr.endsWith('}')){var _di=expr.slice(1,-1).trim();if(!_di)return{};var _dobj={};splitArgs(_di).forEach(function(pair){var _dc=pair.indexOf(':');var _dk=evalVal(pair.slice(0,_dc).trim());var _dv=evalVal(pair.slice(_dc+1).trim());_dobj[_dk]=_dv;});return _dobj;}
     var lenM=expr.match(/^len\((.+)\)$/);if(lenM){var lv=evalVal(lenM[1].trim());return Array.isArray(lv)?lv.length:(typeof lv==='string'?lv.length:(typeof lv==='object'&&lv!==null?Object.keys(lv).length:0));}
+    var intM=expr.match(/^int\((.+)\)$/);if(intM){var _iv=evalVal(intM[1].trim());if(typeof _iv==='number')return Math.trunc(_iv);var _is=String(_iv).trim();if(!/^-?\d+$/.test(_is))throw{type:'pyerror',etype:'ValueError',msg:'invalid literal for int()'};return parseInt(_is,10);}
+    var floatM=expr.match(/^float\((.+)\)$/);if(floatM){var _fv=evalVal(floatM[1].trim());if(typeof _fv==='number')return _fv;var _fn2=parseFloat(String(_fv));if(isNaN(_fn2))throw{type:'pyerror',etype:'ValueError',msg:'could not convert string to float'};return _fn2;}
+    var strConvM=expr.match(/^str\((.+)\)$/);if(strConvM){var _sv=evalVal(strConvM[1].trim());return _sv===true?'True':_sv===false?'False':_sv===null?'None':String(_sv);}
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
     if(callM && callM[1] in funcs) return callFunc(callM[1], splitArgs(callM[2]||''));
     if(/^\w+$/.test(expr) && expr in env) return env[expr];
@@ -1866,6 +1971,7 @@ function pySimulate(code){
     var t=line.trim();
     if(!t||t.startsWith('#')) return;
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
+    if(t.startsWith('raise ')){var _rM=t.match(/^raise\s+(\w+)\s*\((.*)\)$/);if(_rM)throw{type:'pyerror',etype:_rM[1],msg:_rM[2]?String(evalVal(_rM[2].trim())):_rM[1]};return;}
     var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
     var dictSetM=t.match(/^(\w+)\[(.+)\]\s*=\s*(.+)$/);if(dictSetM&&dictSetM[1] in env){var _dk=evalVal(dictSetM[2].trim());env[dictSetM[1]][_dk]=evalVal(dictSetM[3].trim());return;}
     var cm=t.match(/^(\w+)\s*\((.*?)?\)\s*$/);
@@ -1969,6 +2075,14 @@ function pySimulate(code){
         continue;
       }
 
+      if(t==='try:'){
+        var baseInd=getIndent(raw);var _tryBody=[];li++;
+        while(li<linesArr.length){if(!linesArr[li].trim()){li++;continue;}if(getIndent(linesArr[li])>baseInd){_tryBody.push(linesArr[li]);li++;}else break;}
+        var _excepts=[];
+        while(li<linesArr.length){if(!linesArr[li].trim()){li++;continue;}var _eind=getIndent(linesArr[li]),_elt=linesArr[li].trim();if(_eind===baseInd){var _exM=_elt.match(/^except\s*(\w+)?\s*:$/);if(_exM){var _etype=_exM[1]||null;var _ebody=[];li++;while(li<linesArr.length){if(!linesArr[li].trim()){li++;continue;}if(getIndent(linesArr[li])>baseInd){_ebody.push(linesArr[li]);li++;}else break;}_excepts.push({etype:_etype,body:_ebody});}else break;}else break;}
+        try{runBlock(_tryBody);}catch(e){if(e&&e.type==='pyerror'){var _h=false;for(var _ei=0;_ei<_excepts.length;_ei++){if(_excepts[_ei].etype===null||_excepts[_ei].etype===e.etype){runBlock(_excepts[_ei].body);_h=true;break;}}if(!_h)throw e;}else throw e;}
+        continue;
+      }
       if(t==='break') throw {type:'break'};
       if(t==='continue') throw {type:'continue'};
 
