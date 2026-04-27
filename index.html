@@ -1490,6 +1490,121 @@ var MODULES = [
       fail:'<code>except:</code> captura todo (demasiado amplio). <code>except ValueError:</code> es el nombre específico del error que lanza <code>int()</code> cuando recibe texto que no es número.', xp:30
     }
   ]
+},
+/* ─── 11: PROYECTO FINAL ─── */
+{
+  id:11, icon:'⚔️', title:'12. Proyecto final: Aventura en código',
+  detail:'5 retos · Combina todo lo aprendido · +600 XP', xpReward:600,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 12 · Reto 1', title:'El héroe del juego',
+      explain:'En este proyecto final construís un <strong>mini-RPG de consola</strong> paso a paso, usando <em>todo</em> lo aprendido en los módulos 1–11: variables, diccionarios, listas, funciones, for, while y try/except. Empezamos definiendo al héroe como un diccionario.',
+      analogy:{icon:'⚔️',text:'Los videojuegos RPG guardan los stats de personajes exactamente así — en diccionarios. "nombre", "hp", "ataque", "defensa" son las claves; los números son los stats. Podés operar con ellos igual que con cualquier variable.'},
+      code:[
+        {parts:['plain:heroe ','op:=','plain: {']},
+        {parts:['plain:    ','str:\"nombre\"','plain: ','op::','plain: ','str:\"Zara\"','plain:,  ','str:\"hp\"','plain: ','op::','plain: ','num:100','plain:,']},
+        {parts:['plain:    ','str:\"ataque\"','plain: ','op::','plain: ','num:25','plain:,  ','str:\"defensa\"','plain: ','op::','plain: ','num:10']},
+        {parts:['plain:}']},
+        {parts:['fn:print','plain:(','str:\"Ataque:\"',', heroe[','str:\"ataque\"','plain:] ','op:-','plain: ','num:5','plain:)']},
+        {out:'Ataque: 20'}
+      ],
+      question:'¿Qué imprime <code>print(heroe["defensa"] + 5)</code>?',
+      qcode:'heroe = {\n    "nombre": "Zara",\n    "hp": 100,\n    "ataque": 25,\n    "defensa": 10\n}\nprint(heroe["defensa"] + 5)',
+      opts:['defensa + 5','105','15','10'],
+      correct:2,
+      hint:'<code>heroe["defensa"]</code> accede al valor de la clave "defensa". Ese valor es un número, así que podés sumarle 5 directamente.',
+      ok:'¡Exacto! <code>heroe["defensa"]</code> devuelve 10. Sumando 5 da 15. Los diccionarios te permiten acceder y operar con cualquier valor por su clave.',
+      fail:'<code>heroe["defensa"]</code> devuelve el número 10 (no el texto "defensa"). Python puede sumar 10 + 5 = 15 directamente.', xp:20
+    },
+    {
+      type:'run', eyebrow:'Módulo 12 · Reto 2', title:'El inventario',
+      explain:'El héroe necesita un <strong>inventario</strong> — una lista de objetos. Usamos una función con <code>for</code> y <code>range(len())</code> para mostrar cada item numerado.',
+      analogy:{icon:'🎒',text:'Cada item es un elemento de la lista. Con <code>range(len(inventario))</code> obtenemos el índice para imprimir "1 - Espada", "2 - Escudo"... El <code>i + 1</code> convierte el índice base 0 a una numeración amigable.'},
+      code:[
+        {parts:['plain:inventario ','op:=','plain: [','str:\"Espada magica\"',', ','str:\"Escudo de roble\"',', ','str:\"Pocion\"','plain:]']},
+        {parts:['kw:def ','fn:mostrar_inventario','plain:(items):']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"=== INVENTARIO ===\"','plain:)']},
+        {parts:['plain:    ','kw:for ','plain:i ','kw:in ','fn:range','plain:(','fn:len','plain:(items)):']},
+        {parts:['plain:        ','fn:print','plain:(i ','op:+','plain: ','num:1',', ','str:\"-\"',', items[i])']},
+        {parts:['fn:print','plain:(','str:\"Heroe:\"',', heroe[','str:\"nombre\"','plain:], ','str:\"HP:\"',', heroe[','str:\"hp\"','plain:])']},
+        {parts:['fn:mostrar_inventario','plain:(inventario)']},
+        {out:'Heroe: Zara HP: 100\n=== INVENTARIO ===\n1 - Espada magica\n2 - Escudo de roble\n3 - Pocion'}
+      ],
+      runCode:'heroe = {"nombre": "Zara", "hp": 100, "ataque": 25, "defensa": 10}\ninventario = ["Espada magica", "Escudo de roble", "Pocion"]\n\ndef mostrar_inventario(items):\n    print("=== INVENTARIO ===")\n    for i in range(len(items)):\n        print(i + 1, "-", items[i])\n\nprint("Heroe:", heroe["nombre"], "HP:", heroe["hp"])\nmostrar_inventario(inventario)',
+      instruction:'Ejecutá el código. Luego agregá <code>inventario.append("Amuleto raro")</code> antes de llamar a <code>mostrar_inventario()</code> y volvé a ejecutar.', xp:50
+    },
+    {
+      type:'run', eyebrow:'Módulo 12 · Reto 3', title:'La función de daño',
+      explain:'En un RPG el daño depende del ataque del atacante menos la defensa del defensor. Usamos <code>try/except ValueError</code> para que la función sea segura ante cualquier entrada inesperada.',
+      analogy:{icon:'💥',text:'<code>daño = ataque − defensa</code>. Si la defensa supera al ataque, el mínimo es 1 — nunca puede ser negativo. El <code>try/except</code> protege si alguien pasa texto en vez de número.'},
+      code:[
+        {parts:['kw:def ','fn:calcular_dano','plain:(ataque, defensa):']},
+        {parts:['plain:    ','kw:try','plain::']},
+        {parts:['plain:        dano ','op:=','plain: ','fn:int','plain:(ataque) ','op:-','plain: ','fn:int','plain:(defensa)']},
+        {parts:['plain:        ','kw:if ','plain:dano ','op:<','plain: ','num:1','plain::']},
+        {parts:['plain:            ','kw:return ','num:1']},
+        {parts:['plain:        ','kw:return ','plain:dano']},
+        {parts:['plain:    ','kw:except ','plain:ValueError','plain::']},
+        {parts:['plain:        ','kw:return ','num:0']},
+        {parts:['plain:d1 ','op:=','plain: ','fn:calcular_dano','plain:(','num:25',', ','num:8','plain:)']},
+        {parts:['plain:d2 ','op:=','plain: ','fn:calcular_dano','plain:(','num:30',', ','num:10','plain:)']},
+        {parts:['fn:print','plain:(','str:\"Zara dana al Dragon:\"',', d1)']},
+        {parts:['fn:print','plain:(','str:\"Dragon dana a Zara:\"',', d2)']},
+        {out:'Zara dana al Dragon: 17\nDragon dana a Zara: 20'}
+      ],
+      runCode:'def calcular_dano(ataque, defensa):\n    try:\n        dano = int(ataque) - int(defensa)\n        if dano < 1:\n            return 1\n        return dano\n    except ValueError:\n        return 0\n\nd1 = calcular_dano(25, 8)\nd2 = calcular_dano(30, 10)\nprint("Zara dana al Dragon:", d1)\nprint("Dragon dana a Zara:", d2)',
+      instruction:'Ejecutá el código. Cambiá el ataque a 45 — ¿cuánto daño hace ahora? ¿Qué devuelve la función cuando la defensa supera al ataque?', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 12 · Reto 4', title:'La batalla con while',
+      explain:'Un <code>while</code> simula los turnos de la batalla: cada turno ambos atacan, se restan HP, y el loop continúa hasta que uno queda en 0.',
+      analogy:{icon:'🔄',text:'La batalla es exactamente un bucle while: "¿Sigue la batalla? Sí → otro turno. No → terminar." Usamos una variable <code>ganador</code> para controlar el loop de forma clara.'},
+      code:[
+        {parts:['kw:def ','fn:batalla','plain:(hp_h, hp_e, dano_h, dano_e):']},
+        {parts:['plain:    ganador ','op:=','plain: ','str:\"\"']},
+        {parts:['plain:    turno ','op:=','plain: ','num:1']},
+        {parts:['plain:    ','kw:while ','plain:ganador ','op:==','plain: ','str:\"\"','plain::']},
+        {parts:['plain:        hp_e ','op:=','plain: hp_e ','op:-','plain: dano_h']},
+        {parts:['plain:        hp_h ','op:=','plain: hp_h ','op:-','plain: dano_e']},
+        {parts:['plain:        ','fn:print','plain:(','str:\"Turno\"',', turno, ','str:\"Heroe:\"',', hp_h, ','str:\"Enemigo:\"',', hp_e)']},
+        {parts:['plain:        turno ','op:=','plain: turno ','op:+','plain: ','num:1']},
+        {parts:['plain:        ','kw:if ','plain:hp_h ','op:<=','plain: ','num:0','plain::']},
+        {parts:['plain:            ganador ','op:=','plain: ','str:\"enemigo\"']},
+        {parts:['plain:        ','kw:if ','plain:hp_e ','op:<=','plain: ','num:0','plain::']},
+        {parts:['plain:            ganador ','op:=','plain: ','str:\"heroe\"']},
+        {parts:['plain:    ','kw:return ','plain:ganador']},
+        {parts:['plain:res ','op:=','plain: ','fn:batalla','plain:(','num:100',', ','num:80',', ','num:17',', ','num:20','plain:)']},
+        {parts:['fn:print','plain:(','str:\"Ganador:\"',', res)']},
+        {out:'Turno 1 Heroe: 80 Enemigo: 63\nTurno 2 Heroe: 60 Enemigo: 46\nTurno 3 Heroe: 40 Enemigo: 29\nTurno 4 Heroe: 20 Enemigo: 12\nTurno 5 Heroe: 0 Enemigo: -5\nGanador: heroe'}
+      ],
+      runCode:'def batalla(hp_h, hp_e, dano_h, dano_e):\n    ganador = ""\n    turno = 1\n    while ganador == "":\n        hp_e = hp_e - dano_h\n        hp_h = hp_h - dano_e\n        print("Turno", turno, "Heroe:", hp_h, "Enemigo:", hp_e)\n        turno = turno + 1\n        if hp_h <= 0:\n            ganador = "enemigo"\n        if hp_e <= 0:\n            ganador = "heroe"\n    return ganador\n\nres = batalla(100, 80, 17, 20)\nprint("Ganador:", res)',
+      instruction:'Ejecutá el código. Cambiá el HP del héroe a 60 — ¿quién gana? ¿Cuál es el HP mínimo con el que el héroe puede ganar?', xp:150
+    },
+    {
+      type:'run', eyebrow:'Módulo 12 · Reto 5', title:'¡El programa completo!',
+      explain:'Ahora combinamos <strong>todo</strong>: variables, diccionarios, listas, funciones, <code>for</code>, <code>while</code> y <code>try/except</code> en un programa que simula una aventura completa.',
+      analogy:{icon:'🏆',text:'¡Lo lograste! Este es exactamente el tipo de código que escriben los desarrolladores de videojuegos. Cada sistema real — combate, inventario, stats — usa estos mismos bloques que aprendiste módulo a módulo.'},
+      code:[
+        {cmt:'# calcular_dano y batalla definidas arriba...'},
+        {parts:['plain:heroe  ','op:=','plain: {','str:\"nombre\"','plain:','op::','str:\"Zara\"','plain:, ','str:\"hp\"','plain:','op::','num:100','plain:, ','str:\"ataque\"','plain:','op::','num:25','plain:, ','str:\"defensa\"','plain:','op::','num:10','plain:}']},
+        {parts:['plain:goblin ','op:=','plain: {','str:\"nombre\"','plain:','op::','str:\"Goblin\"','plain:, ','str:\"hp\"','plain:','op::','num:40','plain:, ','str:\"ataque\"','plain:','op::','num:15','plain:, ','str:\"defensa\"','plain:','op::','num:3','plain:}']},
+        {parts:['plain:dragon ','op:=','plain: {','str:\"nombre\"','plain:','op::','str:\"Dragon\"','plain:, ','str:\"hp\"','plain:','op::','num:100','plain:, ','str:\"ataque\"','plain:','op::','num:35','plain:, ','str:\"defensa\"','plain:','op::','num:12','plain:}']},
+        {parts:['plain:enemigos ','op:=','plain: [goblin, dragon]']},
+        {parts:['plain:victorias ','op:=','plain: ','num:0']},
+        {parts:['kw:for ','plain:enemigo ','kw:in','plain: enemigos','plain::']},
+        {parts:['plain:    d_h ','op:=','plain: ','fn:calcular_dano','plain:(heroe[','str:\"ataque\"','plain:], enemigo[','str:\"defensa\"','plain:])']},
+        {parts:['plain:    d_e ','op:=','plain: ','fn:calcular_dano','plain:(enemigo[','str:\"ataque\"','plain:], heroe[','str:\"defensa\"','plain:])']},
+        {parts:['plain:    res ','op:=','plain: ','fn:batalla','plain:(heroe[','str:\"hp\"','plain:], enemigo[','str:\"hp\"','plain:], d_h, d_e)']},
+        {parts:['plain:    ','fn:print','plain:(','str:\"vs\"',', enemigo[','str:\"nombre\"','plain:], ','str:\"->\"',', res)']},
+        {parts:['plain:    ','kw:if ','plain:res ','op:==','plain: ','str:\"heroe\"','plain::']},
+        {parts:['plain:        victorias ','op:=','plain: victorias ','op:+','plain: ','num:1']},
+        {parts:['fn:print','plain:(','str:\"Victorias:\"',', victorias, ','str:\"de\"',', ','fn:len','plain:(enemigos))']},
+        {out:'vs Goblin -> heroe\nvs Dragon -> enemigo\nVictorias: 1 de 2'}
+      ],
+      runCode:'def calcular_dano(ataque, defensa):\n    try:\n        dano = int(ataque) - int(defensa)\n        if dano < 1:\n            return 1\n        return dano\n    except ValueError:\n        return 0\n\ndef batalla(hp_h, hp_e, dano_h, dano_e):\n    ganador = ""\n    turno = 1\n    while ganador == "":\n        hp_e = hp_e - dano_h\n        hp_h = hp_h - dano_e\n        turno = turno + 1\n        if hp_h <= 0:\n            ganador = "enemigo"\n        if hp_e <= 0:\n            ganador = "heroe"\n    return ganador\n\nheroe = {"nombre": "Zara", "hp": 100, "ataque": 25, "defensa": 10}\ngoblin = {"nombre": "Goblin", "hp": 40, "ataque": 15, "defensa": 3}\ndragon = {"nombre": "Dragon", "hp": 100, "ataque": 35, "defensa": 12}\nenemigos = [goblin, dragon]\n\nvictorias = 0\nfor enemigo in enemigos:\n    d_h = calcular_dano(heroe["ataque"], enemigo["defensa"])\n    d_e = calcular_dano(enemigo["ataque"], heroe["defensa"])\n    res = batalla(heroe["hp"], enemigo["hp"], d_h, d_e)\n    print("vs", enemigo["nombre"], "->", res)\n    if res == "heroe":\n        victorias = victorias + 1\n\nprint("Victorias:", victorias, "de", len(enemigos))',
+      instruction:'Ejecutá el código. El héroe pierde contra el Dragón. Mejorá sus stats (ataque, defensa, hp) hasta ganar las <strong>dos</strong> batallas. Luego agregá un tercer enemigo al array.', xp:200
+    }
+  ]
 }
 ];
 
