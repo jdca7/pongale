@@ -1713,6 +1713,116 @@ var MODULES = [
       fail:'El orden siempre es: <code>[expresión for var in lista if condición]</code>. La respuesta correcta es <code>[n * 2 for n in numeros if n > 0]</code>.', xp:200
     }
   ]
+},
+
+/* ─── 13: FUNCIONES AVANZADAS ─── */
+{
+  id:13, icon:'⚙️', title:'14. Funciones avanzadas',
+  detail:'5 lecciones · Defaults · Kwargs · Funciones como argumentos · +500 XP', xpReward:500,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 14 · Lección 1', title:'Parámetros con valor por defecto',
+      explain:'Podés darle un <strong>valor por defecto</strong> a un parámetro escribiendo <code>param=valor</code> en la definición. Si llamás la función sin ese argumento, se usa el default. Si lo pasás, sobreescribe el default.',
+      analogy:{icon:'🍕',text:'La pizzería siempre prepara la pizza con salsa de tomate (el default). Si pedís sin aclarar, te la dan así. Si pedís con barbacoa, ese ingrediente reemplaza al default — el resto de la receta no cambia.'},
+      code:[
+        {parts:['kw:def ','plain:saludar','plain:(nombre, saludo','op:=','str:"Hola"','plain:):']},
+        {parts:['plain:    ','fn:print','plain:(f"{saludo} {nombre}")']},
+        {cmt:''},
+        {parts:['plain:saludar(','str:"Ana"','plain:)']},
+        {cmt:'# saludo usa el default: "Hola"'},
+        {parts:['plain:saludar(','str:"Luis"','plain:, ','str:"Hey"','plain:)']},
+        {cmt:'# saludo sobreescrito a "Hey"'},
+        {out:'Hola Ana\nHey Luis'}
+      ],
+      question:'¿Qué imprime <code>saludar("Marcos")</code>?',
+      qcode:'def saludar(nombre, saludo="Hola"):\n    print(f"{saludo} {nombre}")\n\nsaludar("Marcos")',
+      opts:['Hola Marcos','Error: falta el segundo argumento','Marcos Hola','Hey Marcos'],
+      correct:0,
+      hint:'<code>saludo="Hola"</code> es el default. Si no pasás el segundo argumento, Python usa <code>"Hola"</code> automáticamente.',
+      ok:'¡Exacto! <code>saludo</code> no se pasó, así que Python usa el default <code>"Hola"</code>. Imprime <code>Hola Marcos</code>.',
+      fail:'El parámetro <code>saludo="Hola"</code> es opcional — si no lo pasás, Python usa <code>"Hola"</code>. Resultado: <code>Hola Marcos</code>.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 14 · Lección 2', title:'Tu primera función con defaults',
+      explain:'Los defaults van siempre al <strong>final</strong> de la lista de parámetros. Podés tener varios parámetros con default y pasarlos o no según lo que necesités. Solo los que no tienen default son obligatorios.',
+      analogy:{icon:'🖨️',text:'Una impresora tiene configuraciones por defecto: papel A4, orientación vertical, 1 copia. Podés cambiar cualquiera, pero si no lo hacés, la impresora usa los valores guardados. Tus ajustes solo afectan lo que cambiás.'},
+      code:[
+        {parts:['kw:def ','plain:repetir','plain:(texto, veces','op:=','num:2','plain:):']},
+        {parts:['plain:    i ','op:=','plain: ','num:0']},
+        {parts:['plain:    ','kw:while ','plain:i ','op:<','plain: veces:']},
+        {parts:['plain:        ','fn:print','plain:(texto)']},
+        {parts:['plain:        i ','op:=','plain: i ','op:+','plain: ','num:1']},
+        {cmt:''},
+        {parts:['plain:repetir(','str:"hola"','plain:)']},
+        {parts:['plain:repetir(','str:"Python"','plain:, ','num:4','plain:)']},
+        {out:'hola\nhola\nPython\nPython\nPython\nPython'}
+      ],
+      runCode:'def repetir(texto, veces=2):\n    i = 0\n    while i < veces:\n        print(texto)\n        i = i + 1\n\nrepetir("hola")\nrepetir("Python", 4)',
+      instruction:'Ejecutá el código. Luego cambiá el default de <code>veces</code> a <code>3</code> y verificá que <code>repetir("hola")</code> ahora imprime 3 veces. Finalmente agregá un tercer parámetro <code>prefijo=""</code> y hacé que cada línea imprima <code>prefijo + texto</code>.', xp:80
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 14 · Lección 3', title:'Keyword arguments',
+      explain:'Podés llamar una función usando el nombre del parámetro: <code>func(ciudad="Cartago")</code>. Esto se llama <strong>keyword argument</strong> (kwarg). La ventaja: podés saltar parámetros intermedios con defaults y el orden no importa.',
+      analogy:{icon:'📋',text:'En un formulario podés llenar los campos en cualquier orden porque cada uno tiene su etiqueta. Los kwargs son las etiquetas de Python — le decís exactamente qué parámetro estás pasando sin importar la posición.'},
+      code:[
+        {parts:['kw:def ','plain:perfil','plain:(nombre, nivel','op:=','str:"basico"','plain:, puntos','op:=','num:0','plain:):']},
+        {parts:['plain:    ','fn:print','plain:(f"{nombre} nivel {nivel} puntos {puntos}")']},
+        {cmt:''},
+        {parts:['plain:perfil(','str:"Ana"','plain:, puntos','op:=','num:100','plain:)']},
+        {cmt:'# salta "nivel", solo cambia "puntos"'},
+        {parts:['plain:perfil(nombre','op:=','str:"Luis"','plain:, nivel','op:=','str:"medio"','plain:)']},
+        {cmt:'# kwargs en cualquier orden'},
+        {out:'Ana nivel basico puntos 100\nLuis nivel medio puntos 0'}
+      ],
+      question:'¿Qué imprime <code>perfil("Carlos", puntos=50)</code>?',
+      qcode:'def perfil(nombre, nivel="basico", puntos=0):\n    print(f"{nombre} nivel {nivel} puntos {puntos}")\n\nperfil("Carlos", puntos=50)',
+      opts:['Carlos nivel basico puntos 50','Carlos nivel 50 puntos basico','Error: argumentos fuera de orden','Carlos basico 0 50'],
+      correct:0,
+      hint:'<code>nombre="Carlos"</code> va por posición. <code>nivel</code> no se pasó — usa el default <code>"basico"</code>. <code>puntos=50</code> va por kwarg.',
+      ok:'¡Correcto! <code>nombre="Carlos"</code>, <code>nivel="basico"</code> (default), <code>puntos=50</code> (kwarg). Resultado: <code>Carlos nivel basico puntos 50</code>.',
+      fail:'<code>nombre</code> se toma por posición ("Carlos"). <code>nivel</code> no se pasó → usa el default "basico". <code>puntos=50</code> es kwarg. Resultado: <code>Carlos nivel basico puntos 50</code>.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 14 · Lección 4', title:'Funciones como argumentos',
+      explain:'En Python, las funciones son valores — podés pasarlas como argumento a otra función. Esto permite crear funciones <strong>genéricas</strong> que aplican cualquier transformación que vos decidas en el momento de llamarlas.',
+      analogy:{icon:'🧰',text:'Es como una caja de herramientas. La función <code>aplicar</code> es la caja — puede usar cualquier herramienta. Vos decidís cuál pasarle: <code>doblar</code> o <code>triplicar</code>. La caja no cambia; cambia la herramienta que usás.'},
+      code:[
+        {parts:['kw:def ','plain:doblar','plain:(x):']},
+        {parts:['plain:    ','kw:return ','plain:x ','op:*','plain: ','num:2']},
+        {cmt:''},
+        {parts:['kw:def ','plain:triplicar','plain:(x):']},
+        {parts:['plain:    ','kw:return ','plain:x ','op:*','plain: ','num:3']},
+        {cmt:''},
+        {parts:['kw:def ','plain:aplicar','plain:(funcion, valor):']},
+        {parts:['plain:    ','kw:return ','plain:funcion(valor)']},
+        {cmt:''},
+        {parts:['fn:print','plain:(aplicar(doblar, ','num:5','plain:))']},
+        {parts:['fn:print','plain:(aplicar(triplicar, ','num:4','plain:))']},
+        {out:'10\n12'}
+      ],
+      runCode:'def doblar(x):\n    return x * 2\n\ndef triplicar(x):\n    return x * 3\n\ndef aplicar(funcion, valor):\n    return funcion(valor)\n\nprint(aplicar(doblar, 5))\nprint(aplicar(triplicar, 4))',
+      instruction:'Ejecutá el código. Luego definí una función <code>cuadrado(x)</code> que devuelva <code>x * x</code> y usá <code>aplicar(cuadrado, 6)</code> para imprimir el resultado. Finalmente creá <code>sumar_diez(x)</code> que devuelva <code>x + 10</code> y probala también con <code>aplicar</code>.', xp:160
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 14 · Lección 5', title:'Funciones avanzadas — quiz final',
+      explain:'Los <strong>defaults</strong> hacen los argumentos opcionales. Los <strong>kwargs</strong> te dan control sobre qué parámetros pasás y en qué orden. Las <strong>funciones como argumentos</strong> permiten reutilizar lógica con distintas operaciones — el núcleo de la programación funcional.',
+      analogy:{icon:'👨‍🍳',text:'Los defaults son los ingredientes base de la receta. Los kwargs te dejan cambiar solo lo que querés. Pasar funciones como argumentos es como pasarle al cocinero el utensilio que necesita — cuchillo, espátula o batidor — según el plato, sin cambiar la receta entera.'},
+      code:[
+        {parts:['kw:def ','plain:calcular','plain:(base, factor','op:=','num:2','plain:, suma','op:=','num:0','plain:):']},
+        {parts:['plain:    ','kw:return ','plain:base ','op:*','plain: factor ','op:+','plain: suma']},
+        {cmt:''},
+        {parts:['fn:print','plain:(calcular(','num:5','plain:, suma','op:=','num:10','plain:))']},
+        {cmt:'# base=5, factor=2 (default), suma=10'}
+      ],
+      question:'¿Qué imprime <code>calcular(5, suma=10)</code>?',
+      qcode:'def calcular(base, factor=2, suma=0):\n    return base * factor + suma\n\nprint(calcular(5, suma=10))',
+      opts:['20','25','15','10'],
+      correct:0,
+      hint:'<code>base=5</code> (posicional), <code>factor=2</code> (default), <code>suma=10</code> (kwarg). Calculá: <code>5 * 2 + 10</code>.',
+      ok:'¡Correcto! <code>base=5</code>, <code>factor=2</code> (default que no se sobreescribió), <code>suma=10</code>. Resultado: <code>5 × 2 + 10 = 20</code>.',
+      fail:'El kwarg <code>suma=10</code> solo sobreescribe <code>suma</code>. El <code>factor</code> sigue siendo <code>2</code> (su default). Resultado: <code>5 * 2 + 10 = 20</code>.', xp:200
+    }
+  ]
 }
 ];
 
@@ -2164,8 +2274,8 @@ function pySimulate(code){
     var floatM=expr.match(/^float\((.+)\)$/);if(floatM){var _fv=evalVal(floatM[1].trim());if(typeof _fv==='number')return _fv;var _fn2=parseFloat(String(_fv));if(isNaN(_fn2))throw{type:'pyerror',etype:'ValueError',msg:'could not convert string to float'};return _fn2;}
     var strConvM=expr.match(/^str\((.+)\)$/);if(strConvM){var _sv=evalVal(strConvM[1].trim());return _sv===true?'True':_sv===false?'False':_sv===null?'None':String(_sv);}
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
-    if(callM && callM[1] in funcs) return callFunc(callM[1], splitArgs(callM[2]||''));
-    if(/^\w+$/.test(expr) && expr in env) return env[expr];
+    if(callM){if(callM[1] in funcs)return callFunc(callM[1],splitArgs(callM[2]||''));if(callM[1] in env&&env[callM[1]]&&typeof env[callM[1]]==='object'&&env[callM[1]].__fn__)return callFunc(env[callM[1]].__fn__,splitArgs(callM[2]||''));}
+    if(/^\w+$/.test(expr)){if(expr in env)return env[expr];if(expr in funcs)return{__fn__:expr};}
     var methM=expr.match(/^(\w+)\.(upper|lower|keys|values)\(\)$/);if(methM&&methM[1] in env){var _mo=env[methM[1]];if(methM[2]==='upper'&&typeof _mo==='string')return _mo.toUpperCase();if(methM[2]==='lower'&&typeof _mo==='string')return _mo.toLowerCase();if(methM[2]==='keys'&&typeof _mo==='object'&&_mo!==null)return Object.keys(_mo);if(methM[2]==='values'&&typeof _mo==='object'&&_mo!==null)return Object.values(_mo);}
     var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1&&(Array.isArray(container)||typeof container==='string')){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=evalVal(idxStr);if(Array.isArray(container)){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='string'){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='object'&&container!==null)return container[idx];}
     var arith = expr.match(/^(.+?)\s*(\/\/|[+\-\*\/%])\s*(.+)$/);
@@ -2199,7 +2309,7 @@ function pySimulate(code){
     return !!evalVal(cond);
   }
 
-  function pyStr(v){if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
+  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return '<function '+v.__fn__+'>';if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
 
   function evalPrint(stmt){
     var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
@@ -2234,7 +2344,8 @@ function pySimulate(code){
     var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
     var dictSetM=t.match(/^(\w+)\[(.+)\]\s*=\s*(.+)$/);if(dictSetM&&dictSetM[1] in env){var _dk=evalVal(dictSetM[2].trim());env[dictSetM[1]][_dk]=evalVal(dictSetM[3].trim());return;}
     var cm=t.match(/^(\w+)\s*\((.*?)?\)\s*$/);
-    if(cm && cm[1] in funcs){ callFunc(cm[1],splitArgs(cm[2]||'')); return; }
+    if(cm&&cm[1] in funcs){callFunc(cm[1],splitArgs(cm[2]||''));return;}
+    if(cm&&cm[1] in env&&env[cm[1]]&&typeof env[cm[1]]==='object'&&env[cm[1]].__fn__){callFunc(env[cm[1]].__fn__,splitArgs(cm[2]||''));return;}
     var am=t.match(/^(\w+)\s*([+\-\*\/]?=)\s*(.+)$/);
     if(am&&am[2]==='='){
       env[am[1]]=evalVal(am[3]);
@@ -2246,9 +2357,12 @@ function pySimulate(code){
 
   function callFunc(fname,rawArgs){
     var f=funcs[fname]; if(!f) return undefined;
-    var args=rawArgs.map(function(a){ return evalVal(a.trim()); });
+    var positional=[],kwargs={};
+    rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1){kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());}else positional.push(evalVal(at));});
     var saved={}; Object.keys(env).forEach(function(k){ saved[k]=env[k]; });
-    f.params.forEach(function(p,idx){ env[p]=args[idx]; });
+    if(f.defaults){Object.keys(f.defaults).forEach(function(p){env[p]=f.defaults[p];});}
+    f.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});
+    Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});
     var retVal=undefined;
     try{ runBlock(f.body); }
     catch(e){ if(e&&e.type==='return') retVal=e.val; else throw e; }
@@ -2293,14 +2407,16 @@ function pySimulate(code){
       var defM=t.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);
       if(defM){
         var fname=defM[1];
-        var fparams=defM[2].split(',').map(function(p){ return p.trim(); }).filter(Boolean);
+        var rawPList=defM[2].split(',').map(function(p){return p.trim();}).filter(Boolean);
+        var fparams=[],fdefaults={};
+        rawPList.forEach(function(p){var ei=p.indexOf('=');if(ei!==-1){var pn=p.slice(0,ei).trim(),pd=p.slice(ei+1).trim();fparams.push(pn);fdefaults[pn]=evalVal(pd);}else fparams.push(p);});
         var baseInd=getIndent(raw); var body=[]; li++;
         while(li<linesArr.length){
           if(!linesArr[li].trim()){ li++; continue; }
           if(getIndent(linesArr[li])>baseInd){ body.push(linesArr[li]); li++; }
           else break;
         }
-        funcs[fname]={params:fparams,body:body}; continue;
+        funcs[fname]={params:fparams,defaults:fdefaults,body:body}; continue;
       }
 
       var forM=t.match(/^for\s+(\w+)\s+in\s+(.+):$/);
