@@ -147,6 +147,11 @@ body{font-family:var(--body);background:#030308;color:var(--text);min-height:100
 .run-output{padding:10px 14px;font-family:var(--mono);font-size:13px;border-top:1px solid rgba(0,214,143,.1);display:none}
 .run-output.show{display:block}
 .run-output.ok{color:var(--g)} .run-output.err{color:var(--r)}
+.vkb-bar{display:none;overflow-x:auto;padding:5px 8px;gap:5px;background:rgba(0,214,143,.04);border-top:1px solid rgba(0,214,143,.1);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.vkb-bar::-webkit-scrollbar{display:none}
+@media(hover:none) and (pointer:coarse){.vkb-bar{display:flex}}
+.vkb-key{background:var(--s2);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:15px;color:var(--text);cursor:pointer;flex-shrink:0;user-select:none;-webkit-tap-highlight-color:transparent;min-width:36px;text-align:center;line-height:1}
+.vkb-key:active{background:var(--p3);border-color:rgba(108,99,255,.4);color:var(--p2)}
 
 /* QUIZ */
 .q-label{font-size:11px;font-weight:700;color:var(--p2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
@@ -1279,6 +1284,111 @@ var MODULES = [
       instruction:'Ejecutá el código. Luego cambiá el <code>5</code> por otro número o el mensaje <code>"Despegue!"</code> por lo que quieras.', xp:30
     }
   ]
+},
+
+/* ─── 9: PROYECTO 2 ─── */
+{
+  id:9, icon:'📊', title:'10. Proyecto: boletín de notas',
+  detail:'5 retos · Combina todo lo aprendido · +500 XP', xpReward:500,
+  lessons:[
+    {
+      type:'run', eyebrow:'Módulo 10 · Reto 1', title:'Lista de notas',
+      explain:'Vas a construir un <strong>boletín de notas</strong> paso a paso. Empezamos con una lista de notas y calculamos el promedio con un <code>for</code> acumulador.',
+      analogy:{icon:'📝',text:'Para sacar el promedio: sumás todas las notas y dividís entre la cantidad. Eso es exactamente un acumulador con <code>for</code> seguido de una división.'},
+      code:[
+        {parts:['plain:notas ','op:=','plain: [','num:78',', ','num:92',', ','num:85',', ','num:65','plain:]']},
+        {parts:['plain:total ','op:=','num: 0']},
+        {parts:['kw:for ','plain:n ','kw:in','plain: notas','plain::']},
+        {parts:['plain:    total ','op:=','plain: total ','op:+','plain: n']},
+        {parts:['plain:promedio ','op:=','plain: total ','op:/','plain: ','fn:len','plain:(notas)']},
+        {parts:['fn:print','plain:(','str:"Promedio:"',', promedio)']},
+        {out:'Promedio: 80'}
+      ],
+      runCode:'notas = [78, 92, 85, 65]\ntotal = 0\nfor n in notas:\n    total = total + n\npromedio = total / len(notas)\nprint("Promedio:", promedio)',
+      instruction:'Ejecutá el código. Luego cambiá las notas de la lista y observá cómo cambia el promedio.',
+      xp:50
+    },
+    {
+      type:'run', eyebrow:'Módulo 10 · Reto 2', title:'Diccionario de materias',
+      explain:'Una lista no dice qué materia es cada nota. Con un <strong>diccionario</strong> asociamos cada nota con su materia: la clave es el nombre, el valor es la nota.',
+      analogy:{icon:'📚',text:'El boletín real no dice "81, 90, 72…" — dice "Matemáticas: 81, Español: 90…". Eso es exactamente un diccionario: nombre de la materia → nota.'},
+      code:[
+        {parts:['plain:boletin ','op:=','plain: {']},
+        {parts:['plain:    ','str:\"Matematicas\"','plain: ','op::','plain: ','num:78',',']},
+        {parts:['plain:    ','str:\"Espanol\"','plain:     ','op::','plain: ','num:92',',']},
+        {parts:['plain:    ','str:\"Ciencias\"','plain:     ','op::','plain: ','num:85',',']},
+        {parts:['plain:    ','str:\"Historia\"','plain:     ','op::','plain: ','num:65']},
+        {parts:['plain:}']},
+        {parts:['fn:print','plain:(','str:\"Matematicas:\"',', boletin[','str:\"Matematicas\"','plain:])']},
+        {parts:['fn:print','plain:(','str:\"Total materias:\"',', ','fn:len','plain:(boletin))']},
+        {out:'Matematicas: 78\nTotal materias: 4'}
+      ],
+      runCode:'boletin = {\n    "Matematicas": 78,\n    "Espanol": 92,\n    "Ciencias": 85,\n    "Historia": 65\n}\nprint("Matematicas:", boletin["Matematicas"])\nprint("Total materias:", len(boletin))',
+      instruction:'Ejecutá el código. Cambiá las notas del diccionario y accedé a otras materias cambiando la clave.',
+      xp:50
+    },
+    {
+      type:'run', eyebrow:'Módulo 10 · Reto 3', title:'Función de evaluación',
+      explain:'Una nota numérica no dice si aprobaste. Creamos una función que convierte el número en evaluación: <strong>Excelente</strong>, <strong>Muy bien</strong>, <strong>Aprobado</strong> o <strong>Reprobado</strong>.',
+      analogy:{icon:'🏆',text:'Esta función es la rúbrica del profe: recibe un número y devuelve lo que significa. Solo entra la nota — y sale la evaluación con <code>return</code>.'},
+      code:[
+        {parts:['kw:def ','fn:evaluar','plain:(nota):']},
+        {parts:['plain:    ','kw:if ','plain:nota ','op:>=','plain: ','num:90','plain::']},
+        {parts:['plain:        ','kw:return ','str:\"Excelente\"']},
+        {parts:['plain:    ','kw:elif ','plain:nota ','op:>=','plain: ','num:80','plain::']},
+        {parts:['plain:        ','kw:return ','str:\"Muy bien\"']},
+        {parts:['plain:    ','kw:elif ','plain:nota ','op:>=','plain: ','num:65','plain::']},
+        {parts:['plain:        ','kw:return ','str:\"Aprobado\"']},
+        {parts:['plain:    ','kw:else','plain::']},
+        {parts:['plain:        ','kw:return ','str:\"Reprobado\"']},
+        {parts:['fn:print','plain:(','fn:evaluar','plain:(','num:92','plain:))']},
+        {parts:['fn:print','plain:(','fn:evaluar','plain:(','num:70','plain:))']},
+        {parts:['fn:print','plain:(','fn:evaluar','plain:(','num:55','plain:))']},
+        {out:'Excelente\nAprobado\nReprobado'}
+      ],
+      runCode:'def evaluar(nota):\n    if nota >= 90:\n        return "Excelente"\n    elif nota >= 80:\n        return "Muy bien"\n    elif nota >= 65:\n        return "Aprobado"\n    else:\n        return "Reprobado"\n\nprint(evaluar(92))\nprint(evaluar(70))\nprint(evaluar(55))',
+      instruction:'Ejecutá el código. Probá con distintas notas: 95, 82, 67, 40 — ¿qué devuelve cada una?',
+      xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 10 · Reto 4', title:'Recorrer el boletín',
+      explain:'Combinamos el diccionario y la función. Con <code>for materia in boletin</code> recorremos cada materia y usamos <code>evaluar()</code> para convertir la nota en evaluación.',
+      analogy:{icon:'🔄',text:'Recorrer el diccionario y llamar a la función en cada vuelta es como el profe revisando cada materia del boletín y anotando si pasó o no.'},
+      code:[
+        {cmt:'# función evaluar ya definida arriba...'},
+        {parts:['plain:boletin ','op:=','plain: {','str:\"Matematicas\"','plain:','op::','num:78',', ','str:\"Espanol\"','plain:','op::','num:92',', ...}']},
+        {parts:['kw:for ','plain:materia ','kw:in','plain: boletin','plain::']},
+        {parts:['plain:    nota ','op:=','plain: boletin[materia]']},
+        {parts:['plain:    ev ','op:=','fn:evaluar','plain:(nota)']},
+        {parts:['fn:print','plain:(materia, ','str:"-"',', nota, ','str:"-"',', ev)']},
+        {out:'Matematicas - 78 - Aprobado\nEspanol - 92 - Excelente\nCiencias - 85 - Muy bien\nHistoria - 65 - Aprobado'}
+      ],
+      runCode:'def evaluar(nota):\n    if nota >= 90:\n        return "Excelente"\n    elif nota >= 80:\n        return "Muy bien"\n    elif nota >= 65:\n        return "Aprobado"\n    else:\n        return "Reprobado"\n\nboletin = {"Matematicas": 78, "Espanol": 92, "Ciencias": 85, "Historia": 65}\nfor materia in boletin:\n    nota = boletin[materia]\n    ev = evaluar(nota)\n    print(materia, "-", nota, "-", ev)',
+      instruction:'Ejecutá el código. Cambiá las notas del diccionario y observá cómo cambia la evaluación de cada materia.',
+      xp:150
+    },
+    {
+      type:'run', eyebrow:'Módulo 10 · Reto 5', title:'¡El boletín completo!',
+      explain:'El proyecto final combina <strong>todo</strong>: diccionario, función, <code>for</code> para acumular el total y calcular el promedio. Así funciona software real en colegios y universidades.',
+      analogy:{icon:'🎓',text:'¡Lo lograste! Usaste diccionarios, funciones, for e if — los bloques fundamentales de cualquier programa. Un sistema de notas real usa exactamente estos mismos conceptos.'},
+      code:[
+        {cmt:'# def evaluar(nota): ...'},
+        {parts:['plain:boletin ','op:=','plain: {','str:\"Matematicas\"','plain:','op::','num:78',', ','str:\"Espanol\"','plain:','op::','num:92',', ...}']},
+        {parts:['plain:total ','op:=','num: 0']},
+        {parts:['kw:for ','plain:materia ','kw:in','plain: boletin','plain::']},
+        {parts:['plain:    total ','op:=','plain: total ','op:+','plain: boletin[materia]']},
+        {parts:['plain:promedio ','op:=','plain: total ','op:/','plain: ','fn:len','plain:(boletin)']},
+        {parts:['fn:print','plain:(','str:\"=== BOLETIN ===\"','plain:)']},
+        {parts:['kw:for ','plain:materia ','kw:in','plain: boletin','plain::']},
+        {parts:['plain:    ','fn:print','plain:(materia, ','str:"-"',', boletin[materia], ','str:"-"',', ','fn:evaluar','plain:(boletin[materia]))']},
+        {parts:['fn:print','plain:(','str:\"Promedio:\"',', promedio, ','str:"-"',', ','fn:evaluar','plain:(promedio))']},
+        {out:'=== BOLETIN ===\nMatematicas - 78 - Aprobado\nEspanol - 92 - Excelente\nCiencias - 85 - Muy bien\nHistoria - 65 - Aprobado\nPromedio: 80 - Muy bien'}
+      ],
+      runCode:'def evaluar(nota):\n    if nota >= 90:\n        return "Excelente"\n    elif nota >= 80:\n        return "Muy bien"\n    elif nota >= 65:\n        return "Aprobado"\n    else:\n        return "Reprobado"\n\nboletin = {"Matematicas": 78, "Espanol": 92, "Ciencias": 85, "Historia": 65}\ntotal = 0\nfor materia in boletin:\n    total = total + boletin[materia]\npromedio = total / len(boletin)\nprint("=== BOLETIN ===")\nfor materia in boletin:\n    print(materia, "-", boletin[materia], "-", evaluar(boletin[materia]))\nprint("Promedio:", promedio, "-", evaluar(promedio))',
+      instruction:'Ejecutá el código. Cambiá las notas — ¿podés lograr un promedio "Excelente"? ¿Cuánto necesitás en cada materia?',
+      xp:150
+    }
+  ]
 }
 ];
 
@@ -1513,6 +1623,7 @@ function renderLesson(){
     h += '<div class="analogy-block"><div class="analogy-icon">📌</div><div class="analogy-text">'+l.instruction+'</div></div>';
     h += '<div class="run-wrap"><div class="run-topbar"><span class="run-label">▶ Editor Python</span><button class="run-btn" onclick="runCode()">▶ Ejecutar</button></div>';
     h += '<textarea class="run-editor" id="run-editor" rows="5">'+l.runCode+'</textarea>';
+    h += buildVkb();
     h += '<div class="run-output" id="run-output"></div></div>';
     document.getElementById('lesson-content').innerHTML = h;
     btn.textContent = '▶ Ejecuta primero'; btn.className = 'check-btn idle';
@@ -1642,6 +1753,28 @@ function runCode(){
   }
   var btn = document.getElementById('check-btn');
   if(btn){ btn.textContent = 'Continuar →'; btn.className = 'check-btn next'; btn.onclick = function(){ advanceLesson(); }; }
+}
+
+function buildVkb(){
+  var keys=['_','(',')',':','"',"'",'[',']','{','}','=','+','-','*','/','⇥'];
+  var h='<div class="vkb-bar">';
+  keys.forEach(function(k){
+    var disp=k==='⇥'?'⇥&nbsp;tab':k==='&'?'&amp;':k==='"'?'&quot;':k==='<'?'&lt;':k==='>'?'&gt;':k;
+    var dc=k==='"'?'&quot;':k==="'"?'&#39;':k==='&'?'&amp;':k;
+    h+='<button class="vkb-key" data-c="'+dc+'" onmousedown="event.preventDefault()" onclick="vkbInsert(this)">'+disp+'</button>';
+  });
+  return h+'</div>';
+}
+
+function vkbInsert(btn){
+  var ta=document.getElementById('run-editor');
+  if(!ta) return;
+  var ch=btn.getAttribute('data-c');
+  if(ch==='⇥') ch='    ';
+  var s=ta.selectionStart,e=ta.selectionEnd,v=ta.value;
+  ta.value=v.slice(0,s)+ch+v.slice(e);
+  ta.selectionStart=ta.selectionEnd=s+ch.length;
+  ta.focus();
 }
 
 function escHtml(s){
