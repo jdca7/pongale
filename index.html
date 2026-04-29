@@ -2299,6 +2299,197 @@ var MODULES = [
       instruction:'Ejecutá el código y verificá los saldos: 1500, 1300, 1300 con "Saldo insuficiente". Luego creá una segunda cuenta para <code>"Carlos"</code> con depósito de 2000, hacé dos retiros y verificá el saldo final. Por último comprobá que las dos cuentas son independientes entre sí.', xp:150
     }
   ]
+},
+{
+  id:18, icon:'✨', title:'19. Clases II: métodos especiales',
+  detail:'8 lecciones · __str__ · __len__ · __eq__ · +650 XP', xpReward:650,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 19 · Lección 1', title:'Métodos especiales',
+      explain:'Los <strong>métodos especiales</strong> (también llamados "dunders" por sus dobles guiones bajos) permiten que tus objetos se comporten como tipos integrados de Python. <code>__str__</code>, <code>__len__</code> y <code>__eq__</code> son los más útiles.',
+      analogy:{icon:'🎭',text:'Python llama a estos métodos automáticamente en ciertas situaciones: <code>print(obj)</code> llama a <code>__str__</code>, <code>len(obj)</code> llama a <code>__len__</code>, y <code>obj1 == obj2</code> llama a <code>__eq__</code>. Son como "enchufes" que conectan tu clase con el lenguaje.'},
+      code:[
+        {parts:['kw:class ','plain:Persona:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre, edad):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:        ','kw:self','plain:.edad ','op:=','plain: edad']},
+        {parts:['plain:    ','kw:def ','plain:__str__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','kw:self','plain:.nombre ','op:+','plain: ','str:'" ("','plain: ','op:+','plain: ','fn:str','plain:(','kw:self','plain:.edad) ','op:+','plain: ','str:'")"']},
+        {cmt:''},
+        {parts:['plain:p ','op:=','plain: ','fn:Persona','plain:(','str:'"Ana"',', ','num:25','plain:)']},
+        {parts:['fn:print','plain:(p)']},
+        {out:'Ana (25)'}
+      ],
+      question:'¿Cuándo llama Python automáticamente al método <code>__str__</code>?',
+      qcode:'class Gato:\n    def __init__(self, nombre):\n        self.nombre = nombre\n    def __str__(self):\n        return "Gato: " + self.nombre\n\ng = Gato("Michi")\nprint(g)',
+      opts:['Al usar print(obj) o str(obj)','Solo al llamar obj.__str__() explícitamente','Al comparar dos objetos','Al calcular len(obj)'],
+      correct:0,
+      hint:'Python usa <code>__str__</code> para convertir el objeto a texto, tanto en <code>print()</code> como en <code>str()</code>.',
+      ok:'¡Correcto! <code>print(obj)</code> y <code>str(obj)</code> llaman automáticamente a <code>__str__</code>.',
+      fail:'Python llama a <code>__str__</code> automáticamente cuando usás <code>print(obj)</code> o <code>str(obj)</code>.', xp:30
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 19 · Lección 2', title:'__str__: representación legible',
+      explain:'<code>__str__</code> debe retornar un <strong>string</strong>. Podés construirlo concatenando texto y atributos del objeto. Si la clase no tiene <code>__str__</code>, <code>print(obj)</code> muestra algo como <code>&lt;Punto object&gt;</code>.',
+      analogy:{icon:'🏷️',text:'<code>__str__</code> es como la etiqueta de un producto: convierte el objeto en algo que un humano puede leer. Sin etiqueta, el cajero solo ve un código de barras interno (<code>&lt;Punto object&gt;</code>). Con etiqueta, ve "Zapatillas Nike Talle 42".'},
+      code:[
+        {parts:['kw:class ','plain:Punto:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', x, y):']},
+        {parts:['plain:        ','kw:self','plain:.x ','op:=','plain: x']},
+        {parts:['plain:        ','kw:self','plain:.y ','op:=','plain: y']},
+        {parts:['plain:    ','kw:def ','plain:__str__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','str:'"("','plain: ','op:+','plain: ','fn:str','plain:(','kw:self','plain:.x) ','op:+','plain: ','str:'", "','plain: ','op:+','plain: ','fn:str','plain:(','kw:self','plain:.y) ','op:+','plain: ','str:'")"']},
+        {cmt:''},
+        {parts:['plain:p ','op:=','plain: ','fn:Punto','plain:(','num:3',', ','num:4','plain:)']},
+        {parts:['fn:print','plain:(p)']},
+        {parts:['plain:texto ','op:=','plain: ','fn:str','plain:(p)']},
+        {parts:['fn:print','plain:(texto)']},
+        {out:'(3, 4)\n(3, 4)'}
+      ],
+      question:'¿Qué retorna <code>__str__</code> si la clase tiene <code>self.x = 5</code> y <code>self.y = 7</code> con <code>return str(self.x) + "," + str(self.y)</code>?',
+      qcode:'class Punto:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __str__(self):\n        return str(self.x) + "," + str(self.y)\n\np = Punto(5, 7)\nprint(p)',
+      opts:['"5,7"','"Punto(5, 7)"','5','(5, 7)'],
+      correct:0,
+      hint:'<code>str(self.x)</code> convierte 5 a "5", <code>","</code> es la coma, <code>str(self.y)</code> convierte 7 a "7". Concatenados dan "5,7".',
+      ok:'¡Correcto! <code>str(5) + "," + str(7)</code> produce el string <code>"5,7"</code>.',
+      fail:'<code>str(self.x) + "," + str(self.y)</code> concatena "5", "," y "7" → el resultado es el string "5,7".', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 19 · Lección 3', title:'Implementar __str__',
+      explain:'El método <code>__str__</code> construye el string de salida concatenando texto y atributos del objeto usando <code>str()</code> para convertir números a texto.',
+      analogy:{icon:'📝',text:'Pensá en escribir la dirección de alguien: "Calle " + calle + " número " + str(numero). Cada atributo es una pieza que ensamblás para formar el texto completo. <code>str(self.num)</code> convierte el número a texto antes de pegarlo.'},
+      code:[
+        {parts:['kw:class ','plain:Punto:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', x, y):']},
+        {parts:['plain:        ','kw:self','plain:.x ','op:=','plain: x']},
+        {parts:['plain:        ','kw:self','plain:.y ','op:=','plain: y']},
+        {parts:['plain:    ','kw:def ','plain:__str__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','str:'"("','plain: ','op:+','plain: ','fn:str','plain:(','kw:self','plain:.x) ','op:+','plain: ','str:'", "','plain: ','op:+','plain: ','fn:str','plain:(','kw:self','plain:.y) ','op:+','plain: ','str:'")"']},
+        {cmt:''},
+        {parts:['plain:p1 ','op:=','plain: ','fn:Punto','plain:(','num:3',', ','num:4','plain:)']},
+        {parts:['plain:p2 ','op:=','plain: ','fn:Punto','plain:(','num:0',', ','num:0','plain:)']},
+        {parts:['fn:print','plain:(p1)']},
+        {parts:['fn:print','plain:(p2)']},
+        {out:'(3, 4)\n(0, 0)'}
+      ],
+      runCode:'class Punto:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __str__(self):\n        return "(" + str(self.x) + ", " + str(self.y) + ")"\n\np1 = Punto(3, 4)\np2 = Punto(0, 0)\nprint(p1)\nprint(p2)',
+      instruction:'Ejecutá el código. Luego creá un punto <code>p3 = Punto(-2, 5)</code> e imprimilo. Por último modificá <code>__str__</code> para que muestre el formato <code>"Punto(x=3, y=4)"</code> en vez de <code>"(3, 4)"</code>.', xp:80
+    },
+    {
+      type:'run', eyebrow:'Módulo 19 · Lección 4', title:'__len__: longitud personalizada',
+      explain:'<code>__len__</code> debe retornar un entero y permite usar <code>len(objeto)</code> con cualquier clase. Es ideal para clases que "contienen" elementos — listas, colecciones, inventarios.',
+      analogy:{icon:'📦',text:'<code>len()</code> funciona con listas y strings porque Python sabe cómo contarlos. Con <code>__len__</code>, le enseñás a Python a "contar" tu objeto también. <code>len(bolsa)</code> puede significar "cuántos ítems tiene esta bolsa".'},
+      code:[
+        {parts:['kw:class ','plain:Bolsa:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:self','plain:.items ','op:=','plain: []']},
+        {parts:['plain:    ','kw:def ','plain:agregar(','kw:self',', item):']},
+        {parts:['plain:        ','kw:self','plain:.items.append(item)']},
+        {parts:['plain:    ','kw:def ','plain:__len__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','fn:len','plain:(','kw:self','plain:.items)']},
+        {cmt:''},
+        {parts:['plain:b ','op:=','plain: ','fn:Bolsa','plain:()']},
+        {parts:['plain:b.agregar(','str:'"manzana"','plain:)']},
+        {parts:['plain:b.agregar(','str:'"pan"','plain:)']},
+        {parts:['fn:print','plain:(','fn:len','plain:(b))']},
+        {out:'2'}
+      ],
+      runCode:'class Bolsa:\n    def __init__(self):\n        self.items = []\n    def agregar(self, item):\n        self.items.append(item)\n    def __len__(self):\n        return len(self.items)\n\nb = Bolsa()\nb.agregar("manzana")\nb.agregar("pan")\nb.agregar("leche")\nprint(len(b))',
+      instruction:'Ejecutá el código (debe imprimir 3). Luego agregá dos items más y verificá que <code>len(b)</code> sea 5. Por último agregá un método <code>__str__</code> que muestre <code>"Bolsa con N items"</code> donde N es el número de items.', xp:80
+    },
+    {
+      type:'run', eyebrow:'Módulo 19 · Lección 5', title:'__eq__: comparar objetos',
+      explain:'Sin <code>__eq__</code>, <code>p1 == p2</code> compara si son <em>el mismo objeto en memoria</em> (como comparar si dos personas son literalmente la misma persona). Con <code>__eq__</code>, definís cuándo dos objetos son <em>iguales según su contenido</em>.',
+      analogy:{icon:'⚖️',text:'Dos billetes de 10 son "iguales" aunque sean objetos distintos. <code>__eq__</code> define esa lógica: "dos puntos son iguales si tienen las mismas coordenadas". Sin él, Python solo pregunta "¿es literalmente el mismo billete?" — que casi siempre es False.'},
+      code:[
+        {parts:['kw:class ','plain:Punto:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', x, y):']},
+        {parts:['plain:        ','kw:self','plain:.x ','op:=','plain: x']},
+        {parts:['plain:        ','kw:self','plain:.y ','op:=','plain: y']},
+        {parts:['plain:    ','kw:def ','plain:__eq__(','kw:self',', otro):']},
+        {parts:['plain:        ','kw:if ','kw:self','plain:.x ','op:==','plain: otro.x:']},
+        {parts:['plain:            ','kw:if ','kw:self','plain:.y ','op:==','plain: otro.y:']},
+        {parts:['plain:                ','kw:return ','kw:True']},
+        {parts:['plain:        ','kw:return ','kw:False']},
+        {cmt:''},
+        {parts:['plain:p1 ','op:=','plain: ','fn:Punto','plain:(','num:3',', ','num:4','plain:)']},
+        {parts:['plain:p2 ','op:=','plain: ','fn:Punto','plain:(','num:3',', ','num:4','plain:)']},
+        {parts:['fn:print','plain:(p1 ','op:==','plain: p2)']},
+        {out:'True'}
+      ],
+      runCode:'class Punto:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __eq__(self, otro):\n        if self.x == otro.x:\n            if self.y == otro.y:\n                return True\n        return False\n\np1 = Punto(3, 4)\np2 = Punto(3, 4)\np3 = Punto(1, 2)\nprint(p1 == p2)\nprint(p1 == p3)\nprint(p2 == p3)',
+      instruction:'Ejecutá el código (True, False, False). Luego probá <code>p1 != p2</code> y <code>p1 != p3</code>. Por último agregá <code>__str__</code> para que <code>print(p1)</code> muestre <code>"(3, 4)"</code> y verificá que todo funcione junto.', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 19 · Lección 6', title:'Reto 1: clase Temperatura',
+      explain:'Una clase <code>Temperatura</code> con <code>__str__</code> que muestre el valor y la unidad. Ejemplo: <code>Temperatura(25, "C")</code> → <code>print(t)</code> muestra <code>25°C</code>.',
+      analogy:{icon:'🌡️',text:'Una temperatura "sabe" cómo mostrarse: número seguido del símbolo de grados y la unidad. <code>__str__</code> ensambla esas piezas en el orden correcto — convirtiendo el número con <code>str()</code> y concatenando el resto.'},
+      code:[
+        {parts:['kw:class ','plain:Temperatura:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', grados, unidad):']},
+        {parts:['plain:        ','kw:self','plain:.grados ','op:=','plain: grados']},
+        {parts:['plain:        ','kw:self','plain:.unidad ','op:=','plain: unidad']},
+        {parts:['plain:    ','kw:def ','plain:__str__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','fn:str','plain:(','kw:self','plain:.grados) ','op:+','plain: ','str:'"°"','plain: ','op:+','plain: ','kw:self','plain:.unidad']},
+        {cmt:''},
+        {parts:['plain:t ','op:=','plain: ','fn:Temperatura','plain:(','num:25',', ','str:'"C"','plain:)']},
+        {parts:['fn:print','plain:(t)']},
+        {out:'25°C'}
+      ],
+      runCode:'class Temperatura:\n    def __init__(self, grados, unidad):\n        self.grados = grados\n        self.unidad = unidad\n    def __str__(self):\n        return str(self.grados) + "°" + self.unidad\n\nt1 = Temperatura(25, "C")\nt2 = Temperatura(77, "F")\nt3 = Temperatura(-10, "C")\nprint(t1)\nprint(t2)\nprint(t3)',
+      instruction:'Ejecutá el código. Luego agregá <code>__eq__</code> que compare dos temperaturas como iguales si tienen los mismos grados Y la misma unidad. Probá <code>Temperatura(25, "C") == Temperatura(25, "C")</code> (True) y <code>Temperatura(25, "C") == Temperatura(25, "F")</code> (False).', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 19 · Lección 7', title:'Reto 2: clase Inventario',
+      explain:'Una clase <code>Inventario</code> que use los tres métodos especiales juntos: <code>__str__</code> para mostrar el nombre y cantidad de ítems, <code>__len__</code> para retornar el número de ítems, y un método <code>agregar</code> para añadir a la lista interna.',
+      analogy:{icon:'🗃️',text:'Un inventario tiene nombre y una lista de productos. <code>len(inventario)</code> dice cuántos productos tiene. <code>print(inventario)</code> muestra un resumen legible. Combinar estos métodos hace que tu clase se comporte como si fuera parte del lenguaje.'},
+      code:[
+        {parts:['kw:class ','plain:Inventario:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:        ','kw:self','plain:.productos ','op:=','plain: []']},
+        {parts:['plain:    ','kw:def ','plain:agregar(','kw:self',', item):']},
+        {parts:['plain:        ','kw:self','plain:.productos.append(item)']},
+        {parts:['plain:    ','kw:def ','plain:__len__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','fn:len','plain:(','kw:self','plain:.productos)']},
+        {parts:['plain:    ','kw:def ','plain:__str__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','kw:self','plain:.nombre ','op:+','plain: ','str:'": "','plain: ','op:+','plain: ','fn:str','plain:(','fn:len','plain:(','kw:self','plain:)) ','op:+','plain: ','str:'" productos"']},
+        {cmt:''},
+        {parts:['plain:inv ','op:=','plain: ','fn:Inventario','plain:(','str:'"Tienda"','plain:)']},
+        {parts:['plain:inv.agregar(','str:'"leche"','plain:)']},
+        {parts:['plain:inv.agregar(','str:'"pan"','plain:)']},
+        {parts:['fn:print','plain:(inv)']},
+        {out:'Tienda: 2 productos'}
+      ],
+      runCode:'class Inventario:\n    def __init__(self, nombre):\n        self.nombre = nombre\n        self.productos = []\n    def agregar(self, item):\n        self.productos.append(item)\n    def __len__(self):\n        return len(self.productos)\n    def __str__(self):\n        return self.nombre + ": " + str(len(self)) + " productos"\n\ninv = Inventario("Tienda")\ninv.agregar("leche")\ninv.agregar("pan")\ninv.agregar("queso")\nprint(inv)\nprint(len(inv))',
+      instruction:'Ejecutá el código. Luego creá un segundo inventario <code>"Almacén"</code> con 5 productos distintos e imprimí ambos inventarios. Por último agregá <code>__eq__</code> que compare inventarios por la cantidad de productos (True si tienen la misma cantidad).', xp:120
+    },
+    {
+      type:'run', eyebrow:'Módulo 19 · Lección 8', title:'Reto final: clase Fraccion',
+      explain:'Una clase <code>Fraccion</code> con numerador y denominador. <code>__str__</code> muestra <code>"1/2"</code>. <code>__eq__</code> compara si dos fracciones son iguales (mismos numerador Y denominador).',
+      analogy:{icon:'🧮',text:'Una fracción tiene numerador y denominador. La representación texto es la forma clásica <code>"num/den"</code>. La igualdad por ahora es simple: 1/2 == 1/2, pero 1/2 ≠ 2/4 (para simplificación necesitaríamos más lógica, pero eso es futuro).'},
+      code:[
+        {parts:['kw:class ','plain:Fraccion:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', num, den):']},
+        {parts:['plain:        ','kw:self','plain:.num ','op:=','plain: num']},
+        {parts:['plain:        ','kw:self','plain:.den ','op:=','plain: den']},
+        {parts:['plain:    ','kw:def ','plain:__str__(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','fn:str','plain:(','kw:self','plain:.num) ','op:+','plain: ','str:'"/"','plain: ','op:+','plain: ','fn:str','plain:(','kw:self','plain:.den)']},
+        {parts:['plain:    ','kw:def ','plain:__eq__(','kw:self',', otra):']},
+        {parts:['plain:        ','kw:if ','kw:self','plain:.num ','op:==','plain: otra.num:']},
+        {parts:['plain:            ','kw:if ','kw:self','plain:.den ','op:==','plain: otra.den:']},
+        {parts:['plain:                ','kw:return ','kw:True']},
+        {parts:['plain:        ','kw:return ','kw:False']},
+        {cmt:''},
+        {parts:['plain:f1 ','op:=','plain: ','fn:Fraccion','plain:(','num:1',', ','num:2','plain:)']},
+        {parts:['plain:f2 ','op:=','plain: ','fn:Fraccion','plain:(','num:1',', ','num:2','plain:)']},
+        {parts:['fn:print','plain:(f1, f1 ','op:==','plain: f2)']},
+        {out:'1/2 True'}
+      ],
+      runCode:'class Fraccion:\n    def __init__(self, num, den):\n        self.num = num\n        self.den = den\n    def __str__(self):\n        return str(self.num) + "/" + str(self.den)\n    def __eq__(self, otra):\n        if self.num == otra.num:\n            if self.den == otra.den:\n                return True\n        return False\n\nf1 = Fraccion(1, 2)\nf2 = Fraccion(1, 2)\nf3 = Fraccion(3, 4)\nprint(f1)\nprint(f1 == f2)\nprint(f1 == f3)\nprint(f1 != f3)',
+      instruction:'Ejecutá el código (1/2, True, False, True). Luego creá <code>Fraccion(2, 3)</code> y <code>Fraccion(2, 3)</code> y verificá que son iguales. Por último agregá un método <code>sumar(self, otra)</code> que retorne una nueva <code>Fraccion</code> con denominador común (<code>num = self.num * otra.den + otra.num * self.den</code>, <code>den = self.den * otra.den</code>) y comprobá que <code>print(f1.sumar(f3))</code> muestra <code>"10/8"</code>.', xp:150
+    }
+  ]
 }
 ];
 
@@ -2748,10 +2939,10 @@ function pySimulate(code){
       if(!_ci)return[];return splitArgs(_ci).map(function(x){return evalVal(x.trim());});
     }
     if(expr.startsWith('{')&&expr.endsWith('}')){var _di=expr.slice(1,-1).trim();if(!_di)return{};var _dobj={};splitArgs(_di).forEach(function(pair){var _dc=pair.indexOf(':');var _dk=evalVal(pair.slice(0,_dc).trim());var _dv=evalVal(pair.slice(_dc+1).trim());_dobj[_dk]=_dv;});return _dobj;}
-    var lenM=expr.match(/^len\((.+)\)$/);if(lenM){var lv=evalVal(lenM[1].trim());return Array.isArray(lv)?lv.length:(typeof lv==='string'?lv.length:(typeof lv==='object'&&lv!==null?Object.keys(lv).length:0));}
+    var lenM=expr.match(/^len\((.+)\)$/);if(lenM){var lv=evalVal(lenM[1].trim());if(lv&&typeof lv==='object'&&lv.__class__){var _lcls=classes[lv.__class__];if(_lcls&&_lcls.methods&&_lcls.methods['__len__'])return callMethodWithVals(lv,'__len__',[]);}return Array.isArray(lv)?lv.length:(typeof lv==='string'?lv.length:(typeof lv==='object'&&lv!==null?Object.keys(lv).length:0));}
     var intM=expr.match(/^int\((.+)\)$/);if(intM){var _iv=evalVal(intM[1].trim());if(typeof _iv==='number')return Math.trunc(_iv);var _is=String(_iv).trim();if(!/^-?\d+$/.test(_is))throw{type:'pyerror',etype:'ValueError',msg:'invalid literal for int()'};return parseInt(_is,10);}
     var floatM=expr.match(/^float\((.+)\)$/);if(floatM){var _fv=evalVal(floatM[1].trim());if(typeof _fv==='number')return _fv;var _fn2=parseFloat(String(_fv));if(isNaN(_fn2))throw{type:'pyerror',etype:'ValueError',msg:'could not convert string to float'};return _fn2;}
-    var strConvM=expr.match(/^str\((.+)\)$/);if(strConvM){var _sv=evalVal(strConvM[1].trim());return _sv===true?'True':_sv===false?'False':_sv===null?'None':String(_sv);}
+    var strConvM=expr.match(/^str\((.+)\)$/);if(strConvM){var _sv=evalVal(strConvM[1].trim());if(_sv&&typeof _sv==='object'&&_sv.__class__){var _svcls=classes[_sv.__class__];if(_svcls&&_svcls.methods&&_svcls.methods['__str__']){var _svr=callMethodWithVals(_sv,'__str__',[]);return _svr!==undefined?String(_svr):'<'+_sv.__class__+' object>';}}return _sv===true?'True':_sv===false?'False':_sv===null?'None':String(_sv);}
     var lambdaM=expr.match(/^lambda\s+([\w,\s]+)\s*:\s*(.+)$/);if(lambdaM){var _lname='__lam_'+(_lambdaCount++)+'_';var _lparams=lambdaM[1].split(',').map(function(p){return p.trim();}).filter(Boolean);funcs[_lname]={params:_lparams,defaults:{},body:['    return '+lambdaM[2].trim()]};return{__fn__:_lname,__lambda__:true};}
     var listConvM=expr.match(/^list\((.+)\)$/);if(listConvM){var _lcv=evalVal(listConvM[1].trim());return Array.isArray(_lcv)?_lcv:(typeof _lcv==='string'?_lcv.split(''):_lcv!==null&&_lcv!==undefined?[_lcv]:[]);}
     var mapM=expr.match(/^map\((.+)\)$/);if(mapM){var _mA=splitArgs(mapM[1]);if(_mA.length===2){var _mFn=evalVal(_mA[0].trim()),_mLst=evalVal(_mA[1].trim());if(Array.isArray(_mLst)&&_mFn&&_mFn.__fn__)return _mLst.map(function(item){return callFuncWithVals(_mFn.__fn__,[item]);});}}
@@ -2763,7 +2954,7 @@ function pySimulate(code){
     var instAttrM=expr.match(/^(\w+)\.(\w+)$/);if(instAttrM&&instAttrM[1] in env&&env[instAttrM[1]]&&env[instAttrM[1]].__class__)return env[instAttrM[1]].__attrs__[instAttrM[2]];
     var methM=expr.match(/^(\w+)\.(upper|lower|keys|values)\(\)$/);if(methM&&methM[1] in env){var _mo=env[methM[1]];if(methM[2]==='upper'&&typeof _mo==='string')return _mo.toUpperCase();if(methM[2]==='lower'&&typeof _mo==='string')return _mo.toLowerCase();if(methM[2]==='keys'&&typeof _mo==='object'&&_mo!==null)return Object.keys(_mo);if(methM[2]==='values'&&typeof _mo==='object'&&_mo!==null)return Object.values(_mo);}
     var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1&&(Array.isArray(container)||typeof container==='string')){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=evalVal(idxStr);if(Array.isArray(container)){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='string'){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='object'&&container!==null)return container[idx];}
-    var compM2=expr.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);if(compM2){var _ca=evalVal(compM2[1].trim()),_cb=evalVal(compM2[3].trim()),_cop=compM2[2];var _nca=parseFloat(_ca),_ncb=parseFloat(_cb),_uN=!isNaN(_nca)&&!isNaN(_ncb);if(_cop==='==')return _uN?(_nca===_ncb):(_ca===_cb);if(_cop==='!=')return _uN?(_nca!==_ncb):(_ca!==_cb);if(_cop==='>')return _nca>_ncb;if(_cop==='<')return _nca<_ncb;if(_cop==='>=')return _nca>=_ncb;if(_cop==='<=')return _nca<=_ncb;}
+    var compM2=expr.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);if(compM2){var _ca=evalVal(compM2[1].trim()),_cb=evalVal(compM2[3].trim()),_cop=compM2[2];var _nca=parseFloat(_ca),_ncb=parseFloat(_cb),_uN=!isNaN(_nca)&&!isNaN(_ncb);if(_cop==='=='){if(_ca&&typeof _ca==='object'&&_ca.__class__){var _eqcls=classes[_ca.__class__];if(_eqcls&&_eqcls.methods&&_eqcls.methods['__eq__'])return !!callMethodWithVals(_ca,'__eq__',[_cb]);}return _uN?(_nca===_ncb):(_ca===_cb);}if(_cop==='!='){if(_ca&&typeof _ca==='object'&&_ca.__class__){var _necls=classes[_ca.__class__];if(_necls&&_necls.methods&&_necls.methods['__eq__'])return !callMethodWithVals(_ca,'__eq__',[_cb]);}return _uN?(_nca!==_ncb):(_ca!==_cb);}if(_cop==='>')return _nca>_ncb;if(_cop==='<')return _nca<_ncb;if(_cop==='>=')return _nca>=_ncb;if(_cop==='<=')return _nca<=_ncb;}
     var arith = expr.match(/^(.+?)\s*(\/\/|[+\-\*\/%])\s*(.+)$/);
     if(arith){
       var a = evalVal(arith[1]), b = evalVal(arith[3]), op = arith[2];
@@ -2787,15 +2978,15 @@ function pySimulate(code){
       var a=evalVal(m[1].trim()),b=evalVal(m[3].trim()),op=m[2];
       var na=parseFloat(a),nb=parseFloat(b);
       var useNum=!isNaN(na)&&!isNaN(nb);
-      if(op==='==') return useNum?(na===nb):(a===b);
-      if(op==='!=') return useNum?(na!==nb):(a!==b);
+      if(op==='=='){if(a&&typeof a==='object'&&a.__class__){var _eqc=classes[a.__class__];if(_eqc&&_eqc.methods&&_eqc.methods['__eq__'])return !!callMethodWithVals(a,'__eq__',[b]);}return useNum?(na===nb):(a===b);}
+      if(op==='!='){if(a&&typeof a==='object'&&a.__class__){var _nec=classes[a.__class__];if(_nec&&_nec.methods&&_nec.methods['__eq__'])return !callMethodWithVals(a,'__eq__',[b]);}return useNum?(na!==nb):(a!==b);}
       if(op==='>') return na>nb; if(op==='<') return na<nb;
       if(op==='>=') return na>=nb; if(op==='<=') return na<=nb;
     }
     return !!evalVal(cond);
   }
 
-  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return v.__lambda__?'<function <lambda>>':'<function '+v.__fn__+'>';if(v&&typeof v==='object'&&v.__class__)return '<'+v.__class__+' object>';if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
+  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return v.__lambda__?'<function <lambda>>':'<function '+v.__fn__+'>';if(v&&typeof v==='object'&&v.__class__){var _scls=classes[v.__class__];if(_scls&&_scls.methods&&_scls.methods['__str__']){var _sr=callMethodWithVals(v,'__str__',[]);return _sr!==undefined?String(_sr):'<'+v.__class__+' object>';}return '<'+v.__class__+' object>';}if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
 
   function evalPrint(stmt){
     var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
@@ -2828,6 +3019,7 @@ function pySimulate(code){
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
     if(t.startsWith('raise ')){var _rM=t.match(/^raise\s+(\w+)\s*\((.*)\)$/);if(_rM)throw{type:'pyerror',etype:_rM[1],msg:_rM[2]?String(evalVal(_rM[2].trim())):_rM[1]};return;}
     var instDotSetM=t.match(/^(\w+)\.(\w+)\s*=\s*(.+)$/);if(instDotSetM&&instDotSetM[1] in env&&env[instDotSetM[1]]&&env[instDotSetM[1]].__class__){env[instDotSetM[1]].__attrs__[instDotSetM[2]]=evalVal(instDotSetM[3].trim());return;}
+    var instAttrAppM=t.match(/^(\w+)\.(\w+)\.append\((.+)\)$/);if(instAttrAppM&&instAttrAppM[1] in env&&env[instAttrAppM[1]]&&env[instAttrAppM[1]].__class__){var _iaa=env[instAttrAppM[1]].__attrs__[instAttrAppM[2]];if(Array.isArray(_iaa))_iaa.push(evalVal(instAttrAppM[3].trim()));return;}
     var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
     var dictSetM=t.match(/^(\w+)\[(.+)\]\s*=\s*(.+)$/);if(dictSetM&&dictSetM[1] in env){var _dk=evalVal(dictSetM[2].trim());env[dictSetM[1]][_dk]=evalVal(dictSetM[3].trim());return;}
     var instMethM=t.match(/^(\w+)\.(\w+)\s*\((.*?)?\)$/);if(instMethM&&instMethM[1] in env&&env[instMethM[1]]&&env[instMethM[1]].__class__){callMethod(env[instMethM[1]],instMethM[2],splitArgs(instMethM[3]||''));return;}
@@ -2875,6 +3067,8 @@ function pySimulate(code){
     Object.keys(saved).forEach(function(k){env[k]=saved[k];});
     return retVal;
   }
+
+  function callMethodWithVals(instance,mname,vals){var cls=classes[instance.__class__];if(!cls||!cls.methods[mname])return undefined;var m=cls.methods[mname];var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<vals.length)env[p]=vals[idx];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
 
   function callMethod(instance,mname,rawArgs){var cls=classes[instance.__class__];if(!cls||!cls.methods[mname])return undefined;var m=cls.methods[mname];var positional=[],kwargs={};rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1)kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());else positional.push(evalVal(at));});var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
 
