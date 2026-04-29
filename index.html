@@ -1823,6 +1823,103 @@ var MODULES = [
       fail:'El kwarg <code>suma=10</code> solo sobreescribe <code>suma</code>. El <code>factor</code> sigue siendo <code>2</code> (su default). Resultado: <code>5 * 2 + 10 = 20</code>.', xp:200
     }
   ]
+},
+{
+  id:14, icon:'λ', title:'15. Lambda y map/filter',
+  detail:'5 lecciones · lambda · map() · filter() · +500 XP', xpReward:500,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 15 · Lección 1', title:'Funciones anónimas: lambda',
+      explain:'Una <strong>lambda</strong> es una función anónima de una sola línea. <code>lambda x: x * 2</code> es equivalente a <code>def doblar(x): return x * 2</code>, pero más compacto. No necesita un nombre propio — de ahí "anónima". Podés asignarla a una variable y usarla igual que cualquier función.',
+      analogy:{icon:'🗒️',text:'Una función con <code>def</code> es como firmar un contrato con nombre y todo — queda registrada. Una lambda es un post-it rápido: escribís qué hace y la usás al instante, sin formalidades. Perfecta para operaciones cortas que no vale la pena formalizar.'},
+      code:[
+        {cmt:'# Función tradicional'},
+        {parts:['kw:def ','plain:doblar','plain:(x):']},
+        {parts:['plain:    ','kw:return ','plain:x ','op:*','plain: ','num:2']},
+        {cmt:''},
+        {cmt:'# Lambda equivalente'},
+        {parts:['plain:doblar ','op:=','plain: ','kw:lambda ','plain:x: x ','op:*','plain: ','num:2']},
+        {cmt:''},
+        {parts:['fn:print','plain:(doblar(','num:5','plain:))']},
+        {out:'10'}
+      ],
+      question:'¿Qué imprime <code>doblar(7)</code> si <code>doblar = lambda x: x * 2</code>?',
+      qcode:'doblar = lambda x: x * 2\nprint(doblar(7))',
+      opts:['14','7','2','Error: lambda no puede tener nombre'],
+      correct:0,
+      hint:'<code>lambda x: x * 2</code> crea una función que recibe <code>x</code> y devuelve <code>x * 2</code>. Con <code>x = 7</code>: <code>7 * 2 = 14</code>.',
+      ok:'¡Exacto! <code>lambda x: x * 2</code> con <code>x = 7</code> → <code>7 * 2 = 14</code>. Una lambda asignada a variable se usa igual que <code>def</code>.',
+      fail:'<code>lambda x: x * 2</code> es la función. Se llama con <code>7</code>, así que <code>x = 7</code> → <code>7 * 2 = 14</code>.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 15 · Lección 2', title:'Lambda como variable',
+      explain:'Podés asignar una lambda a una variable y usarla igual que cualquier función. Las lambdas solo soportan <strong>una expresión</strong> como cuerpo — no pueden tener múltiples líneas ni bucles internos. Son perfectas para transformaciones cortas y directas.',
+      analogy:{icon:'🎛️',text:'Es como guardar un ajuste rápido en un panel de control. No necesitás abrir el manual completo — solo nombrás el ajuste y lo aplicás cuando querés. Simple, directo, sin burocracia.'},
+      code:[
+        {parts:['plain:cuadrado ','op:=','plain: ','kw:lambda ','plain:x: x ','op:*','plain: x']},
+        {parts:['plain:saludar ','op:=','plain: ','kw:lambda ','plain:nombre: ','str:\'Hola \'','plain: ','op:+','plain: nombre']},
+        {cmt:''},
+        {parts:['fn:print','plain:(cuadrado(','num:4','plain:))']},
+        {parts:['fn:print','plain:(saludar(','str:'+"'Ana'",'plain:))']},
+        {out:'16\nHola Ana'}
+      ],
+      runCode:'cuadrado = lambda x: x * x\nsaludar = lambda nombre: \'Hola \' + nombre\n\nprint(cuadrado(4))\nprint(saludar("Ana"))',
+      instruction:'Ejecutá el código. Luego creá una lambda <code>triple</code> que multiplique por 3 y probala con <code>print(triple(7))</code>. Finalmente creá <code>es_par</code> usando <code>lambda x: x % 2 == 0</code> y verificá con <code>print(es_par(8))</code> y <code>print(es_par(5))</code>.', xp:80
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 15 · Lección 3', title:'map() — transformar cada elemento',
+      explain:'<code>map(funcion, lista)</code> aplica la función a <strong>cada elemento</strong> de la lista y devuelve los resultados. Usamos <code>list()</code> para convertir el resultado en una lista que podemos ver e imprimir. Es como pasar cada pieza de una cinta transportadora por la misma máquina.',
+      analogy:{icon:'🏭',text:'Imaginá una cinta transportadora de fábrica. Cada pieza (elemento de la lista) pasa por la misma máquina (la función). La máquina transforma cada pieza en orden y al final tenés otra lista — todas las piezas procesadas.'},
+      code:[
+        {parts:['plain:numeros ','op:=','plain: [','num:1','plain:, ','num:2','plain:, ','num:3','plain:, ','num:4','plain:]']},
+        {cmt:''},
+        {parts:['plain:dobles ','op:=','plain: ','fn:list','plain:(','fn:map','plain:(','kw:lambda ','plain:x: x ','op:*','plain: ','num:2','plain:, numeros))']},
+        {parts:['fn:print','plain:(dobles)']},
+        {out:'[2, 4, 6, 8]'}
+      ],
+      question:'¿Qué imprime <code>list(map(lambda x: x + 1, [10, 20, 30]))</code>?',
+      qcode:'numeros = [10, 20, 30]\nresultado = list(map(lambda x: x + 1, numeros))\nprint(resultado)',
+      opts:['[11, 21, 31]','[10, 20, 30]','[1, 1, 1]','Error: map necesita def'],
+      correct:0,
+      hint:'<code>map</code> aplica <code>lambda x: x + 1</code> a cada elemento: <code>10+1=11</code>, <code>20+1=21</code>, <code>30+1=31</code>.',
+      ok:'¡Correcto! Cada elemento suma 1: <code>[10+1, 20+1, 30+1]</code> → <code>[11, 21, 31]</code>.',
+      fail:'<code>map</code> aplica la función a cada elemento. <code>lambda x: x+1</code> suma 1 a cada uno: <code>[11, 21, 31]</code>.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 15 · Lección 4', title:'filter() — conservar solo lo que querés',
+      explain:'<code>filter(funcion, lista)</code> mantiene solo los elementos donde la función devuelve <code>True</code>. La función actúa como un filtro o tamiz: lo que pasa la prueba se queda, lo que no se descarta. Combinado con lambda es muy expresivo.',
+      analogy:{icon:'🔍',text:'Es como un control de calidad: cada producto pasa por una inspección (la función). Si pasa la prueba (<code>True</code>), avanza. Si no (<code>False</code>), se descarta. Al final solo quedan los productos aprobados.'},
+      code:[
+        {parts:['plain:numeros ','op:=','plain: [','num:1','plain:, ','num:2','plain:, ','num:3','plain:, ','num:4','plain:, ','num:5','plain:, ','num:6','plain:]']},
+        {cmt:''},
+        {parts:['plain:pares ','op:=','plain: ','fn:list','plain:(','fn:filter','plain:(','kw:lambda ','plain:x: x ','op:%','plain: ','num:2 ','op:==','plain: ','num:0','plain:, numeros))']},
+        {parts:['fn:print','plain:(pares)']},
+        {out:'[2, 4, 6]'}
+      ],
+      runCode:'numeros = [1, 2, 3, 4, 5, 6]\n\npares = list(filter(lambda x: x % 2 == 0, numeros))\nprint(pares)',
+      instruction:'Ejecutá el código. Luego creá una lista <code>notas = [45, 78, 92, 61, 55, 88]</code> y usá <code>filter</code> con <code>lambda x: x >= 70</code> para obtener solo las notas aprobadas. Imprimí el resultado.', xp:160
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 15 · Lección 5', title:'Lambda y map/filter — quiz final',
+      explain:'Las lambdas son funciones anónimas compactas de una sola expresión. <code>map</code> transforma cada elemento de una lista. <code>filter</code> selecciona los elementos que cumplen una condición. Combinados reemplazan muchos bucles <code>for</code> con código más expresivo.',
+      analogy:{icon:'⚡',text:'Lambda + map + filter es como un equipo de robots en cadena: lambda define qué hace cada robot, map manda a todos a transformar, filter es el inspector que aprueba o descarta. Juntos procesan listas en una sola línea sin bucles explícitos.'},
+      code:[
+        {parts:['plain:precios ','op:=','plain: [','num:100','plain:, ','num:200','plain:, ','num:50','plain:, ','num:300','plain:, ','num:80','plain:]']},
+        {cmt:'# Solo precios > 90, con descuento de 10'},
+        {parts:['plain:caros ','op:=','plain: ','fn:list','plain:(','fn:filter','plain:(','kw:lambda ','plain:x: x ','op:>','plain: ','num:90','plain:, precios))']},
+        {parts:['plain:rebaja ','op:=','plain: ','fn:list','plain:(','fn:map','plain:(','kw:lambda ','plain:x: x ','op:-','plain: ','num:10','plain:, caros))']},
+        {parts:['fn:print','plain:(rebaja)']},
+        {out:'[90, 190, 290]'}
+      ],
+      question:'¿Qué imprime <code>list(map(lambda x: x * x, [2, 3, 4]))</code>?',
+      qcode:'result = list(map(lambda x: x * x, [2, 3, 4]))\nprint(result)',
+      opts:['[4, 9, 16]','[2, 3, 4]','[8, 12, 16]','[4, 6, 8]'],
+      correct:0,
+      hint:'<code>lambda x: x * x</code> eleva al cuadrado. <code>2²=4</code>, <code>3²=9</code>, <code>4²=16</code>.',
+      ok:'¡Correcto! Cada elemento al cuadrado: <code>[2², 3², 4²]</code> → <code>[4, 9, 16]</code>.',
+      fail:'<code>lambda x: x * x</code> calcula el cuadrado de cada elemento. <code>2²=4</code>, <code>3²=9</code>, <code>4²=16</code> → <code>[4, 9, 16]</code>.', xp:200
+    }
+  ]
 }
 ];
 
@@ -2003,8 +2100,8 @@ function hlPython(code){
   return code.split('\n').map(function(line){
     var out=''; var i=0;
     function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise'];
-    var FN=['print','type','range','len','int','str','float','bool','input','list','append'];
+    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise','lambda'];
+    var FN=['print','type','range','len','int','str','float','bool','input','list','append','map','filter'];
     while(i<line.length){
       if(line[i]==='#'){ out+='<span class="cmt">'+esc(line.slice(i))+'</span>'; break; }
       if(line[i]==='"'||line[i]==="'"){
@@ -2236,6 +2333,7 @@ function pySimulate(code){
   var env = {};
   var funcs = {};
   var output = [];
+  var _lambdaCount = 0;
 
   function evalVal(expr){
     expr = expr.trim();
@@ -2273,11 +2371,16 @@ function pySimulate(code){
     var intM=expr.match(/^int\((.+)\)$/);if(intM){var _iv=evalVal(intM[1].trim());if(typeof _iv==='number')return Math.trunc(_iv);var _is=String(_iv).trim();if(!/^-?\d+$/.test(_is))throw{type:'pyerror',etype:'ValueError',msg:'invalid literal for int()'};return parseInt(_is,10);}
     var floatM=expr.match(/^float\((.+)\)$/);if(floatM){var _fv=evalVal(floatM[1].trim());if(typeof _fv==='number')return _fv;var _fn2=parseFloat(String(_fv));if(isNaN(_fn2))throw{type:'pyerror',etype:'ValueError',msg:'could not convert string to float'};return _fn2;}
     var strConvM=expr.match(/^str\((.+)\)$/);if(strConvM){var _sv=evalVal(strConvM[1].trim());return _sv===true?'True':_sv===false?'False':_sv===null?'None':String(_sv);}
+    var lambdaM=expr.match(/^lambda\s+([\w,\s]+)\s*:\s*(.+)$/);if(lambdaM){var _lname='__lam_'+(_lambdaCount++)+'_';var _lparams=lambdaM[1].split(',').map(function(p){return p.trim();}).filter(Boolean);funcs[_lname]={params:_lparams,defaults:{},body:['    return '+lambdaM[2].trim()]};return{__fn__:_lname,__lambda__:true};}
+    var listConvM=expr.match(/^list\((.+)\)$/);if(listConvM){var _lcv=evalVal(listConvM[1].trim());return Array.isArray(_lcv)?_lcv:(typeof _lcv==='string'?_lcv.split(''):_lcv!==null&&_lcv!==undefined?[_lcv]:[]);}
+    var mapM=expr.match(/^map\((.+)\)$/);if(mapM){var _mA=splitArgs(mapM[1]);if(_mA.length===2){var _mFn=evalVal(_mA[0].trim()),_mLst=evalVal(_mA[1].trim());if(Array.isArray(_mLst)&&_mFn&&_mFn.__fn__)return _mLst.map(function(item){return callFuncWithVals(_mFn.__fn__,[item]);});}}
+    var filterM=expr.match(/^filter\((.+)\)$/);if(filterM){var _fA=splitArgs(filterM[1]);if(_fA.length===2){var _fFn=evalVal(_fA[0].trim()),_fLst=evalVal(_fA[1].trim());if(Array.isArray(_fLst)&&_fFn&&_fFn.__fn__)return _fLst.filter(function(item){return callFuncWithVals(_fFn.__fn__,[item]);});}}
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
     if(callM){if(callM[1] in funcs)return callFunc(callM[1],splitArgs(callM[2]||''));if(callM[1] in env&&env[callM[1]]&&typeof env[callM[1]]==='object'&&env[callM[1]].__fn__)return callFunc(env[callM[1]].__fn__,splitArgs(callM[2]||''));}
     if(/^\w+$/.test(expr)){if(expr in env)return env[expr];if(expr in funcs)return{__fn__:expr};}
     var methM=expr.match(/^(\w+)\.(upper|lower|keys|values)\(\)$/);if(methM&&methM[1] in env){var _mo=env[methM[1]];if(methM[2]==='upper'&&typeof _mo==='string')return _mo.toUpperCase();if(methM[2]==='lower'&&typeof _mo==='string')return _mo.toLowerCase();if(methM[2]==='keys'&&typeof _mo==='object'&&_mo!==null)return Object.keys(_mo);if(methM[2]==='values'&&typeof _mo==='object'&&_mo!==null)return Object.values(_mo);}
     var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1&&(Array.isArray(container)||typeof container==='string')){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=evalVal(idxStr);if(Array.isArray(container)){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='string'){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='object'&&container!==null)return container[idx];}
+    var compM2=expr.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);if(compM2){var _ca=evalVal(compM2[1].trim()),_cb=evalVal(compM2[3].trim()),_cop=compM2[2];var _nca=parseFloat(_ca),_ncb=parseFloat(_cb),_uN=!isNaN(_nca)&&!isNaN(_ncb);if(_cop==='==')return _uN?(_nca===_ncb):(_ca===_cb);if(_cop==='!=')return _uN?(_nca!==_ncb):(_ca!==_cb);if(_cop==='>')return _nca>_ncb;if(_cop==='<')return _nca<_ncb;if(_cop==='>=')return _nca>=_ncb;if(_cop==='<=')return _nca<=_ncb;}
     var arith = expr.match(/^(.+?)\s*(\/\/|[+\-\*\/%])\s*(.+)$/);
     if(arith){
       var a = evalVal(arith[1]), b = evalVal(arith[3]), op = arith[2];
@@ -2309,7 +2412,7 @@ function pySimulate(code){
     return !!evalVal(cond);
   }
 
-  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return '<function '+v.__fn__+'>';if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
+  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return v.__lambda__?'<function <lambda>>':'<function '+v.__fn__+'>';if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
 
   function evalPrint(stmt){
     var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
@@ -2368,6 +2471,19 @@ function pySimulate(code){
     catch(e){ if(e&&e.type==='return') retVal=e.val; else throw e; }
     Object.keys(env).forEach(function(k){ delete env[k]; });
     Object.keys(saved).forEach(function(k){ env[k]=saved[k]; });
+    return retVal;
+  }
+
+  function callFuncWithVals(fname,vals){
+    var f=funcs[fname];if(!f)return undefined;
+    var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});
+    if(f.defaults)Object.keys(f.defaults).forEach(function(p){env[p]=f.defaults[p];});
+    f.params.forEach(function(p,idx){if(idx<vals.length)env[p]=vals[idx];});
+    var retVal=undefined;
+    try{runBlock(f.body);}
+    catch(e){if(e&&e.type==='return')retVal=e.val;else throw e;}
+    Object.keys(env).forEach(function(k){delete env[k];});
+    Object.keys(saved).forEach(function(k){env[k]=saved[k];});
     return retVal;
   }
 
