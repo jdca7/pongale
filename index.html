@@ -1920,6 +1920,111 @@ var MODULES = [
       fail:'<code>lambda x: x * x</code> calcula el cuadrado de cada elemento. <code>2²=4</code>, <code>3²=9</code>, <code>4²=16</code> → <code>[4, 9, 16]</code>.', xp:200
     }
   ]
+},
+{
+  id:15, icon:'🔁', title:'16. Recursión',
+  detail:'5 lecciones · Base case · Factorial · Fibonacci · +500 XP', xpReward:500,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 16 · Lección 1', title:'Qué es la recursión',
+      explain:'Una función es <strong>recursiva</strong> cuando se llama a sí misma. Para funcionar necesita dos partes: el <strong>caso base</strong> (condición que detiene la recursión) y el <strong>caso recursivo</strong> (donde la función se llama con un problema más pequeño). Sin caso base, la recursión es infinita.',
+      analogy:{icon:'🪆',text:'Las muñecas rusas matrioshka: cada muñeca contiene una más pequeña, hasta llegar a la más pequeña que ya no tiene nada adentro — ese es el caso base. Si nunca llegaras a esa última, estarías abriendo muñecas para siempre.'},
+      code:[
+        {parts:['kw:def ','plain:contar','plain:(n):']},
+        {parts:['plain:    ','kw:if ','plain:n ','op:==','plain: ','num:0','plain::']},
+        {parts:['plain:        ','fn:print','plain:(','str:\'¡Listo!\'','plain:)']},
+        {parts:['plain:        ','kw:return']},
+        {parts:['plain:    ','fn:print','plain:(n)']},
+        {parts:['plain:    ','fn:contar','plain:(n ','op:-','plain: ','num:1','plain:)']},
+        {cmt:''},
+        {parts:['fn:contar','plain:(','num:3','plain:)']},
+        {out:'3\n2\n1\n¡Listo!'}
+      ],
+      question:'¿Qué DEBE tener una función recursiva para no ejecutarse infinitamente?',
+      qcode:'def contar(n):\n    if n == 0:\n        print("¡Listo!")\n        return\n    print(n)\n    contar(n - 1)\n\ncontar(3)',
+      opts:['Un caso base que detiene la recursión','Un bucle for interno','Al menos dos parámetros','Que devuelva None siempre'],
+      correct:0,
+      hint:'Sin una condición que detenga la recursión, la función se llamaría a sí misma para siempre hasta que el sistema colapse.',
+      ok:'¡Correcto! El <strong>caso base</strong> es la condición que detiene la cadena de llamadas recursivas. En <code>contar</code>, el caso base es <code>n == 0</code>.',
+      fail:'El elemento crítico es el <strong>caso base</strong> — una condición que la función evalúa y que, cuando es verdadera, detiene las llamadas recursivas y empieza a retornar.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 16 · Lección 2', title:'Factorial recursivo',
+      explain:'El factorial de <code>n</code> (escrito <code>n!</code>) es el producto de todos los enteros del 1 al <code>n</code>. Por ejemplo <code>5! = 5×4×3×2×1 = 120</code>. Se define perfectamente con recursión: el caso base es <code>0! = 1</code>, y el caso recursivo es <code>n! = n × (n-1)!</code>.',
+      analogy:{icon:'🎂',text:'Para hacer un pastel de 5 pisos necesitás primero hacer el de 4 pisos, que necesita el de 3, y así... hasta el piso 0 que ya está listo (el plato vacío). Eso es el caso base. Luego construís hacia arriba.'},
+      code:[
+        {parts:['kw:def ','plain:factorial','plain:(n):']},
+        {parts:['plain:    ','kw:if ','plain:n ','op:==','plain: ','num:0','plain::']},
+        {parts:['plain:        ','kw:return ','num:1']},
+        {parts:['plain:    ','kw:return ','plain:n ','op:*','plain: ','fn:factorial','plain:(n ','op:-','plain: ','num:1','plain:)']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','fn:factorial','plain:(','num:5','plain:))']},
+        {out:'120'}
+      ],
+      runCode:'def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)\n\nprint(factorial(5))',
+      instruction:'Ejecutá el código. Verificá que <code>factorial(5) = 120</code>. Luego calculá <code>factorial(0)</code>, <code>factorial(1)</code> y <code>factorial(10)</code>. Finalmente tratá de entender por qué <code>n * factorial(n - 1)</code> funciona leyendo el código línea por línea para n=3.', xp:80
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 16 · Lección 3', title:'Fibonacci',
+      explain:'La secuencia de Fibonacci: <code>0, 1, 1, 2, 3, 5, 8, 13, ...</code> Cada número es la suma de los dos anteriores. Los casos base son <code>fibonacci(0) = 0</code> y <code>fibonacci(1) = 1</code>. El caso recursivo: <code>fibonacci(n) = fibonacci(n-1) + fibonacci(n-2)</code>.',
+      analogy:{icon:'🐇',text:'Fibonacci modeló la reproducción de conejos: un par de conejos produce otro par cada mes, pero los recién nacidos tardan un mes en madurar. La cantidad de pares crece siguiendo exactamente esta secuencia. Cada mes depende de los dos anteriores.'},
+      code:[
+        {parts:['kw:def ','plain:fibonacci','plain:(n):']},
+        {parts:['plain:    ','kw:if ','plain:n ','op:<=','plain: ','num:1','plain::']},
+        {parts:['plain:        ','kw:return ','plain:n']},
+        {parts:['plain:    a ','op:=','plain: ','fn:fibonacci','plain:(n ','op:-','plain: ','num:1','plain:)']},
+        {parts:['plain:    b ','op:=','plain: ','fn:fibonacci','plain:(n ','op:-','plain: ','num:2','plain:)']},
+        {parts:['plain:    ','kw:return ','plain:a ','op:+','plain: b']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','fn:fibonacci','plain:(','num:6','plain:))']},
+        {out:'8'}
+      ],
+      question:'¿Qué devuelve <code>fibonacci(7)</code>?',
+      qcode:'def fibonacci(n):\n    if n <= 1:\n        return n\n    a = fibonacci(n - 1)\n    b = fibonacci(n - 2)\n    return a + b\n\nprint(fibonacci(7))',
+      opts:['13','8','21','7'],
+      correct:0,
+      hint:'La secuencia: 0,1,1,2,3,5,8,<strong>13</strong>. <code>fibonacci(7)</code> es el octavo número (índice 7) de la secuencia.',
+      ok:'¡Correcto! La secuencia: f(0)=0, f(1)=1, f(2)=1, f(3)=2, f(4)=3, f(5)=5, f(6)=8, f(7)=13.',
+      fail:'La secuencia de Fibonacci: 0,1,1,2,3,5,8,<strong>13</strong>,... <code>fibonacci(7)=13</code> porque <code>f(6)+f(5) = 8+5 = 13</code>.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 16 · Lección 4', title:'Potencia recursiva',
+      explain:'La potencia <code>base^exp</code> también se define recursivamente: el caso base es que cualquier número elevado a 0 es 1. El caso recursivo: <code>base^exp = base × base^(exp-1)</code>. Este patrón aparece en muchos algoritmos.',
+      analogy:{icon:'💰',text:'Doblar dinero: si tenés $1 y lo duplicás 10 veces, cada duplicación depende del resultado anterior. El caso base es la cantidad inicial ($1 con 0 duplicaciones). Cada paso multiplica el resultado anterior por 2.'},
+      code:[
+        {parts:['kw:def ','plain:potencia','plain:(base, exp):']},
+        {parts:['plain:    ','kw:if ','plain:exp ','op:==','plain: ','num:0','plain::']},
+        {parts:['plain:        ','kw:return ','num:1']},
+        {parts:['plain:    ','kw:return ','plain:base ','op:*','plain: ','fn:potencia','plain:(base, exp ','op:-','plain: ','num:1','plain:)']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','fn:potencia','plain:(','num:2','plain:, ','num:10','plain:))']},
+        {out:'1024'}
+      ],
+      runCode:'def potencia(base, exp):\n    if exp == 0:\n        return 1\n    return base * potencia(base, exp - 1)\n\nprint(potencia(2, 10))',
+      instruction:'Ejecutá el código. Verificá <code>potencia(2, 10) = 1024</code>. Luego calculá <code>potencia(3, 4)</code> y <code>potencia(5, 0)</code>. Finalmente modificá la función para que imprima cada paso: agrega <code>print(f"base={base} exp={exp}")</code> al inicio del cuerpo y observá cómo se desenvuelve la recursión.', xp:160
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 16 · Lección 5', title:'Recursión — quiz final',
+      explain:'Las funciones recursivas se definen en términos de sí mismas. La clave es descomponer el problema en un caso más simple hasta llegar al caso base. La recursión es elegante pero costosa: cada llamada ocupa memoria. Para problemas grandes es mejor usar bucles o técnicas como la memoización.',
+      analogy:{icon:'🪞',text:'Como dos espejos enfrentados: cada uno refleja al otro más pequeño, y al otro más pequeño... hasta donde la luz ya no llega (el caso base). Sin ese límite, los reflejos serían infinitos — igual que una recursión sin caso base.'},
+      code:[
+        {parts:['kw:def ','plain:suma_n','plain:(n):']},
+        {parts:['plain:    ','kw:if ','plain:n ','op:==','plain: ','num:1','plain::']},
+        {parts:['plain:        ','kw:return ','num:1']},
+        {parts:['plain:    ','kw:return ','plain:n ','op:+','plain: ','fn:suma_n','plain:(n ','op:-','plain: ','num:1','plain:)']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','fn:suma_n','plain:(','num:5','plain:))']},
+        {out:'15'}
+      ],
+      question:'¿Qué devuelve <code>suma_n(4)</code>?',
+      qcode:'def suma_n(n):\n    if n == 1:\n        return 1\n    return n + suma_n(n - 1)\n\nprint(suma_n(4))',
+      opts:['10','4','24','9'],
+      correct:0,
+      hint:'<code>suma_n(4) = 4 + suma_n(3) = 4 + 3 + suma_n(2) = 4 + 3 + 2 + suma_n(1) = 4 + 3 + 2 + 1</code>.',
+      ok:'¡Correcto! <code>suma_n(4) = 4 + 3 + 2 + 1 = 10</code>. La recursión expande el problema hasta el caso base y luego suma hacia atrás.',
+      fail:'<code>suma_n(4)</code> se expande: <code>4 + suma_n(3)</code> → <code>4 + 3 + suma_n(2)</code> → <code>4 + 3 + 2 + suma_n(1)</code> → <code>4 + 3 + 2 + 1 = 10</code>.', xp:200
+    }
+  ]
 }
 ];
 
@@ -2334,6 +2439,7 @@ function pySimulate(code){
   var funcs = {};
   var output = [];
   var _lambdaCount = 0;
+  var _callDepth = 0;
 
   function evalVal(expr){
     expr = expr.trim();
@@ -2459,18 +2565,22 @@ function pySimulate(code){
   }
 
   function callFunc(fname,rawArgs){
+    if(_callDepth>200)throw{type:'pyerror',etype:'RecursionError',msg:'profundidad máxima de recursión excedida'};
     var f=funcs[fname]; if(!f) return undefined;
+    _callDepth++;
     var positional=[],kwargs={};
     rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1){kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());}else positional.push(evalVal(at));});
     var saved={}; Object.keys(env).forEach(function(k){ saved[k]=env[k]; });
     if(f.defaults){Object.keys(f.defaults).forEach(function(p){env[p]=f.defaults[p];});}
     f.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});
     Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});
-    var retVal=undefined;
+    var retVal=undefined,_thrownErr=undefined;
     try{ runBlock(f.body); }
-    catch(e){ if(e&&e.type==='return') retVal=e.val; else throw e; }
+    catch(e){ if(e&&e.type==='return') retVal=e.val; else _thrownErr=e; }
+    _callDepth--;
     Object.keys(env).forEach(function(k){ delete env[k]; });
     Object.keys(saved).forEach(function(k){ env[k]=saved[k]; });
+    if(_thrownErr) throw _thrownErr;
     return retVal;
   }
 
