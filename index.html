@@ -2025,6 +2025,109 @@ var MODULES = [
       fail:'<code>suma_n(4)</code> se expande: <code>4 + suma_n(3)</code> → <code>4 + 3 + suma_n(2)</code> → <code>4 + 3 + 2 + suma_n(1)</code> → <code>4 + 3 + 2 + 1 = 10</code>.', xp:200
     }
   ]
+},
+{
+  id:16, icon:'📊', title:'17. Proyecto 3: análisis de notas',
+  detail:'5 retos · Comprensiones + Lambda + Recursión · +600 XP', xpReward:600,
+  lessons:[
+    {
+      type:'run', eyebrow:'Módulo 17 · Reto 1', title:'Filtrar con comprensión',
+      explain:'Tenés una lista de notas de 8 estudiantes. Usás comprensión de listas para separarlas en <strong>aprobadas</strong> (≥ 60) y <strong>reprobadas</strong> (< 60) — todo en dos líneas limpias, sin bucles explícitos.',
+      analogy:{icon:'🧑‍🏫',text:'Este proyecto combina comprensión de listas, lambda, map, filter y recursión en un pipeline real. Empezamos desde los datos crudos y en cada reto agregamos una capa de análisis.'},
+      code:[
+        {parts:['plain:notas ','op:=','plain: [45, 72, 88, 56, 63, 90, 38, 75]']},
+        {cmt:''},
+        {parts:['plain:aprobadas ','op:=','plain: [n ','kw:for ','plain:n ','kw:in ','plain:notas ','kw:if ','plain:n ','op:>=','plain: ','num:60','plain:]']},
+        {parts:['plain:reprobadas ','op:=','plain: [n ','kw:for ','plain:n ','kw:in ','plain:notas ','kw:if ','plain:n ','op:<','plain: ','num:60','plain:]']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','str:'"Aprobadas:"',', ','fn:len','plain:(aprobadas))']},
+        {parts:['fn:print','plain:(aprobadas)']},
+        {parts:['fn:print','plain:(','str:'"Reprobadas:"',', ','fn:len','plain:(reprobadas))']},
+        {out:'Aprobadas: 5\n[72, 88, 63, 90, 75]\nReprobadas: 3'}
+      ],
+      runCode:'notas = [45, 72, 88, 56, 63, 90, 38, 75]\n\naprobadas = [n for n in notas if n >= 60]\nreprobadas = [n for n in notas if n < 60]\n\nprint("Aprobadas:", len(aprobadas))\nprint(aprobadas)\nprint("Reprobadas:", len(reprobadas))',
+      instruction:'Ejecutá el código. Luego cambiá el umbral de aprobación a 70 y observá cuántos pasan. Finalmente agregá una tercera comprensión para los estudiantes con nota de distinción: <code>distincion = [n for n in notas if n >= 85]</code>.', xp:80
+    },
+    {
+      type:'run', eyebrow:'Módulo 17 · Reto 2', title:'Transformar con map y lambda',
+      explain:'El profesor decide aplicar una <strong>curva de 10 puntos</strong> a todas las notas. Usás <code>map</code> con una lambda para sumarle 10 a cada nota. Luego <code>filter</code> para ver cuántos pasan con la curva.',
+      analogy:{icon:'📈',text:'Antes un estudiante con 55 estaba reprobado. Con la curva sube a 65 — aprobado. <code>map</code> aplica la transformación a todos por igual; <code>filter</code> selecciona los que cumplen la nueva condición.'},
+      code:[
+        {parts:['plain:notas ','op:=','plain: [45, 72, 88, 56, 63, 90, 38, 75]']},
+        {cmt:''},
+        {parts:['plain:con_curva ','op:=','plain: ','fn:list','plain:(','fn:map','plain:(','kw:lambda ','plain:n: n ','op:+','plain: ','num:10','plain:, notas))']},
+        {parts:['plain:pasan ','op:=','plain: ','fn:list','plain:(','fn:filter','plain:(','kw:lambda ','plain:n: n ','op:>=','plain: ','num:60','plain:, con_curva))']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','str:'"Con curva:"',', con_curva)']},
+        {parts:['fn:print','plain:(','str:'"Pasan con curva:"',', ','fn:len','plain:(pasan))']},
+        {out:'Con curva: [55, 82, 98, 66, 73, 100, 48, 85]\nPasan con curva: 6'}
+      ],
+      runCode:'notas = [45, 72, 88, 56, 63, 90, 38, 75]\n\ncon_curva = list(map(lambda n: n + 10, notas))\npasan = list(filter(lambda n: n >= 60, con_curva))\n\nprint("Con curva:", con_curva)\nprint("Pasan con curva:", len(pasan))',
+      instruction:'Ejecutá el código. Luego cambiá la curva de +10 a +5 y observá cuántos pasan. También probá con una curva de +15. Finalmente creá <code>distinguidos</code> filtrando las notas con curva que sean >= 90.', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 17 · Reto 3', title:'Suma recursiva y promedio',
+      explain:'Para calcular el promedio de los aprobados usás una función recursiva que suma la lista. El caso base es la lista vacía (suma = 0). El caso recursivo toma el primer elemento y suma recursivamente el resto.',
+      analogy:{icon:'🧮',text:'Sumar una lista con recursión es como contar una pila de monedas tomando una a la vez: tomás la primera, la separás, y le pedís a alguien que sume el resto. Cuando no quedan monedas, devolvés 0.'},
+      code:[
+        {parts:['kw:def ','fn:sumar','plain:(lista):']},
+        {parts:['plain:    ','kw:if ','fn:len','plain:(lista) ','op:==','plain: ','num:0','plain::']},
+        {parts:['plain:        ','kw:return ','num:0']},
+        {parts:['plain:    ','kw:return ','plain:lista[0] ','op:+','plain: ','fn:sumar','plain:(lista[1:])']},
+        {cmt:''},
+        {parts:['plain:aprobadas ','op:=','plain: [72, 88, 63, 90, 75]']},
+        {parts:['plain:total ','op:=','fn:sumar','plain:(aprobadas)']},
+        {parts:['fn:print','plain:(','str:'"Suma:"',', total)']},
+        {parts:['fn:print','plain:(','str:'"Promedio:"',', total ','op:/','plain: ','fn:len','plain:(aprobadas))']},
+        {out:'Suma: 388\nPromedio: 77.6'}
+      ],
+      runCode:'def sumar(lista):\n    if len(lista) == 0:\n        return 0\n    return lista[0] + sumar(lista[1:])\n\naprobadas = [72, 88, 63, 90, 75]\ntotal = sumar(aprobadas)\nprint("Suma:", total)\nprint("Promedio:", total / len(aprobadas))',
+      instruction:'Ejecutá el código. Luego cambiá la lista de aprobadas por <code>[80, 90, 100]</code> y calculá su promedio. Finalmente intentá calcular el promedio de las reprobadas <code>[45, 56, 38]</code> usando la misma función.', xp:120
+    },
+    {
+      type:'run', eyebrow:'Módulo 17 · Reto 4', title:'Máximo recursivo',
+      explain:'Para encontrar la nota más alta usás recursión: comparás el primer elemento con el máximo del resto. Si el primero es mayor, es el máximo; si no, el del resto lo es. El caso base: una lista de un elemento, el máximo es ese único elemento.',
+      analogy:{icon:'🏆',text:'Es como buscar al jugador más alto del equipo: comparás al primero con el más alto del resto. Si el primero es más alto, él gana. Si no, el más alto del resto gana. Cuando solo queda uno, ese es el más alto.'},
+      code:[
+        {parts:['kw:def ','fn:maximo','plain:(lista):']},
+        {parts:['plain:    ','kw:if ','fn:len','plain:(lista) ','op:==','plain: ','num:1','plain::']},
+        {parts:['plain:        ','kw:return ','plain:lista[0]']},
+        {parts:['plain:    resto ','op:=','plain: ','fn:maximo','plain:(lista[1:])']},
+        {parts:['plain:    ','kw:if ','plain:lista[0] ','op:>','plain: resto:']},
+        {parts:['plain:        ','kw:return ','plain:lista[0]']},
+        {parts:['plain:    ','kw:return ','plain:resto']},
+        {cmt:''},
+        {parts:['plain:notas ','op:=','plain: [45, 72, 88, 56, 63, 90, 38, 75]']},
+        {parts:['fn:print','plain:(','str:'"Nota maxima:"',', ','fn:maximo','plain:(notas))']},
+        {out:'Nota maxima: 90'}
+      ],
+      runCode:'def maximo(lista):\n    if len(lista) == 1:\n        return lista[0]\n    resto = maximo(lista[1:])\n    if lista[0] > resto:\n        return lista[0]\n    return resto\n\nnotas = [45, 72, 88, 56, 63, 90, 38, 75]\nprint("Nota maxima:", maximo(notas))',
+      instruction:'Ejecutá el código. Luego probá con listas como <code>[10, 30, 20]</code>, <code>[99, 5, 100]</code> y <code>[42]</code>. Finalmente modificá la función para crear <code>minimo(lista)</code> que encuentre la nota más baja.', xp:150
+    },
+    {
+      type:'run', eyebrow:'Módulo 17 · Reto 5', title:'¡Pipeline completo!',
+      explain:'Combinás todo: comprensión para filtrar, lambda + map/filter para la curva, recursión para sumar y encontrar el máximo. Un pipeline de análisis de datos completo en menos de 20 líneas.',
+      analogy:{icon:'🚀',text:'¡Lo lograste! Comprensiones, lambdas, map, filter y recursión — todas las herramientas del Nivel Medio trabajando juntas. Los sistemas de análisis de datos del mundo real usan exactamente estos mismos patrones.'},
+      code:[
+        {cmt:'# def sumar(lista): ...  ← Reto 3'},
+        {cmt:'# def maximo(lista): ... ← Reto 4'},
+        {cmt:''},
+        {parts:['plain:notas ','op:=','plain: [45, 72, 88, 56, 63, 90, 38, 75]']},
+        {parts:['plain:aprobadas ','op:=','plain: [n ','kw:for ','plain:n ','kw:in ','plain:notas ','kw:if ','plain:n ','op:>=','plain: ','num:60','plain:]']},
+        {parts:['plain:con_curva ','op:=','plain: ','fn:list','plain:(','fn:map','plain:(','kw:lambda ','plain:n: n ','op:+','plain: ','num:10','plain:, notas))']},
+        {parts:['plain:pasan_curva ','op:=','plain: ','fn:list','plain:(','fn:filter','plain:(','kw:lambda ','plain:n: n ','op:>=','plain: ','num:60','plain:, con_curva))']},
+        {cmt:''},
+        {parts:['fn:print','plain:(','str:'"=== ANALISIS ==="','plain:)']},
+        {parts:['fn:print','plain:(','str:'"Aprobados directos:"',', ','fn:len','plain:(aprobadas))']},
+        {parts:['fn:print','plain:(','str:'"Pasan con curva +10:"',', ','fn:len','plain:(pasan_curva))']},
+        {parts:['fn:print','plain:(','str:'"Promedio aprobados:"',', ','fn:sumar','plain:(aprobadas) ','op:/','plain: ','fn:len','plain:(aprobadas))']},
+        {parts:['fn:print','plain:(','str:'"Nota maxima:"',', ','fn:maximo','plain:(notas))']},
+        {out:'=== ANALISIS ===\nAprobados directos: 5\nPasan con curva +10: 6\nPromedio aprobados: 77.6\nNota maxima: 90'}
+      ],
+      runCode:'def sumar(lista):\n    if len(lista) == 0:\n        return 0\n    return lista[0] + sumar(lista[1:])\n\ndef maximo(lista):\n    if len(lista) == 1:\n        return lista[0]\n    resto = maximo(lista[1:])\n    if lista[0] > resto:\n        return lista[0]\n    return resto\n\nnotas = [45, 72, 88, 56, 63, 90, 38, 75]\n\naprobadas = [n for n in notas if n >= 60]\ncon_curva = list(map(lambda n: n + 10, notas))\npasan_curva = list(filter(lambda n: n >= 60, con_curva))\n\nprint("=== ANALISIS ===")\nprint("Aprobados directos:", len(aprobadas))\nprint("Pasan con curva +10:", len(pasan_curva))\nprint("Promedio aprobados:", sumar(aprobadas) / len(aprobadas))\nprint("Nota maxima:", maximo(notas))',
+      instruction:'Ejecutá el código y verificá todos los resultados. Luego cambiá <code>notas</code> por <code>[55, 60, 70, 80, 90, 95, 40, 50]</code> y observá cómo cambia el análisis. Finalmente agregá <code>print("Nota minima:", minimo(notas))</code> — primero tendrás que definir la función <code>minimo</code> usando el mismo patrón que <code>maximo</code>.', xp:150
+    }
+  ]
 }
 ];
 
