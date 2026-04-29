@@ -2128,6 +2128,177 @@ var MODULES = [
       instruction:'Ejecutá el código y verificá todos los resultados. Luego cambiá <code>notas</code> por <code>[55, 60, 70, 80, 90, 95, 40, 50]</code> y observá cómo cambia el análisis. Finalmente agregá <code>print("Nota minima:", minimo(notas))</code> — primero tendrás que definir la función <code>minimo</code> usando el mismo patrón que <code>maximo</code>.', xp:150
     }
   ]
+},
+{
+  id:17, icon:'🏗️', title:'18. Clases I',
+  detail:'8 lecciones · Programación OOP · +600 XP', xpReward:600,
+  lessons:[
+    {
+      type:'quiz', eyebrow:'Módulo 18 · Lección 1', title:'¿Qué es una clase?',
+      explain:'Una <strong>clase</strong> es una plantilla para crear objetos. Un <strong>objeto</strong> (instancia) tiene <em>atributos</em> (datos) y <em>métodos</em> (funciones). En Python se define con <code>class NombreClase:</code>.',
+      analogy:{icon:'🏭',text:'Pensá en un plano de arquitectura: no es una casa, pero dice cómo construir una. La <strong>clase</strong> es el plano; el <strong>objeto</strong> es la casa construida. Del mismo plano podés construir muchas casas — cada una con sus propios colores y medidas.'},
+      code:[
+        {cmt:'# La clase Perro es la plantilla'},
+        {parts:['kw:class ','plain:Perro:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre, edad):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:        ','kw:self','plain:.edad ','op:=','plain: edad']},
+        {cmt:'# mi_perro es un objeto creado a partir de Perro'},
+        {parts:['plain:mi_perro ','op:=','plain: ','fn:Perro','plain:(','str:'"Rex"',', ','num:3','plain:)']},
+        {parts:['fn:print','plain:(mi_perro.nombre)']},
+        {out:'Rex'}
+      ],
+      question:'En Python, ¿qué es una <strong>instancia</strong>?',
+      qcode:'# La clase es la plantilla\nclass Perro:\n    def __init__(self, nombre):\n        self.nombre = nombre\n\n# La instancia es el objeto creado\nrex = Perro("Rex")',
+      opts:['Un objeto concreto creado a partir de una clase','El nombre del método __init__','Una función dentro de una clase','Un tipo especial de variable'],
+      correct:0,
+      hint:'La clase es como el molde. La instancia es el objeto hecho con ese molde.',
+      ok:'¡Correcto! Una instancia es un objeto concreto creado usando la clase como plantilla.',
+      fail:'La clase es la plantilla. La instancia es el objeto concreto creado a partir de esa plantilla.', xp:30
+    },
+    {
+      type:'quiz', eyebrow:'Módulo 18 · Lección 2', title:'Constructor y self',
+      explain:'<code>__init__</code> es el método que Python llama automáticamente al crear un objeto — es el "constructor". <code>self</code> representa al objeto mismo y siempre va primero en cada método.',
+      analogy:{icon:'🧬',text:'Cuando "nace" un perro (se crea la instancia), <code>__init__</code> establece su nombre y edad. <code>self</code> es el "yo" del objeto: <code>self.nombre</code> significa "mi nombre". Python pasa <code>self</code> automáticamente — vos no lo pasás al crear el objeto.'},
+      code:[
+        {parts:['kw:class ','plain:Perro:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre, edad):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:        ','kw:self','plain:.edad ','op:=','plain: edad']},
+        {parts:['plain:perro1 ','op:=','plain: ','fn:Perro','plain:(','str:'"Rex"',', ','num:3','plain:)']},
+        {parts:['plain:perro2 ','op:=','plain: ','fn:Perro','plain:(','str:'"Luna"',', ','num:1','plain:)']},
+        {parts:['fn:print','plain:(perro1.nombre, perro2.nombre)']},
+        {out:'Rex Luna'}
+      ],
+      question:'¿Qué hace <code>self.nombre = nombre</code> dentro de <code>__init__</code>?',
+      qcode:'class Perro:\n    def __init__(self, nombre):\n        self.nombre = nombre\n\nrex = Perro("Rex")\nprint(rex.nombre)',
+      opts:['Guarda el parámetro como atributo del objeto','Crea una variable global llamada nombre','Llama a otro método de la clase','Define un parámetro nuevo'],
+      correct:0,
+      hint:'<code>self.nombre</code> es el atributo del objeto. <code>nombre</code> es el parámetro recibido. La asignación los vincula.',
+      ok:'¡Correcto! <code>self.nombre = nombre</code> guarda el valor recibido como atributo permanente del objeto.',
+      fail:'<code>self.nombre</code> es el atributo del objeto. Asignarle <code>nombre</code> lo guarda para que sea accesible desde el objeto después.', xp:30
+    },
+    {
+      type:'run', eyebrow:'Módulo 18 · Lección 3', title:'Crear instancias',
+      explain:'Crear un objeto se llama <strong>instanciar</strong>. Escribís el nombre de la clase como función: <code>Perro("Rex", 3)</code>. Python llama <code>__init__</code> automáticamente. Luego accedés a los atributos con <code>objeto.atributo</code>.',
+      analogy:{icon:'🏗️',text:'Cada vez que escribís <code>Perro("Rex", 3)</code>, Python "fabrica" un nuevo objeto con ese nombre y edad. Podés crear tantos objetos como quieras del mismo molde — todos independientes entre sí.'},
+      code:[
+        {parts:['kw:class ','plain:Perro:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre, edad):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:        ','kw:self','plain:.edad ','op:=','plain: edad']},
+        {cmt:''},
+        {parts:['plain:rex ','op:=','plain: ','fn:Perro','plain:(','str:'"Rex"',', ','num:3','plain:)']},
+        {parts:['fn:print','plain:(rex.nombre)']},
+        {parts:['fn:print','plain:(rex.edad)']},
+        {out:'Rex\n3'}
+      ],
+      runCode:'class Perro:\n    def __init__(self, nombre, edad):\n        self.nombre = nombre\n        self.edad = edad\n\nrex = Perro("Rex", 3)\nprint(rex.nombre)\nprint(rex.edad)',
+      instruction:'Ejecutá el código. Luego creá otro perro <code>luna = Perro("Luna", 1)</code> e imprimí su nombre y edad. Por último imprimí los nombres de ambos en la misma línea con <code>print(rex.nombre, luna.nombre)</code>.', xp:80
+    },
+    {
+      type:'run', eyebrow:'Módulo 18 · Lección 4', title:'Métodos de instancia',
+      explain:'Los <strong>métodos</strong> son funciones que pertenecen a la clase. Se definen con <code>def</code> dentro de la clase y siempre reciben <code>self</code> primero. Se llaman con <code>objeto.metodo()</code>. Dentro del método, <code>self</code> da acceso a los atributos del objeto.',
+      analogy:{icon:'🐕',text:'Un perro "sabe" ladrar porque la clase define ese comportamiento. <code>def ladrar(self):</code> enseña a cada perro creado. Cuando Rex ladra — <code>rex.ladrar()</code> — Python automáticamente pasa <code>rex</code> como <code>self</code>, así el método sabe de quién hablar.'},
+      code:[
+        {parts:['kw:class ','plain:Perro:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:    ','kw:def ','plain:ladrar(','kw:self','plain:):']},
+        {parts:['plain:        ','fn:print','plain:(','kw:self','plain:.nombre, ','str:'"dice: ¡Guau!"','plain:)']},
+        {cmt:''},
+        {parts:['plain:rex ','op:=','plain: ','fn:Perro','plain:(','str:'"Rex"','plain:)']},
+        {parts:['plain:rex.ladrar()']},
+        {out:'Rex dice: ¡Guau!'}
+      ],
+      runCode:'class Perro:\n    def __init__(self, nombre):\n        self.nombre = nombre\n    def ladrar(self):\n        print(self.nombre, "dice: ¡Guau!")\n    def presentarse(self):\n        print("Soy", self.nombre)\n\nrex = Perro("Rex")\nrex.ladrar()\nrex.presentarse()',
+      instruction:'Ejecutá el código. Luego creá un segundo perro <code>luna = Perro("Luna")</code> y llamá sus dos métodos. Por último agregá un método <code>dormir(self)</code> que imprima <code>nombre + " está durmiendo..."</code> y probalo con ambos perros.', xp:80
+    },
+    {
+      type:'run', eyebrow:'Módulo 18 · Lección 5', title:'Reto 1: clase Gato',
+      explain:'Aplicá lo aprendido. Creá una clase <code>Gato</code> con: atributo <code>nombre</code>, método <code>maullar()</code> que imprima <code>nombre + " dice: ¡Miau!"</code>, y método <code>ronronear()</code> que imprima <code>nombre + " ronronea..."</code>.',
+      analogy:{icon:'🐱',text:'Clonar la estructura de una clase a otra es simple: la forma es siempre la misma — <code>class</code>, <code>__init__</code>, atributos con <code>self</code>, métodos. Solo los nombres y comportamientos específicos cambian.'},
+      code:[
+        {parts:['kw:class ','plain:Gato:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:    ','kw:def ','plain:maullar(','kw:self','plain:):']},
+        {parts:['plain:        ','fn:print','plain:(','kw:self','plain:.nombre, ','str:'"dice: ¡Miau!"','plain:)']},
+        {parts:['plain:    ','kw:def ','plain:ronronear(','kw:self','plain:):']},
+        {parts:['plain:        ','fn:print','plain:(','kw:self','plain:.nombre, ','str:'"ronronea..."','plain:)']},
+        {cmt:''},
+        {parts:['plain:whiskers ','op:=','plain: ','fn:Gato','plain:(','str:'"Whiskers"','plain:)']},
+        {parts:['plain:whiskers.maullar()']},
+        {parts:['plain:whiskers.ronronear()']},
+        {out:'Whiskers dice: ¡Miau!\nWhiskers ronronea...'}
+      ],
+      runCode:'class Gato:\n    def __init__(self, nombre):\n        self.nombre = nombre\n    def maullar(self):\n        print(self.nombre, "dice: ¡Miau!")\n    def ronronear(self):\n        print(self.nombre, "ronronea...")\n\nwhiskers = Gato("Whiskers")\nwhiskers.maullar()\nwhiskers.ronronear()',
+      instruction:'Ejecutá el código. Luego creá dos gatos más: <code>michi = Gato("Michi")</code> y <code>nube = Gato("Nube")</code>, y llamá los métodos de cada uno. Por último agregá un método <code>saltar(self)</code> que imprima <code>nombre + " saltó!"</code> y probalo.', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 18 · Lección 6', title:'Reto 2: clase Rectangulo',
+      explain:'Los métodos pueden <strong>calcular y retornar valores</strong>. El método <code>area()</code> usa los atributos <code>self.ancho</code> y <code>self.alto</code> del propio objeto para hacer el cálculo.',
+      analogy:{icon:'📐',text:'Un rectángulo "sabe" calcular su área porque sus dimensiones están guardadas en él. El método <code>area()</code> accede a <code>self.ancho</code> y <code>self.alto</code> — los datos del objeto específico — y devuelve el resultado.'},
+      code:[
+        {parts:['kw:class ','plain:Rectangulo:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', ancho, alto):']},
+        {parts:['plain:        ','kw:self','plain:.ancho ','op:=','plain: ancho']},
+        {parts:['plain:        ','kw:self','plain:.alto ','op:=','plain: alto']},
+        {parts:['plain:    ','kw:def ','plain:area(','kw:self','plain:):']},
+        {parts:['plain:        ','kw:return ','kw:self','plain:.ancho ','op:*','plain: ','kw:self','plain:.alto']},
+        {cmt:''},
+        {parts:['plain:r ','op:=','plain: ','fn:Rectangulo','plain:(','num:5',', ','num:3','plain:)']},
+        {parts:['fn:print','plain:(','str:'"Area:"',', r.area())']},
+        {out:'Area: 15'}
+      ],
+      runCode:'class Rectangulo:\n    def __init__(self, ancho, alto):\n        self.ancho = ancho\n        self.alto = alto\n    def area(self):\n        return self.ancho * self.alto\n\nr = Rectangulo(5, 3)\nprint("Area:", r.area())',
+      instruction:'Ejecutá el código. Luego creá un rectángulo de 10×4 y verificá su área (40). Por último agregá un método <code>es_cuadrado(self)</code> que imprima <code>"Es cuadrado"</code> si ancho es igual a alto, o <code>"No es cuadrado"</code> si no. Probalo con <code>Rectangulo(4, 4)</code> y <code>Rectangulo(5, 3)</code>.', xp:100
+    },
+    {
+      type:'run', eyebrow:'Módulo 18 · Lección 7', title:'Reto 3: clase Estudiante',
+      explain:'Los atributos pueden ser <strong>listas</strong>. Un método puede iterar sobre la lista del propio objeto con <code>for n in self.notas:</code> para calcular resultados.',
+      analogy:{icon:'📚',text:'Un estudiante tiene nombre y una lista de notas. La clase modela eso exactamente. <code>promedio()</code> recorre <code>self.notas</code> — la lista de ese estudiante específico — y calcula el promedio. Cada instancia tiene sus propias notas, separadas de las demás.'},
+      code:[
+        {parts:['kw:class ','plain:Estudiante:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', nombre, notas):']},
+        {parts:['plain:        ','kw:self','plain:.nombre ','op:=','plain: nombre']},
+        {parts:['plain:        ','kw:self','plain:.notas ','op:=','plain: notas']},
+        {parts:['plain:    ','kw:def ','plain:promedio(','kw:self','plain:):']},
+        {parts:['plain:        ','plain:total ','op:=','plain: ','num:0']},
+        {parts:['plain:        ','kw:for ','plain:n ','kw:in ','kw:self','plain:.notas:']},
+        {parts:['plain:            ','plain:total ','op:=','plain: total ','op:+','plain: n']},
+        {parts:['plain:        ','kw:return ','plain:total ','op:/','plain: ','fn:len','plain:(','kw:self','plain:.notas)']},
+        {cmt:''},
+        {parts:['plain:ana ','op:=','plain: ','fn:Estudiante','plain:(','str:'"Ana"',', [','num:80',', ','num:90',', ','num:70',', ','num:85','plain:])']},
+        {parts:['fn:print','plain:(ana.nombre, ','str:'"promedio:"',', ana.promedio())']},
+        {out:'Ana promedio: 81.25'}
+      ],
+      runCode:'class Estudiante:\n    def __init__(self, nombre, notas):\n        self.nombre = nombre\n        self.notas = notas\n    def promedio(self):\n        total = 0\n        for n in self.notas:\n            total = total + n\n        return total / len(self.notas)\n    def mejor_nota(self):\n        mejor = 0\n        for n in self.notas:\n            if n > mejor:\n                mejor = n\n        return mejor\n\nana = Estudiante("Ana", [80, 90, 70, 85])\nprint(ana.nombre, "promedio:", ana.promedio())\nprint(ana.nombre, "mejor nota:", ana.mejor_nota())',
+      instruction:'Ejecutá el código. Luego creá <code>carlos = Estudiante("Carlos", [65, 72, 88, 91, 78])</code> e imprimí su promedio y mejor nota. Por último agregá un método <code>aprobado(self)</code> que imprima <code>"Aprobado"</code> si el promedio es mayor o igual a 70, o <code>"Reprobado"</code> si no.', xp:120
+    },
+    {
+      type:'run', eyebrow:'Módulo 18 · Lección 8', title:'Reto final: clase Banco',
+      explain:'Los métodos pueden <strong>modificar los atributos</strong> del objeto. <code>self.saldo = self.saldo + monto</code> actualiza el saldo. El objeto "recuerda" su estado entre llamadas a métodos.',
+      analogy:{icon:'🏦',text:'Una cuenta bancaria guarda su saldo y lo modifica con cada operación. El método <code>depositar</code> suma; <code>retirar</code> resta si hay suficiente saldo. El objeto mantiene su estado — el saldo — entre una llamada y la siguiente.'},
+      code:[
+        {parts:['kw:class ','plain:Banco:']},
+        {parts:['plain:    ','kw:def ','plain:__init__(','kw:self',', titular):']},
+        {parts:['plain:        ','kw:self','plain:.titular ','op:=','plain: titular']},
+        {parts:['plain:        ','kw:self','plain:.saldo ','op:=','plain: ','num:0']},
+        {parts:['plain:    ','kw:def ','plain:depositar(','kw:self',', monto):']},
+        {parts:['plain:        ','kw:self','plain:.saldo ','op:=','plain: ','kw:self','plain:.saldo ','op:+','plain: monto']},
+        {parts:['plain:    ','kw:def ','plain:ver_saldo(','kw:self','plain:):']},
+        {parts:['plain:        ','fn:print','plain:(','kw:self','plain:.titular, ','str:'"saldo:"',', ','kw:self','plain:.saldo)']},
+        {cmt:''},
+        {parts:['plain:cuenta ','op:=','plain: ','fn:Banco','plain:(','str:'"Ana"','plain:)']},
+        {parts:['plain:cuenta.depositar(','num:1000','plain:)']},
+        {parts:['plain:cuenta.ver_saldo()']},
+        {out:'Ana saldo: 1000'}
+      ],
+      runCode:'class Banco:\n    def __init__(self, titular):\n        self.titular = titular\n        self.saldo = 0\n    def depositar(self, monto):\n        self.saldo = self.saldo + monto\n    def retirar(self, monto):\n        if monto > self.saldo:\n            print("Saldo insuficiente")\n        else:\n            self.saldo = self.saldo - monto\n    def ver_saldo(self):\n        print(self.titular, "saldo:", self.saldo)\n\ncuenta = Banco("Ana")\ncuenta.depositar(1000)\ncuenta.depositar(500)\ncuenta.ver_saldo()\ncuenta.retirar(200)\ncuenta.ver_saldo()\ncuenta.retirar(2000)\ncuenta.ver_saldo()',
+      instruction:'Ejecutá el código y verificá los saldos: 1500, 1300, 1300 con "Saldo insuficiente". Luego creá una segunda cuenta para <code>"Carlos"</code> con depósito de 2000, hacé dos retiros y verificá el saldo final. Por último comprobá que las dos cuentas son independientes entre sí.', xp:150
+    }
+  ]
 }
 ];
 
@@ -2308,7 +2479,7 @@ function hlPython(code){
   return code.split('\n').map(function(line){
     var out=''; var i=0;
     function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise','lambda'];
+    var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise','lambda','class','self'];
     var FN=['print','type','range','len','int','str','float','bool','input','list','append','map','filter'];
     while(i<line.length){
       if(line[i]==='#'){ out+='<span class="cmt">'+esc(line.slice(i))+'</span>'; break; }
@@ -2543,6 +2714,7 @@ function pySimulate(code){
   var output = [];
   var _lambdaCount = 0;
   var _callDepth = 0;
+  var classes = {};
 
   function evalVal(expr){
     expr = expr.trim();
@@ -2585,8 +2757,10 @@ function pySimulate(code){
     var mapM=expr.match(/^map\((.+)\)$/);if(mapM){var _mA=splitArgs(mapM[1]);if(_mA.length===2){var _mFn=evalVal(_mA[0].trim()),_mLst=evalVal(_mA[1].trim());if(Array.isArray(_mLst)&&_mFn&&_mFn.__fn__)return _mLst.map(function(item){return callFuncWithVals(_mFn.__fn__,[item]);});}}
     var filterM=expr.match(/^filter\((.+)\)$/);if(filterM){var _fA=splitArgs(filterM[1]);if(_fA.length===2){var _fFn=evalVal(_fA[0].trim()),_fLst=evalVal(_fA[1].trim());if(Array.isArray(_fLst)&&_fFn&&_fFn.__fn__)return _fLst.filter(function(item){return callFuncWithVals(_fFn.__fn__,[item]);});}}
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
-    if(callM){if(callM[1] in funcs)return callFunc(callM[1],splitArgs(callM[2]||''));if(callM[1] in env&&env[callM[1]]&&typeof env[callM[1]]==='object'&&env[callM[1]].__fn__)return callFunc(env[callM[1]].__fn__,splitArgs(callM[2]||''));}
+    if(callM){if(callM[1] in classes){var _inst={__class__:callM[1],__attrs__:{}};var _initM=classes[callM[1]].methods['__init__'];if(_initM)callMethod(_inst,'__init__',splitArgs(callM[2]||''));return _inst;}if(callM[1] in funcs)return callFunc(callM[1],splitArgs(callM[2]||''));if(callM[1] in env&&env[callM[1]]&&typeof env[callM[1]]==='object'&&env[callM[1]].__fn__)return callFunc(env[callM[1]].__fn__,splitArgs(callM[2]||''));}
     if(/^\w+$/.test(expr)){if(expr in env)return env[expr];if(expr in funcs)return{__fn__:expr};}
+    var instCallM=expr.match(/^(\w+)\.(\w+)\s*\((.*?)?\)$/);if(instCallM&&instCallM[1] in env&&env[instCallM[1]]&&env[instCallM[1]].__class__)return callMethod(env[instCallM[1]],instCallM[2],splitArgs(instCallM[3]||''));
+    var instAttrM=expr.match(/^(\w+)\.(\w+)$/);if(instAttrM&&instAttrM[1] in env&&env[instAttrM[1]]&&env[instAttrM[1]].__class__)return env[instAttrM[1]].__attrs__[instAttrM[2]];
     var methM=expr.match(/^(\w+)\.(upper|lower|keys|values)\(\)$/);if(methM&&methM[1] in env){var _mo=env[methM[1]];if(methM[2]==='upper'&&typeof _mo==='string')return _mo.toUpperCase();if(methM[2]==='lower'&&typeof _mo==='string')return _mo.toLowerCase();if(methM[2]==='keys'&&typeof _mo==='object'&&_mo!==null)return Object.keys(_mo);if(methM[2]==='values'&&typeof _mo==='object'&&_mo!==null)return Object.values(_mo);}
     var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1&&(Array.isArray(container)||typeof container==='string')){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=evalVal(idxStr);if(Array.isArray(container)){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='string'){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='object'&&container!==null)return container[idx];}
     var compM2=expr.match(/^(.+?)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);if(compM2){var _ca=evalVal(compM2[1].trim()),_cb=evalVal(compM2[3].trim()),_cop=compM2[2];var _nca=parseFloat(_ca),_ncb=parseFloat(_cb),_uN=!isNaN(_nca)&&!isNaN(_ncb);if(_cop==='==')return _uN?(_nca===_ncb):(_ca===_cb);if(_cop==='!=')return _uN?(_nca!==_ncb):(_ca!==_cb);if(_cop==='>')return _nca>_ncb;if(_cop==='<')return _nca<_ncb;if(_cop==='>=')return _nca>=_ncb;if(_cop==='<=')return _nca<=_ncb;}
@@ -2621,7 +2795,7 @@ function pySimulate(code){
     return !!evalVal(cond);
   }
 
-  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return v.__lambda__?'<function <lambda>>':'<function '+v.__fn__+'>';if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
+  function pyStr(v){if(v&&typeof v==='object'&&v.__fn__)return v.__lambda__?'<function <lambda>>':'<function '+v.__fn__+'>';if(v&&typeof v==='object'&&v.__class__)return '<'+v.__class__+' object>';if(Array.isArray(v))return '['+v.map(function(x){return typeof x==='string'?"'"+x+"'":String(x);}).join(', ')+']';if(typeof v==='object'&&v!==null)return '{'+Object.keys(v).map(function(k){var vv=v[k];return "'"+k+"': "+(typeof vv==='string'?"'"+vv+"'":(vv===true?'True':vv===false?'False':vv===null?'None':String(vv)));}).join(', ')+'}';if(v===true)return 'True';if(v===false)return 'False';if(v===null)return 'None';return String(v);}
 
   function evalPrint(stmt){
     var inner=stmt.replace(/^print\s*\(/,'').replace(/\)\s*$/,'');
@@ -2653,8 +2827,10 @@ function pySimulate(code){
     if(!t||t.startsWith('#')) return;
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
     if(t.startsWith('raise ')){var _rM=t.match(/^raise\s+(\w+)\s*\((.*)\)$/);if(_rM)throw{type:'pyerror',etype:_rM[1],msg:_rM[2]?String(evalVal(_rM[2].trim())):_rM[1]};return;}
+    var instDotSetM=t.match(/^(\w+)\.(\w+)\s*=\s*(.+)$/);if(instDotSetM&&instDotSetM[1] in env&&env[instDotSetM[1]]&&env[instDotSetM[1]].__class__){env[instDotSetM[1]].__attrs__[instDotSetM[2]]=evalVal(instDotSetM[3].trim());return;}
     var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
     var dictSetM=t.match(/^(\w+)\[(.+)\]\s*=\s*(.+)$/);if(dictSetM&&dictSetM[1] in env){var _dk=evalVal(dictSetM[2].trim());env[dictSetM[1]][_dk]=evalVal(dictSetM[3].trim());return;}
+    var instMethM=t.match(/^(\w+)\.(\w+)\s*\((.*?)?\)$/);if(instMethM&&instMethM[1] in env&&env[instMethM[1]]&&env[instMethM[1]].__class__){callMethod(env[instMethM[1]],instMethM[2],splitArgs(instMethM[3]||''));return;}
     var cm=t.match(/^(\w+)\s*\((.*?)?\)\s*$/);
     if(cm&&cm[1] in funcs){callFunc(cm[1],splitArgs(cm[2]||''));return;}
     if(cm&&cm[1] in env&&env[cm[1]]&&typeof env[cm[1]]==='object'&&env[cm[1]].__fn__){callFunc(env[cm[1]].__fn__,splitArgs(cm[2]||''));return;}
@@ -2700,6 +2876,8 @@ function pySimulate(code){
     return retVal;
   }
 
+  function callMethod(instance,mname,rawArgs){var cls=classes[instance.__class__];if(!cls||!cls.methods[mname])return undefined;var m=cls.methods[mname];var positional=[],kwargs={};rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1)kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());else positional.push(evalVal(at));});var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
+
   function getIterVals(iterExpr){
     var iterVals=[];
     var rangeM=iterExpr.match(/^range\((.+)\)$/);
@@ -2720,6 +2898,7 @@ function pySimulate(code){
     }
     var iterMethM=iterExpr.match(/^(\w+)\.(keys|values)\(\)$/);
     if(iterMethM&&iterMethM[1] in env&&typeof env[iterMethM[1]]==='object'&&env[iterMethM[1]]!==null){var _im=env[iterMethM[1]];iterVals=iterMethM[2]==='keys'?Object.keys(_im):Object.values(_im);}
+    if(iterVals.length===0){try{var _fbv=evalVal(iterExpr);if(Array.isArray(_fbv))iterVals=_fbv;else if(typeof _fbv==='string')iterVals=_fbv.split('');}catch(e){}}
     return iterVals;
   }
 
@@ -2732,6 +2911,8 @@ function pySimulate(code){
       if(t.startsWith('return ')||t==='return'){
         throw {type:'return',val:t==='return'?undefined:evalVal(t.slice(7).trim())};
       }
+
+      var classM=t.match(/^class\s+(\w+)\s*:$/);if(classM){var _cname=classM[1];var _cbaseInd=getIndent(raw);var _cbody=[];li++;while(li<linesArr.length){if(!linesArr[li].trim()){li++;continue;}if(getIndent(linesArr[li])>_cbaseInd){_cbody.push(linesArr[li]);li++;}else break;}classes[_cname]={methods:{}};var _bi2=0;while(_bi2<_cbody.length){var _braw=_cbody[_bi2];var _bt=_braw.trim();var _mdefM=_bt.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);if(_mdefM){var _mname=_mdefM[1];var _mrawP=_mdefM[2].split(',').map(function(p){return p.trim();}).filter(Boolean);var _mparams=[],_mdefaults={};_mrawP.slice(1).forEach(function(p){var ei=p.indexOf('=');if(ei!==-1){var pn=p.slice(0,ei).trim(),pd=p.slice(ei+1).trim();_mparams.push(pn);_mdefaults[pn]=evalVal(pd);}else _mparams.push(p);});var _mBaseInd=getIndent(_braw);var _mbody=[];_bi2++;while(_bi2<_cbody.length){if(!_cbody[_bi2].trim()){_bi2++;continue;}if(getIndent(_cbody[_bi2])>_mBaseInd){_mbody.push(_cbody[_bi2]);_bi2++;}else break;}classes[_cname].methods[_mname]={params:_mparams,defaults:_mdefaults,body:_mbody};}else _bi2++;}continue;}
 
       var defM=t.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);
       if(defM){
