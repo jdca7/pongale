@@ -2490,6 +2490,87 @@ var MODULES = [
       instruction:'Ejecutá el código (1/2, True, False, True). Luego creá <code>Fraccion(2, 3)</code> y <code>Fraccion(2, 3)</code> y verificá que son iguales. Por último agregá un método <code>sumar(self, otra)</code> que retorne una nueva <code>Fraccion</code> con denominador común (<code>num = self.num * otra.den + otra.num * self.den</code>, <code>den = self.den * otra.den</code>) y comprobá que <code>print(f1.sumar(f3))</code> muestra <code>"10/8"</code>.', xp:150
     }
   ]
+},
+{
+  id:19, icon:'🧬', title:'20. Herencia',
+  xpTotal:700,
+  lessons:[
+    {
+      type:'info',
+      title:'¿Qué es herencia?',
+      content:'La <strong>herencia</strong> permite que una clase nueva <em>herede</em> atributos y métodos de otra clase. La clase original se llama <strong>clase padre</strong> (o base); la nueva se llama <strong>clase hija</strong>.<br><br>Así evitamos repetir código: la hija recibe todo lo del padre y solo agrega o cambia lo que necesita.',
+      xp:0
+    },
+    {
+      type:'code',
+      title:'Clase padre y clase hija',
+      content:'Usá <code>class Hija(Padre):</code> para indicar herencia. La hija puede usar todos los métodos del padre directamente.',
+      code:'class Animal:\n  def __init__(self, nombre):\n    self.nombre = nombre\n  def hablar(self):\n    print("...")\n\nclass Perro(Animal):\n  def hablar(self):\n    print(self.nombre + " dice: ¡Guau!")\n\nperro = Perro("Rex")\nperro.hablar()',
+      expected:'Rex dice: ¡Guau!',
+      instruction:'Ejecutá el código y verificá la salida. Luego creá un <code>Gato("Michi")</code> con <code>hablar</code> que imprima <code>"Michi dice: ¡Miau!"</code> y llamá a su método.',
+      xp:80
+    },
+    {
+      type:'code',
+      title:'super() — llamar al padre',
+      content:'<code>super().__init__()</code> llama al método <code>__init__</code> del padre. Así la hija puede inicializar los atributos del padre y agregar los suyos.',
+      code:'class Animal:\n  def __init__(self, nombre):\n    self.nombre = nombre\n    self.vivo = True\n\nclass Perro(Animal):\n  def __init__(self, nombre, raza):\n    super().__init__(nombre)\n    self.raza = raza\n  def info(self):\n    print(self.nombre + " es un " + self.raza)\n\np = Perro("Rex", "Labrador")\np.info()\nprint(p.vivo)',
+      expected:'Rex es un Labrador\nTrue',
+      instruction:'Ejecutá y verificá. Notá que <code>p.vivo</code> es <code>True</code> aunque <code>Perro.__init__</code> no lo asigna — lo hereda de <code>Animal</code> vía <code>super()</code>.',
+      xp:100
+    },
+    {
+      type:'info',
+      title:'Polimorfismo',
+      content:'<strong>Polimorfismo</strong> significa que distintas clases pueden tener métodos con el <em>mismo nombre</em> pero comportamiento diferente.<br><br>Cuando llamás <code>animal.hablar()</code>, Python usa la versión correcta según el tipo del objeto. Esto es muy potente porque podés tratar distintos objetos de la misma forma.',
+      xp:0
+    },
+    {
+      type:'code',
+      title:'Polimorfismo en acción',
+      content:'Cuando una hija redefine un método del padre, se dice que lo <strong>sobreescribe</strong> (<em>override</em>). El método de la hija tiene prioridad.',
+      code:'class Figura:\n  def __init__(self, color):\n    self.color = color\n  def area(self):\n    return 0\n  def describir(self):\n    print("Soy un " + self.color + " con área " + str(self.area()))\n\nclass Cuadrado(Figura):\n  def __init__(self, color, lado):\n    super().__init__(color)\n    self.lado = lado\n  def area(self):\n    return self.lado * self.lado\n\nclass Rectangulo(Figura):\n  def __init__(self, color, ancho, alto):\n    super().__init__(color)\n    self.ancho = ancho\n    self.alto = alto\n  def area(self):\n    return self.ancho * self.alto\n\nc = Cuadrado("rojo", 4)\nr = Rectangulo("azul", 3, 5)\nc.describir()\nr.describir()',
+      expected:'Soy un rojo con área 16\nSoy un azul con área 15',
+      instruction:'Ejecutá el código. Notá que <code>describir()</code> está solo en <code>Figura</code> pero usa <code>self.area()</code> que cada hija implementa diferente. Eso es polimorfismo.',
+      xp:120
+    },
+    {
+      type:'code',
+      title:'Heredar sin redefinir __init__',
+      content:'Si la hija no define <code>__init__</code>, usa el del padre automáticamente. Útil cuando solo querés agregar métodos nuevos.',
+      code:'class Vehiculo:\n  def __init__(self, marca, velocidad):\n    self.marca = marca\n    self.velocidad = velocidad\n  def mover(self):\n    print(self.marca + " se mueve a " + str(self.velocidad) + " km/h")\n\nclass Moto(Vehiculo):\n  def hacer_caballito(self):\n    print(self.marca + " hace un caballito!")\n\nm = Moto("Honda", 120)\nm.mover()\nm.hacer_caballito()',
+      expected:'Honda se mueve a 120 km/h\nHonda hace un caballito!',
+      instruction:'Ejecutá el código. <code>Moto</code> no tiene <code>__init__</code> propio — usa el de <code>Vehiculo</code> directamente. Luego creá un <code>Auto("Toyota", 90)</code> y llamá a <code>mover()</code>.',
+      xp:100
+    },
+    {
+      type:'code',
+      title:'isinstance() — checar el tipo',
+      content:'<code>isinstance(objeto, Clase)</code> retorna <code>True</code> si el objeto es instancia de esa clase o de alguna de sus hijas.',
+      code:'class Animal:\n  def __init__(self, nombre):\n    self.nombre = nombre\n\nclass Perro(Animal):\n  def ladrar(self):\n    print(self.nombre + " ladra")\n\np = Perro("Rex")\nprint(p.nombre)\np.ladrar()',
+      expected:'Rex\nRex ladra',
+      instruction:'Ejecutá el código. <code>Perro</code> hereda <code>nombre</code> de <code>Animal</code>. Ahora agregá una clase <code>Gato(Animal)</code> con método <code>maullar()</code> que imprima <code>"nombre maulla"</code> y probalo.',
+      xp:100
+    },
+    {
+      type:'quiz',
+      title:'¿Qué hace super().__init__()?',
+      qcode:'class B(A):\n  def __init__(self, x, y):\n    super().__init__(x)\n    self.y = y',
+      question:'¿Para qué sirve <code>super().__init__(x)</code> en la clase <code>B</code>?',
+      options:['Crea una nueva instancia de A','Llama al __init__ de la clase padre A con el argumento x','Reemplaza completamente el __init__ de A','Lanza un error porque B ya tiene su propio __init__'],
+      answer:1,
+      xp:50
+    },
+    {
+      type:'code',
+      title:'Mini proyecto: jerarquía de personajes',
+      content:'Usá herencia para modelar personajes de un juego. Cada tipo especializa el comportamiento base.',
+      code:'class Personaje:\n  def __init__(self, nombre, hp):\n    self.nombre = nombre\n    self.hp = hp\n  def estado(self):\n    print(self.nombre + " HP:" + str(self.hp))\n  def atacar(self):\n    return 5\n\nclass Guerrero(Personaje):\n  def __init__(self, nombre, hp, fuerza):\n    super().__init__(nombre, hp)\n    self.fuerza = fuerza\n  def atacar(self):\n    return self.fuerza * 2\n\nclass Mago(Personaje):\n  def __init__(self, nombre, hp, magia):\n    super().__init__(nombre, hp)\n    self.magia = magia\n  def atacar(self):\n    return self.magia * 3\n\ng = Guerrero("Thorin", 100, 8)\nm = Mago("Gandalf", 70, 10)\ng.estado()\nm.estado()\nprint(g.atacar())\nprint(m.atacar())',
+      expected:'Thorin HP:100\nGandalf HP:70\n16\n30',
+      instruction:'Ejecutá el código. Luego creá un <code>Arquero(Personaje)</code> con atributo <code>precision</code> y <code>atacar()</code> que retorne <code>precision * 2 + 3</code>. Creá un arquero y mostrá su estado y daño.',
+      xp:150
+    }
+  ]
 }
 ];
 
@@ -2671,7 +2752,7 @@ function hlPython(code){
     var out=''; var i=0;
     function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise','lambda','class','self'];
-    var FN=['print','type','range','len','int','str','float','bool','input','list','append','map','filter'];
+    var FN=['print','type','range','len','int','str','float','bool','input','list','append','map','filter','super'];
     while(i<line.length){
       if(line[i]==='#'){ out+='<span class="cmt">'+esc(line.slice(i))+'</span>'; break; }
       if(line[i]==='"'||line[i]==="'"){
@@ -2951,6 +3032,7 @@ function pySimulate(code){
     if(callM){if(callM[1] in classes){var _inst={__class__:callM[1],__attrs__:{}};var _initM=classes[callM[1]].methods['__init__'];if(_initM)callMethod(_inst,'__init__',splitArgs(callM[2]||''));return _inst;}if(callM[1] in funcs)return callFunc(callM[1],splitArgs(callM[2]||''));if(callM[1] in env&&env[callM[1]]&&typeof env[callM[1]]==='object'&&env[callM[1]].__fn__)return callFunc(env[callM[1]].__fn__,splitArgs(callM[2]||''));}
     if(/^\w+$/.test(expr)){if(expr in env)return env[expr];if(expr in funcs)return{__fn__:expr};}
     var instCallM=expr.match(/^(\w+)\.(\w+)\s*\((.*?)?\)$/);if(instCallM&&instCallM[1] in env&&env[instCallM[1]]&&env[instCallM[1]].__class__)return callMethod(env[instCallM[1]],instCallM[2],splitArgs(instCallM[3]||''));
+    var superCallM=expr.match(/^super\(\)\.(\w+)\s*\((.*?)?\)$/);if(superCallM&&env['__super__']&&env['self'])return callSuperMethod(env['self'],env['__super__'],superCallM[1],splitArgs(superCallM[2]||''));
     var instAttrM=expr.match(/^(\w+)\.(\w+)$/);if(instAttrM&&instAttrM[1] in env&&env[instAttrM[1]]&&env[instAttrM[1]].__class__)return env[instAttrM[1]].__attrs__[instAttrM[2]];
     var methM=expr.match(/^(\w+)\.(upper|lower|keys|values)\(\)$/);if(methM&&methM[1] in env){var _mo=env[methM[1]];if(methM[2]==='upper'&&typeof _mo==='string')return _mo.toUpperCase();if(methM[2]==='lower'&&typeof _mo==='string')return _mo.toLowerCase();if(methM[2]==='keys'&&typeof _mo==='object'&&_mo!==null)return Object.keys(_mo);if(methM[2]==='values'&&typeof _mo==='object'&&_mo!==null)return Object.values(_mo);}
     var idxM=expr.match(/^(\w+)\[(.+)\]$/);if(idxM&&idxM[1] in env){var container=env[idxM[1]],idxStr=idxM[2];if(idxStr.indexOf(':')!==-1&&(Array.isArray(container)||typeof container==='string')){var sp=idxStr.split(':');var s0=sp[0].trim()===''?0:parseInt(evalVal(sp[0].trim()));var s1=sp[1].trim()===''?undefined:parseInt(evalVal(sp[1].trim()));return Array.isArray(container)?container.slice(s0,s1):String(container).slice(s0,s1);}var idx=evalVal(idxStr);if(Array.isArray(container)){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='string'){var ni=parseInt(idx);if(ni<0)ni=container.length+ni;return container[ni];}if(typeof container==='object'&&container!==null)return container[idx];}
@@ -3018,6 +3100,7 @@ function pySimulate(code){
     if(!t||t.startsWith('#')) return;
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
     if(t.startsWith('raise ')){var _rM=t.match(/^raise\s+(\w+)\s*\((.*)\)$/);if(_rM)throw{type:'pyerror',etype:_rM[1],msg:_rM[2]?String(evalVal(_rM[2].trim())):_rM[1]};return;}
+    var superM=t.match(/^super\(\)\.(\w+)\s*\((.*?)?\)$/);if(superM&&env['__super__']&&env['self']){callSuperMethod(env['self'],env['__super__'],superM[1],splitArgs(superM[2]||''));return;}
     var instDotSetM=t.match(/^(\w+)\.(\w+)\s*=\s*(.+)$/);if(instDotSetM&&instDotSetM[1] in env&&env[instDotSetM[1]]&&env[instDotSetM[1]].__class__){env[instDotSetM[1]].__attrs__[instDotSetM[2]]=evalVal(instDotSetM[3].trim());return;}
     var instAttrAppM=t.match(/^(\w+)\.(\w+)\.append\((.+)\)$/);if(instAttrAppM&&instAttrAppM[1] in env&&env[instAttrAppM[1]]&&env[instAttrAppM[1]].__class__){var _iaa=env[instAttrAppM[1]].__attrs__[instAttrAppM[2]];if(Array.isArray(_iaa))_iaa.push(evalVal(instAttrAppM[3].trim()));return;}
     var appendM=t.match(/^(\w+)\.append\((.+)\)$/);if(appendM&&appendM[1] in env&&Array.isArray(env[appendM[1]])){env[appendM[1]].push(evalVal(appendM[2].trim()));return;}
@@ -3068,9 +3151,13 @@ function pySimulate(code){
     return retVal;
   }
 
-  function callMethodWithVals(instance,mname,vals){var cls=classes[instance.__class__];if(!cls||!cls.methods[mname])return undefined;var m=cls.methods[mname];var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<vals.length)env[p]=vals[idx];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
+  function _findMethod(instance,mname){var _ic=classes[instance.__class__];var _sc=_ic;while(_sc){if(_sc.methods&&_sc.methods[mname])return{m:_sc.methods[mname],sup:_sc.parent||null};if(_sc.parent)_sc=classes[_sc.parent];else break;}return null;}
 
-  function callMethod(instance,mname,rawArgs){var cls=classes[instance.__class__];if(!cls||!cls.methods[mname])return undefined;var m=cls.methods[mname];var positional=[],kwargs={};rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1)kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());else positional.push(evalVal(at));});var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
+  function callMethodWithVals(instance,mname,vals){var _fm=_findMethod(instance,mname);if(!_fm)return undefined;var m=_fm.m;var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;env['__super__']=_fm.sup;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<vals.length)env[p]=vals[idx];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
+
+  function callMethod(instance,mname,rawArgs){if(_callDepth>200)throw{type:'pyerror',etype:'RecursionError',msg:'profundidad máxima de recursión excedida'};var _fm=_findMethod(instance,mname);if(!_fm)return undefined;var m=_fm.m;_callDepth++;var positional=[],kwargs={};rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1)kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());else positional.push(evalVal(at));});var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;env['__super__']=_fm.sup;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}_callDepth--;Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
+
+  function callSuperMethod(instance,superClsName,mname,rawArgs){var sCls=classes[superClsName];if(!sCls||!sCls.methods||!sCls.methods[mname])return undefined;var m=sCls.methods[mname];if(_callDepth>200)throw{type:'pyerror',etype:'RecursionError',msg:'profundidad máxima de recursión excedida'};_callDepth++;var positional=[],kwargs={};rawArgs.forEach(function(a){var at=a.trim(),ei=-1,_d=0;for(var ki=0;ki<at.length;ki++){var kc=at[ki];if(kc==='('||kc==='['||kc==='{')_d++;else if(kc===')'||kc===']'||kc==='}')_d--;else if(kc==='='&&_d===0&&ki>0&&/\w/.test(at[ki-1])){ei=ki;break;}}if(ei!==-1)kwargs[at.slice(0,ei).trim()]=evalVal(at.slice(ei+1).trim());else positional.push(evalVal(at));});var saved={};Object.keys(env).forEach(function(k){saved[k]=env[k];});env['self']=instance;env['__super__']=sCls.parent||null;if(m.defaults)Object.keys(m.defaults).forEach(function(p){env[p]=m.defaults[p];});m.params.forEach(function(p,idx){if(idx<positional.length)env[p]=positional[idx];});Object.keys(kwargs).forEach(function(k){env[k]=kwargs[k];});var retVal=undefined,_thrownErr=undefined;try{runBlock(m.body);}catch(e){if(e&&e.type==='return')retVal=e.val;else _thrownErr=e;}_callDepth--;Object.keys(env).forEach(function(k){delete env[k];});Object.keys(saved).forEach(function(k){env[k]=saved[k];});if(_thrownErr)throw _thrownErr;return retVal;}
 
   function getIterVals(iterExpr){
     var iterVals=[];
@@ -3106,7 +3193,7 @@ function pySimulate(code){
         throw {type:'return',val:t==='return'?undefined:evalVal(t.slice(7).trim())};
       }
 
-      var classM=t.match(/^class\s+(\w+)\s*:$/);if(classM){var _cname=classM[1];var _cbaseInd=getIndent(raw);var _cbody=[];li++;while(li<linesArr.length){if(!linesArr[li].trim()){li++;continue;}if(getIndent(linesArr[li])>_cbaseInd){_cbody.push(linesArr[li]);li++;}else break;}classes[_cname]={methods:{}};var _bi2=0;while(_bi2<_cbody.length){var _braw=_cbody[_bi2];var _bt=_braw.trim();var _mdefM=_bt.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);if(_mdefM){var _mname=_mdefM[1];var _mrawP=_mdefM[2].split(',').map(function(p){return p.trim();}).filter(Boolean);var _mparams=[],_mdefaults={};_mrawP.slice(1).forEach(function(p){var ei=p.indexOf('=');if(ei!==-1){var pn=p.slice(0,ei).trim(),pd=p.slice(ei+1).trim();_mparams.push(pn);_mdefaults[pn]=evalVal(pd);}else _mparams.push(p);});var _mBaseInd=getIndent(_braw);var _mbody=[];_bi2++;while(_bi2<_cbody.length){if(!_cbody[_bi2].trim()){_bi2++;continue;}if(getIndent(_cbody[_bi2])>_mBaseInd){_mbody.push(_cbody[_bi2]);_bi2++;}else break;}classes[_cname].methods[_mname]={params:_mparams,defaults:_mdefaults,body:_mbody};}else _bi2++;}continue;}
+      var classM=t.match(/^class\s+(\w+)\s*(?:\((\w+)\))?\s*:$/);if(classM){var _cname=classM[1];var _cbaseInd=getIndent(raw);var _cbody=[];li++;while(li<linesArr.length){if(!linesArr[li].trim()){li++;continue;}if(getIndent(linesArr[li])>_cbaseInd){_cbody.push(linesArr[li]);li++;}else break;}classes[_cname]={methods:{},parent:classM[2]||null};var _bi2=0;while(_bi2<_cbody.length){var _braw=_cbody[_bi2];var _bt=_braw.trim();var _mdefM=_bt.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);if(_mdefM){var _mname=_mdefM[1];var _mrawP=_mdefM[2].split(',').map(function(p){return p.trim();}).filter(Boolean);var _mparams=[],_mdefaults={};_mrawP.slice(1).forEach(function(p){var ei=p.indexOf('=');if(ei!==-1){var pn=p.slice(0,ei).trim(),pd=p.slice(ei+1).trim();_mparams.push(pn);_mdefaults[pn]=evalVal(pd);}else _mparams.push(p);});var _mBaseInd=getIndent(_braw);var _mbody=[];_bi2++;while(_bi2<_cbody.length){if(!_cbody[_bi2].trim()){_bi2++;continue;}if(getIndent(_cbody[_bi2])>_mBaseInd){_mbody.push(_cbody[_bi2]);_bi2++;}else break;}classes[_cname].methods[_mname]={params:_mparams,defaults:_mdefaults,body:_mbody};}else _bi2++;}continue;}
 
       var defM=t.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:$/);
       if(defM){
