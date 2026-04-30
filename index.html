@@ -2571,6 +2571,81 @@ var MODULES = [
       xp:150
     }
   ]
+},
+{
+  id:20, icon:'🎲', title:'21. Módulos: math y random',
+  detail:'8 lecciones · Biblioteca estándar · +650 XP', xpReward:650,
+  lessons:[
+    {
+      type:'info',
+      title:'¿Qué son los módulos?',
+      content:'Python trae módulos incorporados — colecciones de funciones listas para usar. <code>import math</code> te da herramientas matemáticas; <code>import random</code> te permite generar números aleatorios.<br><br>Solo tenés que escribir <code>import nombre</code> al inicio y luego usar las funciones con <code>nombre.funcion()</code>.',
+      xp:0
+    },
+    {
+      type:'code',
+      title:'math.sqrt y math.pi',
+      content:'<code>math.sqrt(x)</code> calcula la raíz cuadrada. <code>math.pi</code> es el valor de π (3.14159...). Son las funciones más usadas de <code>math</code>.',
+      code:'import math\n\nradio = 5\narea = math.pi * radio * radio\ndiagonal = math.sqrt(2)\n\nprint("Área del círculo:", area)\nprint("Raíz de 2:", diagonal)\nprint("Pi vale:", math.pi)',
+      expected:'Área del círculo: 78.53981633974483\nRaíz de 2: 1.4142135623730951\nPi vale: 3.141592653589793',
+      instruction:'Ejecutá el código. Luego calculá la hipotenusa de un triángulo con catetos 3 y 4: <code>math.sqrt(3*3 + 4*4)</code> y verificá que da 5.',
+      xp:80
+    },
+    {
+      type:'code',
+      title:'math.floor y math.ceil',
+      content:'<code>math.floor(x)</code> redondea hacia abajo (piso). <code>math.ceil(x)</code> redondea hacia arriba (techo). Útiles cuando trabajás con divisiones que no son exactas.',
+      code:'import math\n\nprecio = 7.3\ncantidad = 3\ntotal = precio * cantidad\n\nprint("Total exacto:", total)\nprint("Redondeado abajo:", math.floor(total))\nprint("Redondeado arriba:", math.ceil(total))\nprint("Piso de pi:", math.floor(math.pi))',
+      expected:'Total exacto: 21.900000000000002\nRedondeado abajo: 21\nRedondeado arriba: 22\nPiso de pi: 3',
+      instruction:'Ejecutá. Luego usá <code>math.floor</code> y <code>math.ceil</code> con <code>9 / 2</code> y verificá que da 4 y 5.',
+      xp:80
+    },
+    {
+      type:'code',
+      title:'random.randint — número entero aleatorio',
+      content:'<code>random.randint(a, b)</code> genera un número entero aleatorio entre <code>a</code> y <code>b</code> (ambos incluidos). Cada vez que ejecutás el código puede dar un resultado diferente.',
+      code:'import random\n\ndado = random.randint(1, 6)\nprint("Tiraste el dado:", dado)\n\ncarta = random.randint(1, 13)\nprint("Carta sacada:", carta)\n\ncodigo = random.randint(1000, 9999)\nprint("Código secreto:", codigo)',
+      expected:'Tiraste el dado: 4\nCarta sacada: 7\nCódigo secreto: 3821',
+      instruction:'Ejecutá varias veces y observá que los números cambian. Luego simulá el lanzamiento de una moneda: <code>random.randint(0, 1)</code> donde 0 es cara y 1 es sello.',
+      xp:80
+    },
+    {
+      type:'code',
+      title:'random.choice — elegir de una lista',
+      content:'<code>random.choice(lista)</code> elige un elemento aleatorio de una lista. Perfecto para sorteos, juegos y simulaciones.',
+      code:'import random\n\ncolores = ["rojo", "azul", "verde", "amarillo", "morado"]\nganador = random.choice(colores)\nprint("Color ganador:", ganador)\n\nopciones = ["piedra", "papel", "tijeras"]\ncpu = random.choice(opciones)\nprint("CPU eligió:", cpu)',
+      expected:'Color ganador: azul\nCPU eligió: papel',
+      instruction:'Ejecutá varias veces. Luego creá una lista con 5 nombres y usá <code>random.choice</code> para elegir un ganador de rifa.',
+      xp:80
+    },
+    {
+      type:'quiz',
+      title:'¿Cuál es la diferencia?',
+      qcode:'import random\na = random.randint(1, 10)\nb = random.choice([1, 2, 3, 4, 5])',
+      question:'¿Cuál es la diferencia entre <code>random.randint(1, 10)</code> y <code>random.choice([1,2,3,4,5])</code>?',
+      options:['Son exactamente iguales','randint puede generar cualquier entero entre 1 y 10; choice solo elige de los elementos en la lista','choice es más lento','randint solo funciona con números impares'],
+      answer:1,
+      xp:50
+    },
+    {
+      type:'code',
+      title:'Combinando math y random',
+      content:'Los módulos se pueden combinar. Podés generar datos aleatorios y hacer cálculos matemáticos sobre ellos.',
+      code:'import math\nimport random\n\nbase = random.randint(3, 10)\naltura = random.randint(2, 8)\narea = base * altura\ndiagonal = math.sqrt(base * base + altura * altura)\n\nprint("Base:", base)\nprint("Altura:", altura)\nprint("Área:", area)\nprint("Diagonal:", math.floor(diagonal * 100) / 100)',
+      expected:'Base: 6\nAltura: 4\nÁrea: 24\nDiagonal: 7.21',
+      instruction:'Ejecutá. Luego simulá el lanzamiento de 3 dados y sumá los resultados: usá <code>random.randint(1,6)</code> tres veces y calculá el total.',
+      xp:100
+    },
+    {
+      type:'code',
+      title:'Mini proyecto: adivina el número',
+      content:'Combinamos todo: un número secreto aleatorio, un intento del usuario simulado, y lógica condicional.',
+      code:'import random\nimport math\n\nsecreto = random.randint(1, 100)\nintento = random.randint(1, 100)\ndiferencia = abs(secreto - intento)\n\nprint("Número secreto:", secreto)\nprint("Tu intento:", intento)\nprint("Diferencia:", diferencia)\n\nif diferencia == 0:\n  print("¡Exacto! ¡Ganaste!")\nelif diferencia <= 10:\n  print("¡Muy cerca! Caliente")\nelif diferencia <= 25:\n  print("Tibio...")\nelse:\n  print("Frío, muy lejos")',
+      expected:'Número secreto: 42\nTu intento: 38\nDiferencia: 4\n¡Muy cerca! Caliente',
+      instruction:'Ejecutá varias veces para ver diferentes resultados. Luego cambiá el rango a <code>random.randint(1, 50)</code> para hacer el juego más fácil y ajustá los umbrales del if.',
+      xp:130
+    }
+  ]
 }
 ];
 
@@ -2752,7 +2827,7 @@ function hlPython(code){
     var out=''; var i=0;
     function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     var KW=['if','elif','else','for','in','while','break','continue','def','return','True','False','None','and','or','not','try','except','raise','lambda','class','self'];
-    var FN=['print','type','range','len','int','str','float','bool','input','list','append','map','filter','super'];
+    var FN=['print','type','range','len','int','str','float','bool','input','list','append','map','filter','super','math','random'];
     while(i<line.length){
       if(line[i]==='#'){ out+='<span class="cmt">'+esc(line.slice(i))+'</span>'; break; }
       if(line[i]==='"'||line[i]==="'"){
@@ -3031,6 +3106,13 @@ function pySimulate(code){
     var callM=expr.match(/^(\w+)\s*\((.*?)?\)$/);
     if(callM){if(callM[1] in classes){var _inst={__class__:callM[1],__attrs__:{}};var _initM=classes[callM[1]].methods['__init__'];if(_initM)callMethod(_inst,'__init__',splitArgs(callM[2]||''));return _inst;}if(callM[1] in funcs)return callFunc(callM[1],splitArgs(callM[2]||''));if(callM[1] in env&&env[callM[1]]&&typeof env[callM[1]]==='object'&&env[callM[1]].__fn__)return callFunc(env[callM[1]].__fn__,splitArgs(callM[2]||''));}
     if(/^\w+$/.test(expr)){if(expr in env)return env[expr];if(expr in funcs)return{__fn__:expr};}
+    if(expr==='math.pi')return Math.PI;
+    if(expr==='math.e')return Math.E;
+    if(expr==='random.random()')return Math.random();
+    var mathM=expr.match(/^math\.(sqrt|floor|ceil|log|log2|log10|abs|sin|cos|tan|pow)\((.+)\)$/);if(mathM){var _margs=splitArgs(mathM[2]).map(function(a){return parseFloat(evalVal(a.trim()));});if(mathM[1]==='pow')return Math.pow(_margs[0],_margs[1]);return Math[mathM[1]](_margs[0]);}
+    var randIntM=expr.match(/^random\.randint\((.+),\s*(.+)\)$/);if(randIntM){var _ra=Math.round(evalVal(randIntM[1].trim())),_rb=Math.round(evalVal(randIntM[2].trim()));return Math.floor(Math.random()*(_rb-_ra+1))+_ra;}
+    var randChoiceM=expr.match(/^random\.choice\((.+)\)$/);if(randChoiceM){var _rc=evalVal(randChoiceM[1].trim());if(Array.isArray(_rc)&&_rc.length>0)return _rc[Math.floor(Math.random()*_rc.length)];}
+    var randUnifM=expr.match(/^random\.uniform\((.+),\s*(.+)\)$/);if(randUnifM){var _ru1=parseFloat(evalVal(randUnifM[1].trim())),_ru2=parseFloat(evalVal(randUnifM[2].trim()));return _ru1+Math.random()*(_ru2-_ru1);}
     var instCallM=expr.match(/^(\w+)\.(\w+)\s*\((.*?)?\)$/);if(instCallM&&instCallM[1] in env&&env[instCallM[1]]&&env[instCallM[1]].__class__)return callMethod(env[instCallM[1]],instCallM[2],splitArgs(instCallM[3]||''));
     var superCallM=expr.match(/^super\(\)\.(\w+)\s*\((.*?)?\)$/);if(superCallM&&env['__super__']&&env['self'])return callSuperMethod(env['self'],env['__super__'],superCallM[1],splitArgs(superCallM[2]||''));
     var instAttrM=expr.match(/^(\w+)\.(\w+)$/);if(instAttrM&&instAttrM[1] in env&&env[instAttrM[1]]&&env[instAttrM[1]].__class__)return env[instAttrM[1]].__attrs__[instAttrM[2]];
@@ -3098,6 +3180,7 @@ function pySimulate(code){
   function execLine(line){
     var t=line.trim();
     if(!t||t.startsWith('#')) return;
+    if(t.startsWith('import math')||t.startsWith('import random')) return;
     if(t.startsWith('print(')){ output.push(evalPrint(t)); return; }
     if(t.startsWith('raise ')){var _rM=t.match(/^raise\s+(\w+)\s*\((.*)\)$/);if(_rM)throw{type:'pyerror',etype:_rM[1],msg:_rM[2]?String(evalVal(_rM[2].trim())):_rM[1]};return;}
     var superM=t.match(/^super\(\)\.(\w+)\s*\((.*?)?\)$/);if(superM&&env['__super__']&&env['self']){callSuperMethod(env['self'],env['__super__'],superM[1],splitArgs(superM[2]||''));return;}
